@@ -150,17 +150,18 @@ def decode_access_token(token: str) -> dict:
 
 ```python
 # app/config.py
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
+    model_config = SettingsConfigDict(env_file=".env")
+
     secret_key: str                      # обязательная — без неё приложение не стартует
     access_token_expire_minutes: int = 30
 
-    class Config:
-        env_file = ".env"
-
-settings = Settings()
+settings = Settings()  # type: ignore[call-arg]
 ```
+
+> ⚠️ В старых туториалах встретишь `class Config: env_file = ".env"` — это синтаксис pydantic v1, в v2 он деприкейтнут. Современный способ — `model_config = SettingsConfigDict(...)`.
 
 ```
 # .env  (добавь в .gitignore!)
@@ -168,6 +169,8 @@ SECRET_KEY=d4f8a1b2c3...результат openssl rand -hex 32
 ```
 
 `pydantic-settings` (ставится отдельно: `pip install pydantic-settings`) читает `.env` и переменные окружения, валидирует типы. Имена сопоставляются без учёта регистра: поле `secret_key` ← переменная `SECRET_KEY`. Это аналог связки `dotenv` + валидация env-переменных через Zod, только в одном флаконе.
+
+**Про `# type: ignore[call-arg]`:** тайпчекер (Pylance/mypy) не знает, что `BaseSettings` заполняет обязательные поля из окружения в рантайме, и ругается на вызов `Settings()` без аргументов. Это ложное срабатывание — подавляем его точечно. Стандартная практика для pydantic-settings.
 
 ---
 
@@ -205,6 +208,8 @@ fake_users_db: dict[str, dict] = {}
 
 ```python
 # app/routers/auth.py
+from typing import Annotated
+
 from fastapi import APIRouter, HTTPException, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 import uuid
@@ -229,7 +234,7 @@ def register(data: UserRegister):
     return user   # response_model=UserPublic отрежет password_hash — наружу он не уйдёт
 
 @router.post("/login", response_model=Token)
-def login(form: OAuth2PasswordRequestForm = Depends()):
+def login(form: Annotated[OAuth2PasswordRequestForm, Depends()]):
     user = fake_users_db.get(form.username)   # в OAuth2-форме поле называется username,
                                               # но мы кладём туда email
     if user is None or not verify_password(form.password, user["password_hash"]):
@@ -258,6 +263,8 @@ def login(form: OAuth2PasswordRequestForm = Depends()):
 
 ```python
 # app/dependencies.py
+from typing import Annotated
+
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 import jwt
@@ -267,7 +274,7 @@ from app.fake_users_db import fake_users_db
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
-def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]) -> dict:
     credentials_error = HTTPException(
         status_code=401,
         detail="Could not validate credentials",
@@ -291,18 +298,23 @@ def get_current_user(token: str = Depends(oauth2_scheme)) -> dict:
 - **Один общий 401 на все случаи** (битая подпись, истёкший токен, удалённый юзер) — та же логика неразглашения, что и в логине.
 - **Проверка юзера в хранилище обязательна:** токен мог быть выпущен до удаления/блокировки аккаунта. Подпись валидна ≠ юзер существует.
 
-Использование — просто аргумент в сигнатуре:
+Использование — просто аргумент в сигнатуре. Чтобы не писать `Annotated[...]` в каждом хендлере, сразу заведём алиас (паттерн из `fastapi-depends.md`, раздел 6):
+
+```python
+# app/dependencies.py (в конец файла)
+CurrentUser = Annotated[dict, Depends(get_current_user)]
+```
 
 ```python
 # app/routers/users.py
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter
 from app.schemas import UserPublic
-from app.dependencies import get_current_user
+from app.dependencies import CurrentUser
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 @router.get("/me", response_model=UserPublic)
-def read_me(current_user: dict = Depends(get_current_user)):
+def read_me(current_user: CurrentUser):
     return current_user
 ```
 
@@ -326,18 +338,24 @@ app.include_router(users.router)
 
 ```python
 # app/dependencies.py (добавить)
-def get_current_admin(user: dict = Depends(get_current_user)) -> dict:
+def get_current_admin(user: CurrentUser) -> dict:
     if user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Not enough permissions")
     return user
+
+AdminUser = Annotated[dict, Depends(get_current_admin)]
 ```
 
 ```python
 # app/routers/roadmaps.py — редактирование только для админа
+from app.dependencies import AdminUser
+
 @router.delete("/{slug}")
-def delete_roadmap(slug: str, admin: dict = Depends(get_current_admin)):
+def delete_roadmap(slug: str, admin: AdminUser):
     ...
 ```
+
+Обрати внимание: `get_current_admin` использует алиас `CurrentUser` в своей сигнатуре — зависимости-цепочки тоже записываются через алиасы, читается как обычная типизация.
 
 Обрати внимание на статусы — это частая путаница:
 - **401 Unauthorized** — «я не знаю, кто ты» (нет/невалиден токен) → фронт редиректит на логин
