@@ -1,11 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import selectinload
-
-from app.data import ROADMAPS
 from app.dependencies import AdminUser, DbSession, pagination
 from app.models import Roadmap
-from app.shemas import RoadmapCreate, RoadmapOut, StageCreate
+from app.shemas import RoadmapCreate, RoadmapOut
 
 router = APIRouter(prefix="/roadmaps", tags=["roadmaps"])
 
