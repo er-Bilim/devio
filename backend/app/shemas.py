@@ -1,3 +1,5 @@
+import uuid
+
 from pydantic import BaseModel, ConfigDict, EmailStr
 
 
@@ -24,11 +26,13 @@ class RoadmapOut(BaseModel):
     description: str | None
     stages: list[StageOut] = []
 
+
 class RoadmapCreate(BaseModel):
     slug: str
     title: str
     description: str | None
-    
+
+
 class Roadmap(BaseModel):
     slug: str
     title: str
@@ -41,10 +45,7 @@ class UserRegister(BaseModel):
 
 
 class UserPublic(BaseModel):
-    id: str
+    model_config = ConfigDict(from_attributes=True)
+
+    id: uuid.UUID
     email: EmailStr
-
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str

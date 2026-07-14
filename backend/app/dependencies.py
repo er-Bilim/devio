@@ -2,17 +2,14 @@ import uuid
 from typing import Annotated, Tuple
 
 import jwt
-from fastapi import Depends, HTTPException
-from fastapi.security import OAuth2PasswordBearer
+from fastapi import Cookie, Depends, HTTPException
 from sqlalchemy import Result, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
-from app.fake_users_db import fake_users_db
 from app.models import User
 from app.security import decode_access_token
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 DbSession = Annotated[AsyncSession, Depends(get_db)]
 
 
@@ -21,16 +18,18 @@ def pagination(limit: int = 10, offset: int = 0) -> dict:
 
 
 async def get_current_user(
-    token: Annotated[str, Depends(oauth2_scheme)], db: DbSession
+    db: DbSession,
+    access_token: Annotated[str | None, Cookie()] = None,
 ) -> User:
     credentials_error = HTTPException(
         status_code=401,
         detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
     )
 
+    if access_token is None:
+        raise credentials_error
     try:
-        payload = decode_access_token(token)
+        payload = decode_access_token(access_token)
     except jwt.InvalidTokenError:
         raise credentials_error
 
