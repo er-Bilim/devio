@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from sqlalchemy import ForeignKey, func, text
+from sqlalchemy import DateTime, ForeignKey, func, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db import Base
@@ -15,7 +15,9 @@ class User(Base):
     )
     email: Mapped[str] = mapped_column(unique=True, index=True)
     password_hash: Mapped[str]
-    created_at: Mapped[datetime] = mapped_column(server_default=func.now())
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
     progress: Mapped[list["StageProgress"]] = relationship(back_populates="user")
 
 
@@ -49,7 +51,9 @@ class StageProgress(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
     stage_id: Mapped[int] = mapped_column(ForeignKey("stages.id"))
-    completed_at: Mapped[datetime] = mapped_column(server_default=func.now())
+    completed_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
 
     user: Mapped["User"] = relationship(back_populates="progress")
 
@@ -60,5 +64,5 @@ class RefreshToken(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     token_hash: Mapped[str] = mapped_column(unique=True)
     user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
-    expires_at: Mapped[datetime]
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     revoked: Mapped[bool] = mapped_column(server_default=text("false"))
