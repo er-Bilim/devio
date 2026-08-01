@@ -56,4 +56,9 @@ class DirectionStat(BaseModel):
 
     slug: str
     title: str
-    learners: str
+    learners: int
+
+
+class StreakOut(BaseModel):
+    current: int
+    longest: int

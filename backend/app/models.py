@@ -19,6 +19,7 @@ class User(Base):
         DateTime(timezone=True), server_default=func.now()
     )
     progress: Mapped[list["StageProgress"]] = relationship(back_populates="user")
+    role: Mapped[str] = mapped_column(server_default=text("'user'"))
 
 
 class Roadmap(Base):
