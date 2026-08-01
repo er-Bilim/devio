@@ -46,11 +46,11 @@ async def get_current_user(
     return user
 
 
-CurrentUser = Annotated[dict, Depends(get_current_user)]
+CurrentUser = Annotated[User, Depends(get_current_user)]
 
 
 def get_current_admin(user: CurrentUser):
-    if user.get("role") != "admin":
+    if user.role != "admin":
         raise HTTPException(status_code=403, detail="Not enough permissions")
 
     return user
