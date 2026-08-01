@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
-from sqlalchemy import func, select
+from sqlalchemy import INTEGER, func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Roadmap, Stage, StageProgress
@@ -35,3 +35,51 @@ async def top_stages(db: AsyncSession, day: int = 30, limit=5):
 
     result = await db.execute(stmt)
     return result.all()
+
+
+async def current_streak(db: AsyncSession, user_id):
+    day = func.date(StageProgress.completed_at).label("day")
+    stmt = (
+        select(day)
+        .where(StageProgress.user_id == user_id)
+        .group_by(func.date(StageProgress.completed_at))
+        .order_by(day.desc())
+    )
+    result = await db.execute(stmt)
+    days = [row.day for row in result.all()]
+
+    if not days:
+        return 0
+
+    today = datetime.now(timezone.utc).date()
+
+    if days[0] not in (today, today - timedelta(days=1)):
+        return 0
+
+    streak = 1
+    for prev, cur in zip(days, days[1:]):
+        if prev - cur == timedelta(days=1):
+            streak += 1
+        else:
+            break
+    return streak
+
+
+async def longest_streak(db: AsyncSession, user_id) -> int:
+    day = func.date(StageProgress.completed_at).label("day")
+    days_cte = (
+        select(day).where(StageProgress.user_id == user_id).group_by(day).cte("days")
+    )
+    rn = func.row_number().over(order_by=days_cte.c.day).label("rn")
+    numbered = select(days_cte.c.day, rn).cte("numbered")
+
+    group_key = (numbered.c.day - func.cast(numbered.c.rn, INTEGER)).label("grp")
+    stmt = (
+        select(func.count().label("length"))
+        .select_from(numbered)
+        .group_by(group_key)
+        .order_by(func.count().desc())
+    )
+    result = await db.execute(stmt)
+
+    return result.scalar_one_or_none() or 0

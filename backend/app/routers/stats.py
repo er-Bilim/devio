@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from app.dependencies import DbSession
+from app.dependencies import CurrentUser, DbSession
 from app.queries import stats
 from app.schemas import DirectionStat
 
