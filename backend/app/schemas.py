@@ -33,6 +33,12 @@ class RoadmapCreate(BaseModel):
     description: str | None
 
 
+class RoadmapUpdate(BaseModel):
+    slug: str | None = None
+    title: str | None = None
+    description: str | None = None
+
+
 class Roadmap(BaseModel):
     slug: str
     title: str
