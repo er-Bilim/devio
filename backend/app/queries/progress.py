@@ -8,7 +8,7 @@ async def get_progress(
     db: AsyncSession, user_id, stage_id: int
 ) -> StageProgress | None:
     stmt = select(StageProgress).where(
-        StageProgress.user_id == user_id, StageProgress.id == stage_id
+        StageProgress.user_id == user_id, StageProgress.stage_id == stage_id
     )
 
     result = await db.execute(stmt)

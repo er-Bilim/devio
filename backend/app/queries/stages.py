@@ -10,7 +10,7 @@ async def all_stages(db: AsyncSession):
     return stages
 
 
-async def single_stage(db: AsyncSession, id: int):
+async def get_by_id(db: AsyncSession, id: int):
     result = await db.execute(select(Stage).where(Stage.id == id))
 
     stage = result.scalar_one_or_none()

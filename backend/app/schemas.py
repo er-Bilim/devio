@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict, EmailStr
 
@@ -68,3 +69,18 @@ class DirectionStat(BaseModel):
 class StreakOut(BaseModel):
     current: int
     longest: int
+
+
+class ProgressOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    stage_id: int
+    completed_at: datetime
+
+
+class CompleteStageOut(BaseModel):
+    stage_id: int
+    completed_at: datetime
+    roadmap_progress: str
+    streak: int
+    next_stage_id: int | None
