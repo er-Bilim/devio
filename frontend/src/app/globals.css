@@ -1,6 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -46,6 +46,10 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  /* CUSTOM */
+  --font-display: var(--font-display), sans-serif;
+  --font-body: var(--font-body), sans-serif;
+  --font-mono: var(--font-mono), monospace;
 }
 
 :root {
@@ -81,6 +85,16 @@
   --sidebar-accent-foreground: oklch(0.218 0.008 223.9);
   --sidebar-border: oklch(0.925 0.005 214.3);
   --sidebar-ring: oklch(0.723 0.014 214.4);
+  /*CUSTOM*/
+  --panel: #121a2e;
+  --panel-2: #0e1526;
+  --line: #243050;
+  --mist: #e9eefa;
+  --mist-soft: #8b96b8;
+  --signal: #4da3ff;
+  --signal-deep: #2e7fe0;
+  --mint: #3ecf8e;
+  --amber: #f5a623;
 }
 
 .dark {
@@ -122,9 +136,17 @@
     @apply border-border outline-ring/50;
   }
   body {
+    font-family: var(--font-body), sans-serif;
     @apply bg-background text-foreground;
   }
-  button:not(:disabled), [role="button"]:not(:disabled) {
+  h1,
+  h2,
+  h3,
+  .logo {
+    font-family: var(--font-display), sans-serif;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
     cursor: pointer;
   }
   html {
