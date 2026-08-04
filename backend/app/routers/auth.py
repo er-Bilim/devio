@@ -5,18 +5,17 @@ from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy import select
 
-from app.config import settings
 from app.cookies import set_auth_cookies
 from app.dependencies import DbSession
 from app.models import RefreshToken, User
-from app.schemas import UserPublic, UserRegister
+from app.queries import refresh_tokens as tokens_q
+from app.schemas import UserLogin, UserPublic, UserRegister
 from app.security import (
     create_access_token,
     generate_refresh_token,
     hash_refresh_token,
 )
 from app.services import auth as auth_service
-from app.queries import refresh_tokens as tokens_q
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -29,13 +28,11 @@ async def register(data: UserRegister, db: DbSession):
 
 @router.post("/login", response_model=UserPublic)
 async def login(
-    form: Annotated[OAuth2PasswordRequestForm, Depends()],
+    data: UserLogin,
     response: Response,
     db: DbSession,
 ):
-    user, pair = await auth_service.login(
-        db, email=form.username, password=form.password
-    )
+    user, pair = await auth_service.login(db, email=data.email, password=data.password)
     set_auth_cookies(response, pair.access, pair.refresh)
     return user
 
