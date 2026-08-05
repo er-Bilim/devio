@@ -35,7 +35,9 @@ export default function RootLayout({
         `${jbMono.variable}`,
       )}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col bg-night font-body text-[15px]">
+        {children}
+      </body>
     </html>
   );
 }

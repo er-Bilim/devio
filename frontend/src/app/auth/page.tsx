@@ -1,9 +1,9 @@
-import RegisterForm from '@/features/auth-register/ui/RegisterForm';
+import { AuthPanel } from '@/src/widgets/auth-panel';
 
 const Auth = () => {
   return (
-    <div className="w-lg">
-      <RegisterForm />
+    <div className="w-md">
+      <AuthPanel />
     </div>
   );
 };

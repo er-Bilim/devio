@@ -50,9 +50,33 @@
   --font-display: var(--font-display), sans-serif;
   --font-body: var(--font-body), sans-serif;
   --font-mono: var(--font-mono), monospace;
+
+  --color-night: var(--night);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-mist: var(--mist);
+  --color-mist-soft: var(--mist-soft);
+  --color-signal: var(--signal);
+  --color-signal-deep: var(--signal-deep);
+  --color-mint: var(--mint);
+  --color-amber: var(--amber);
 }
 
 :root {
+  /*CUSTOM*/
+  --night: #0b1020;
+  --panel: #121a2e;
+  --panel-2: #0e1526;
+  --line: #243050;
+  --mist: #e9eefa;
+  --mist-soft: #8b96b8;
+  --signal: #4da3ff;
+  --signal-deep: #2e7fe0;
+  --mint: #3ecf8e;
+  --amber: #f5a623;
+  /*CUSTOM*/
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.148 0.004 228.8);
   --card: oklch(1 0 0);
@@ -85,16 +109,6 @@
   --sidebar-accent-foreground: oklch(0.218 0.008 223.9);
   --sidebar-border: oklch(0.925 0.005 214.3);
   --sidebar-ring: oklch(0.723 0.014 214.4);
-  /*CUSTOM*/
-  --panel: #121a2e;
-  --panel-2: #0e1526;
-  --line: #243050;
-  --mist: #e9eefa;
-  --mist-soft: #8b96b8;
-  --signal: #4da3ff;
-  --signal-deep: #2e7fe0;
-  --mint: #3ecf8e;
-  --amber: #f5a623;
 }
 
 .dark {
