@@ -1,0 +1,19 @@
+[pr_reviewer]
+extra_instructions = """
+Проект: FastAPI (backend/) + Next.js FSD (frontend/). Отвечай на русском.
+Проверяй правила проекта:
+- Слои бэка: routers -> services -> queries. В роутерах не должно быть select/SQL и бизнес-логики.
+- Функции в queries/ не делают commit (кроме простых однооперационных) — commit принадлежит сервису.
+- Все datetime — timezone-aware (DateTime(timezone=True), datetime.now(timezone.utc)). Naive datetime — ошибка.
+- Никаких deprecated API: pydantic v1 class Config, @app.on_event, .eslintrc.
+- PATCH-эндпоинты обязаны использовать model_dump(exclude_unset=True).
+- user_id всегда из CurrentUser, никогда из тела запроса.
+- FSD на фронте: импорты только вниз (app->widgets->features->entities->shared),
+  импорт мимо index.ts слайса — нарушение, фича не импортирует фичу.
+- Токены не должны попадать в localStorage; запросы к API — через shared/api.
+- Если менялись модели SQLAlchemy — в PR должна быть alembic-миграция.
+"""
+
+[pr_code_suggestions]
+extra_instructions = "Предлагай улучшения с учётом правил выше. Отвечай на русском."
+num_code_suggestions = 4
