@@ -17,3 +17,22 @@ extra_instructions = """
 [pr_code_suggestions]
 extra_instructions = "Предлагай улучшения с учётом правил выше. Отвечай на русском."
 num_code_suggestions = 4
+
+[pr_description]
+generate_ai_title = true
+use_description_markers = true 
+extra_instructions = "Пиши на русском. Кратко: что меняет PR и зачем."
+
+[pr_description.labels]
+enable_custom_labels = true
+
+[custom_labels."backend"]
+description = "Изменения в backend/ (FastAPI, SQLAlchemy, миграции)"
+[custom_labels."frontend"]
+description = "Изменения в frontend/ (Next.js, FSD)"
+[custom_labels."миграция БД"]
+description = "PR содержит alembic-миграцию"
+[custom_labels."auth"]
+description = "Затрагивает аутентификацию, токены, куки"
+[custom_labels."документация"]
+description = "Изменения в docs/ или README"
