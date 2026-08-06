@@ -249,30 +249,6 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
-        /** Body_login_auth_login_post */
-        Body_login_auth_login_post: {
-            /** Grant Type */
-            grant_type?: string | null;
-            /** Username */
-            username: string;
-            /**
-             * Password
-             * Format: password
-             */
-            password: string;
-            /**
-             * Scope
-             * @default
-             */
-            scope: string;
-            /** Client Id */
-            client_id?: string | null;
-            /**
-             * Client Secret
-             * Format: password
-             */
-            client_secret?: string | null;
-        };
         /** DirectionStat */
         DirectionStat: {
             /** Slug */
@@ -346,6 +322,16 @@ export interface components {
             current: number;
             /** Longest */
             longest: number;
+        };
+        /** UserLogin */
+        UserLogin: {
+            /**
+             * Email
+             * Format: email
+             */
+            email: string;
+            /** Password */
+            password: string;
         };
         /** UserPublic */
         UserPublic: {
@@ -434,7 +420,7 @@ export interface operations {
         };
         requestBody: {
             content: {
-                "application/x-www-form-urlencoded": components["schemas"]["Body_login_auth_login_post"];
+                "application/json": components["schemas"]["UserLogin"];
             };
         };
         responses: {

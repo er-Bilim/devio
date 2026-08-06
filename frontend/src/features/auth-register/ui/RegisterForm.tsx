@@ -1,10 +1,47 @@
+'use client';
+import { useAuth } from '@/src/entities/user';
 import { Button } from '@/src/shared/ui/button';
 import { Input } from '@/src/shared/ui/input';
-import { ArrowRight, Eye, KeyRound, Mail } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { schemaRegister, type SchemaRegisterData } from '../model/schema';
+import { HugeiconsIcon } from '@hugeicons/react';
+import {
+  MailAtSign01Icon,
+  SquareLockPasswordIcon,
+  PasswordValidationIcon,
+  LookBottomIcon,
+  ArrowRight02Icon,
+  AlertCircleIcon,
+} from '@hugeicons/core-free-icons';
+import { isAxiosError } from 'axios';
 
 export function RegisterForm() {
+  const registerUser = useAuth((state) => state.register);
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm<SchemaRegisterData>({
+    resolver: zodResolver(schemaRegister),
+  });
+
+  const onSubmitRegister = handleSubmit(async (data) => {
+    try {
+      await registerUser(data.email, data.password).then(() => reset());
+    } catch (error) {
+      if (isAxiosError(error) && error.status === 401) {
+        setError('root', { message: 'Неверный email или пароль' });
+      } else {
+        setError('root', { message: 'Что-то пошло не так, попробуйте снова' });
+      }
+    }
+  });
+
   return (
-    <form>
+    <form onSubmit={onSubmitRegister}>
       <div className="grid grid-cols-1 gap-3">
         <div className="mb-2">
           <label
@@ -13,15 +50,31 @@ export function RegisterForm() {
           >
             email
           </label>
+
           <div className="relative">
-            <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none" />
+            <HugeiconsIcon
+              icon={MailAtSign01Icon}
+              strokeWidth={1.8}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
+            />
             <Input
               placeholder="you@gmail.com"
               className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
               autoComplete="email"
               type="email"
+              {...register('email')}
             />
           </div>
+          {errors.email && (
+            <div className=" mt-2 text-[12.5px]  text-red-400 inline-flex items-center gap-2">
+              <HugeiconsIcon
+                icon={AlertCircleIcon}
+                strokeWidth={1.8}
+                className="size-4"
+              />
+              <p>{errors.email.message}</p>
+            </div>
+          )}
         </div>
         <div className="mb-2">
           <label
@@ -31,17 +84,40 @@ export function RegisterForm() {
             пароль
           </label>
           <div className="relative flex items-center">
-            <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none" />
+            <HugeiconsIcon
+              icon={SquareLockPasswordIcon}
+              strokeWidth={1.8}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
+            />
+
             <Input
               placeholder="минимум 8 символов"
               className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
               autoComplete="current-password"
               type="password"
+              {...register('password')}
             />
-            <Button className="absolute bg-transparent border-transparent text-mist-soft right-2 p-1.5 hover:text-mist hover:bg-transparent">
-              <Eye className="size-4" />
+            <Button
+              className="absolute bg-transparent border-transparent text-mist-soft right-2 p-1.5 hover:text-mist hover:bg-transparent"
+              type="button"
+            >
+              <HugeiconsIcon
+                icon={LookBottomIcon}
+                strokeWidth={1.8}
+                className="size-4"
+              />
             </Button>
           </div>
+          {errors.password && (
+            <div className="mt-2 text-[12.5px] text-red-400 inline-flex items-center gap-2">
+              <HugeiconsIcon
+                icon={AlertCircleIcon}
+                strokeWidth={1.8}
+                className="size-4"
+              />
+              <p>{errors.password.message}</p>
+            </div>
+          )}
         </div>
 
         <div className="mb-2">
@@ -52,14 +128,29 @@ export function RegisterForm() {
             повторите пароль
           </label>
           <div className="relative flex items-center">
-            <KeyRound className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none" />
+            <HugeiconsIcon
+              icon={PasswordValidationIcon}
+              strokeWidth={1.8}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
+            />
             <Input
               placeholder="••••••••"
               className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
               autoComplete="current-password"
               type="password"
+              {...register('confirm')}
             />
           </div>
+          {errors.confirm && (
+            <div className="mt-2 text-[12.5px] text-red-400 inline-flex items-center gap-2">
+              <HugeiconsIcon
+                icon={AlertCircleIcon}
+                strokeWidth={1.8}
+                className="size-4"
+              />
+              <p>{errors.confirm.message}</p>
+            </div>
+          )}
         </div>
 
         <div className="mt-0.3">
@@ -68,7 +159,7 @@ export function RegisterForm() {
             className="w-full py-5 bg-signal text-[#071120] font-body font-bold text-[15px] flex items-center justify-center gap-2.25 hover:bg-[#6ab4ff] active:bg-signal-deep"
           >
             Создать аккаунт
-            <ArrowRight className="stroke-4" />
+            <HugeiconsIcon icon={ArrowRight02Icon} strokeWidth={1.8} />
           </Button>
         </div>
       </div>
