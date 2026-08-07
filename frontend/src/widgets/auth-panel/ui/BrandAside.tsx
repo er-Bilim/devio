@@ -8,12 +8,12 @@ import {
 import { NightMap, type Station } from './NightMap';
 
 interface BrandAsideProps {
-  variant?: 'login' | 'register';
+  variant: string | 'signin' | 'signup';
 }
 
 export function BrandAside({ variant }: BrandAsideProps) {
-  const isLogin = variant === 'login';
-  const isRegister = variant === 'register';
+  const isLogin = variant === 'signin';
+  const isRegister = variant === 'signup';
 
   const loginStations: Station[] = [
     { title: 'HTML', status: 'done' },

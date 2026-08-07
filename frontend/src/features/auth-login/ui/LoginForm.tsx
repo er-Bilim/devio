@@ -14,9 +14,9 @@ import { useAuth } from '@/src/entities/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schemaLogin } from '../model/schema';
 import { useForm } from 'react-hook-form';
-import { ApiError } from '@/src/shared/api';
 import { useState } from 'react';
 import { isAxiosError } from 'axios';
+import { PasswordInput } from '@/src/shared/ui/password-input';
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -89,31 +89,13 @@ export function LoginForm() {
           >
             пароль
           </label>
-          <div className="relative flex items-center">
-            <HugeiconsIcon
-              icon={SquareLockPasswordIcon}
-              strokeWidth={1.8}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
-            />
-            <Input
-              placeholder="••••••••"
-              className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
-              autoComplete="current-password"
-              type={showPassword ? 'text' : 'password'}
-              {...register('password')}
-            />
-            <Button
-              className="absolute bg-transparent border-transparent text-mist-soft right-2 p-1.5 hover:text-mist hover:bg-transparent"
-              type="button"
-              onClick={handleShowPassword}
-            >
-              <HugeiconsIcon
-                icon={showPassword ? LookBottomIcon : LookRightIcon}
-                strokeWidth={1.8}
-                className="size-4"
-              />
-            </Button>
-          </div>
+          <PasswordInput
+            {...register('password')}
+            placeholder="минимум 8 символов"
+            id="password"
+            autoComplete="current-password"
+            className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
+          />
           {errors.password && (
             <div className="mt-2 text-[12.5px] text-red-400 inline-flex items-center gap-2">
               <HugeiconsIcon

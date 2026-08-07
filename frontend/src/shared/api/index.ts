@@ -1,4 +1,4 @@
-export { api, ApiError } from './client';
+export { api } from './client';
 export { qk } from './query-keys';
 
 

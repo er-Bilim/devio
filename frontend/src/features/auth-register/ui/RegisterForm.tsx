@@ -15,6 +15,7 @@ import {
   AlertCircleIcon,
 } from '@hugeicons/core-free-icons';
 import { isAxiosError } from 'axios';
+import { PasswordInput } from '@/src/shared/ui/password-input';
 
 export function RegisterForm() {
   const registerUser = useAuth((state) => state.register);
@@ -83,31 +84,13 @@ export function RegisterForm() {
           >
             пароль
           </label>
-          <div className="relative flex items-center">
-            <HugeiconsIcon
-              icon={SquareLockPasswordIcon}
-              strokeWidth={1.8}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
-            />
-
-            <Input
-              placeholder="минимум 8 символов"
-              className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
-              autoComplete="current-password"
-              type="password"
-              {...register('password')}
-            />
-            <Button
-              className="absolute bg-transparent border-transparent text-mist-soft right-2 p-1.5 hover:text-mist hover:bg-transparent"
-              type="button"
-            >
-              <HugeiconsIcon
-                icon={LookBottomIcon}
-                strokeWidth={1.8}
-                className="size-4"
-              />
-            </Button>
-          </div>
+          <PasswordInput
+            {...register('password')}
+            placeholder="••••••••"
+            id="password"
+            autoComplete="current-password"
+            className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
+          />
           {errors.password && (
             <div className="mt-2 text-[12.5px] text-red-400 inline-flex items-center gap-2">
               <HugeiconsIcon
