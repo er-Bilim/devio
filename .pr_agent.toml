@@ -32,10 +32,15 @@ description = "Изменения в frontend/: Next.js, FSD, компонент
 description = "CI, Docker, конфиги, workflows"
 [custom_labels."area:docs"]
 description = "Документация: docs/, README"
-
-[custom_labels."feature:auth"]
-description = "Аутентификация: токены, куки, логин, роли"
-[custom_labels."feature:roadmaps"]
-description = "Роадмапы и этапы: CRUD, контент"
-[custom_labels."feature:progress"]
-description = "Прогресс и стрик: завершение этапов, статистика"
+[custom_labels."type:bug-fix"]
+description = "pr_agent:Добавляй, если PR исправляет некорректное поведение, баг или ошибку"
+[custom_labels."type:feature"]
+description = "pr_agent:Добавляй, если PR добавляет новую функциональность"
+[custom_labels."type:refactor"]
+description = "pr_agent:Добавляй, если PR меняет структуру кода без изменения поведения"
+[custom_labels."type:ui"]
+description = "pr_agent:Добавляй, если PR меняет внешний вид: стили, вёрстку, компоненты интерфейса"
+[custom_labels."type:tests"]
+description = "pr_agent:Добавляй, если PR добавляет или меняет тесты"
+[custom_labels."type:deps"]
+description = "pr_agent:Добавляй, если PR обновляет зависимости или конфигурацию пакетов"
