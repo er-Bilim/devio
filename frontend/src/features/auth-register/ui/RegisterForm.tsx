@@ -33,7 +33,7 @@ export function RegisterForm() {
     try {
       await registerUser(data.email, data.password).then(() => reset());
     } catch (error) {
-      if (isAxiosError(error) && error.status === 401) {
+      if (isAxiosError(error) && error.response?.status === 401) {
         setError('root', { message: 'Неверный email или пароль' });
       } else {
         setError('root', { message: 'Что-то пошло не так, попробуйте снова' });
