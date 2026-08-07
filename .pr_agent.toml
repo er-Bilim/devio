@@ -19,6 +19,8 @@ extra_instructions = "Предлагай улучшения с учётом пр
 num_code_suggestions = 4
 
 [pr_description]
+enable_pr_diagram = true  
+enable_semantic_files_types = true
 generate_ai_title = true
 use_description_markers = true 
 extra_instructions = "Пиши на русском. Кратко: что меняет PR и зачем."

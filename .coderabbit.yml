@@ -1,6 +1,9 @@
 language: 'ru'
 
 reviews:
+  pre_merge_checks:
+    docstrings:
+      mode: 'off'
   suggested_labels: true
   auto_apply_labels: true
   path_filters:
@@ -14,9 +17,9 @@ reviews:
       instructions: 'Ставь, если изменены файлы в backend/'
     - label: 'area:frontend'
       instructions: 'Ставь, если изменены файлы в frontend/'
-    - label: "bug-fix"
-      instructions: "PR исправляет некорректное поведение или баг"
-    - label: "ui"
-      instructions: "PR меняет внешний вид: стили, вёрстку, компоненты"
-    - label: "refactor"
-      instructions: "PR меняет структуру кода без изменения поведения"
+    - label: 'bug-fix'
+      instructions: 'PR исправляет некорректное поведение или баг'
+    - label: 'ui'
+      instructions: 'PR меняет внешний вид: стили, вёрстку, компоненты'
+    - label: 'refactor'
+      instructions: 'PR меняет структуру кода без изменения поведения'
