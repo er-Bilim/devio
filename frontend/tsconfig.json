@@ -19,13 +19,13 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next",
+        "name": "next"
       },
     ],
     "paths": {
-      "@/*": ["./*"],
       "@/shared/*": ["./src/shared/*"],
       "@/features/*": ["./src/features/*"],
+      "@/*": ["./*"],
     },
   },
   "include": [

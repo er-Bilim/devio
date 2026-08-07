@@ -1,6 +1,8 @@
 import axios, { type AxiosRequestConfig } from 'axios';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+if (!API_URL) throw new Error('NEXT_PUBLIC_API_URL is not defined');
 let refreshPromise: Promise<boolean> | null = null;
 
 export const api = axios.create({

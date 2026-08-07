@@ -30,12 +30,15 @@ export const PasswordInput = forwardRef<
       <Button
         className="absolute bg-transparent border-transparent text-mist-soft right-2 p-1.5 hover:text-mist hover:bg-transparent"
         type="button"
+        aria-label={showPassword ? 'Hide password' : 'Show password'}
+        aria-pressed={showPassword}
         onClick={handleShowPassword}
       >
         <HugeiconsIcon
           icon={showPassword ? LookBottomIcon : LookRightIcon}
           strokeWidth={1.8}
           className="size-4"
+          aria-hidden="true"
         />
       </Button>
     </div>

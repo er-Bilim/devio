@@ -59,6 +59,7 @@ export function RegisterForm() {
               className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
             />
             <Input
+              id="email"
               placeholder="you@gmail.com"
               className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
               autoComplete="email"
@@ -86,7 +87,7 @@ export function RegisterForm() {
           </label>
           <PasswordInput
             {...register('password')}
-            placeholder="••••••••"
+            placeholder="минимум 8 символов"
             id="password"
             autoComplete="current-password"
             className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
@@ -105,7 +106,7 @@ export function RegisterForm() {
 
         <div className="mb-2">
           <label
-            htmlFor="password"
+            htmlFor="password-confirm"
             className="block text-[12px] text-mist-soft font-mono mb-1.75 uppercase"
           >
             повторите пароль
@@ -117,9 +118,10 @@ export function RegisterForm() {
               className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
             />
             <Input
+              id="password-confirm"
               placeholder="••••••••"
               className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
-              autoComplete="current-password"
+              autoComplete="new-password"
               type="password"
               {...register('confirm')}
             />

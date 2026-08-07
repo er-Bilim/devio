@@ -19,7 +19,6 @@ import { isAxiosError } from 'axios';
 import { PasswordInput } from '@/src/shared/ui/password-input';
 
 export function LoginForm() {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
   const loginUser = useAuth((state) => state.login);
   const {
     register,
@@ -43,10 +42,6 @@ export function LoginForm() {
     }
   });
 
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
     <form onSubmit={onSubmitLogin}>
       <div className="grid grid-cols-1 gap-3">
@@ -64,6 +59,7 @@ export function LoginForm() {
               className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
             />
             <Input
+              id="email"
               placeholder="you@gmail.com"
               className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
               autoComplete="email"
@@ -91,7 +87,7 @@ export function LoginForm() {
           </label>
           <PasswordInput
             {...register('password')}
-            placeholder="минимум 8 символов"
+            placeholder="••••••••"
             id="password"
             autoComplete="current-password"
             className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"

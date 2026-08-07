@@ -27,14 +27,12 @@ export const useAuth = create<AuthState>((set) => ({
   },
 
   login: async (email, password) => {
-    const data = JSON.stringify({ email, password });
-    const { data: user } = await api.post<User>('/auth/login', data);
+    const { data: user } = await api.post<User>('/auth/login', {email, password});
     set({ user, status: 'authed' });
   },
 
   register: async (email, password) => {
-    const data = JSON.stringify({ email, password });
-    const { data: user } = await api.post<User>('/auth/register', data);
+    const { data: user } = await api.post<User>('/auth/register', {email, password});
     set({ user, status: 'authed' });
   },
 
