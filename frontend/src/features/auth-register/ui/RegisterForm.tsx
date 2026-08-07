@@ -68,7 +68,7 @@ export function RegisterForm() {
             />
           </div>
           {errors.email && (
-            <div className=" mt-2 text-[12.5px]  text-red-400 inline-flex items-center gap-2">
+            <div className=" mt-2 text-[12.5px]  text-red-400 inline-flex items-center gap-2" role='alert'>
               <HugeiconsIcon
                 icon={AlertCircleIcon}
                 strokeWidth={1.8}
