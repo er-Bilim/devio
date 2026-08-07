@@ -104,6 +104,17 @@ export function LoginForm() {
           )}
         </div>
 
+        {errors.root && (
+          <div className="mt-2 text-[12.5px] text-red-400 inline-flex items-center gap-2">
+            <HugeiconsIcon
+              icon={AlertCircleIcon}
+              strokeWidth={1.8}
+              className="size-4"
+            />
+            <p>{errors.root.message}</p>
+          </div>
+        )}
+
         <div className="mt-0.3">
           <Button
             type="submit"
