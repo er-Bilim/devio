@@ -27,22 +27,19 @@ extra_instructions = "Пиши на русском. Кратко: что мен�
 enable_custom_labels = true
 
 [custom_labels."area:backend"]
-description = "Изменения в backend/: FastAPI, SQLAlchemy, миграции"
+description = "pr_agent:Добавляй, если PR изменяет backend/ (FastAPI, SQLAlchemy, миграции)"
 [custom_labels."area:frontend"]
-description = "Изменения в frontend/: Next.js, FSD, компоненты"
+description = "pr_agent:Добавляй, если PR изменяет frontend/ (Next.js, FSD, компоненты)"
 [custom_labels."area:infra"]
-description = "CI, Docker, конфиги, workflows"
+description = "pr_agent:Добавляй, если PR изменяет CI, Docker, workflows или конфиги"
 [custom_labels."area:docs"]
-description = "Документация: docs/, README"
-[custom_labels."type:bug-fix"]
-description = "pr_agent:Добавляй, если PR исправляет некорректное поведение, баг или ошибку"
-[custom_labels."type:feature"]
+description = "pr_agent:Добавляй, если PR изменяет docs/ или README"
+
+[custom_labels."bug-fix"]
+description = "pr_agent:Добавляй, если PR исправляет некорректное поведение или баг"
+[custom_labels."feature"]
 description = "pr_agent:Добавляй, если PR добавляет новую функциональность"
-[custom_labels."type:refactor"]
+[custom_labels."refactor"]
 description = "pr_agent:Добавляй, если PR меняет структуру кода без изменения поведения"
-[custom_labels."type:ui"]
-description = "pr_agent:Добавляй, если PR меняет внешний вид: стили, вёрстку, компоненты интерфейса"
-[custom_labels."type:tests"]
-description = "pr_agent:Добавляй, если PR добавляет или меняет тесты"
-[custom_labels."type:deps"]
-description = "pr_agent:Добавляй, если PR обновляет зависимости или конфигурацию пакетов"
+[custom_labels."ui"]
+description = "pr_agent:Добавляй, если PR меняет стили, вёрстку или компоненты интерфейса"
