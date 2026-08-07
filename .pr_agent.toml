@@ -23,16 +23,21 @@ generate_ai_title = true
 use_description_markers = true 
 extra_instructions = "Пиши на русском. Кратко: что меняет PR и зачем."
 
-[pr_description.labels]
+[pr_description]
 enable_custom_labels = true
 
-[custom_labels."backend"]
-description = "Изменения в backend/ (FastAPI, SQLAlchemy, миграции)"
-[custom_labels."frontend"]
-description = "Изменения в frontend/ (Next.js, FSD)"
-[custom_labels."миграция БД"]
-description = "PR содержит alembic-миграцию"
-[custom_labels."auth"]
-description = "Затрагивает аутентификацию, токены, куки"
-[custom_labels."документация"]
-description = "Изменения в docs/ или README"
+[custom_labels."area:backend"]
+description = "Изменения в backend/: FastAPI, SQLAlchemy, миграции"
+[custom_labels."area:frontend"]
+description = "Изменения в frontend/: Next.js, FSD, компоненты"
+[custom_labels."area:infra"]
+description = "CI, Docker, конфиги, workflows"
+[custom_labels."area:docs"]
+description = "Документация: docs/, README"
+
+[custom_labels."feature:auth"]
+description = "Аутентификация: токены, куки, логин, роли"
+[custom_labels."feature:roadmaps"]
+description = "Роадмапы и этапы: CRUD, контент"
+[custom_labels."feature:progress"]
+description = "Прогресс и стрик: завершение этапов, статистика"
