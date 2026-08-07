@@ -1,15 +1,15 @@
 language: 'ru'
 
 reviews:
-  high_level_summary: true
+  high_level_summary: false
   high_level_summary_placeholder: '@coderabbitai summary'
   auto_title_placeholder: '@coderabbitai'
-  labeling_instructions:
-    - label: 'area:backend'
-      instructions: 'Ставь, если изменены файлы в backend/'
-    - label: 'area:frontend'
-      instructions: 'Ставь, если изменены файлы в frontend/'
-    - label: 'feature:auth'
-      instructions: 'Ставь, если PR затрагивает аутентификацию: токены, куки, логин, роли'
-    - label: 'feature:progress'
-      instructions: 'Ставь, если PR про прогресс, стрик или статистику'
+  # labeling_instructions:
+  #   - label: 'area:backend'
+  #     instructions: 'Ставь, если изменены файлы в backend/'
+  #   - label: 'area:frontend'
+  #     instructions: 'Ставь, если изменены файлы в frontend/'
+  #   - label: 'feature:auth'
+  #     instructions: 'Ставь, если PR затрагивает аутентификацию: токены, куки, логин, роли'
+  #   - label: 'feature:progress'
+  #     instructions: 'Ставь, если PR про прогресс, стрик или статистику'
