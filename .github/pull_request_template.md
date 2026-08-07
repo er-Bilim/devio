@@ -6,7 +6,7 @@ Closes #
 
 ## Изменения
 
-pr_agent:summary
+@coderabbitai summary
 
 ## Детали реализации
 

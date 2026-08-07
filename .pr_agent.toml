@@ -22,6 +22,8 @@ num_code_suggestions = 4
 generate_ai_title = true
 use_description_markers = true 
 extra_instructions = "Пиши на русском. Кратко: что меняет PR и зачем."
+
+[pr_description]
 enable_custom_labels = true
 
 [custom_labels."area:backend"]
