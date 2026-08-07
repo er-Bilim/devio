@@ -1,6 +1,8 @@
 language: 'ru'
 
 reviews:
+  suggested_labels: true
+  auto_apply_labels: true
   path_filters:
     - '!package-lock.json'
     - '!**/api.d.ts'
@@ -12,7 +14,9 @@ reviews:
       instructions: 'Ставь, если изменены файлы в backend/'
     - label: 'area:frontend'
       instructions: 'Ставь, если изменены файлы в frontend/'
-    - label: 'feature:auth'
-      instructions: 'Ставь, если PR затрагивает аутентификацию: токены, куки, логин, роли'
-    - label: 'feature:progress'
-      instructions: 'Ставь, если PR про прогресс, стрик или статистику'
+    - label: "bug-fix"
+      instructions: "PR исправляет некорректное поведение или баг"
+    - label: "ui"
+      instructions: "PR меняет внешний вид: стили, вёрстку, компоненты"
+    - label: "refactor"
+      instructions: "PR меняет структуру кода без изменения поведения"
