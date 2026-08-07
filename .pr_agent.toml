@@ -22,17 +22,25 @@ num_code_suggestions = 4
 generate_ai_title = true
 use_description_markers = true 
 extra_instructions = "Пиши на русском. Кратко: что меняет PR и зачем."
-
-[pr_description.labels]
 enable_custom_labels = true
 
-[custom_labels."backend"]
-description = "Изменения в backend/ (FastAPI, SQLAlchemy, миграции)"
-[custom_labels."frontend"]
-description = "Изменения в frontend/ (Next.js, FSD)"
-[custom_labels."миграция БД"]
-description = "PR содержит alembic-миграцию"
-[custom_labels."auth"]
-description = "Затрагивает аутентификацию, токены, куки"
-[custom_labels."документация"]
-description = "Изменения в docs/ или README"
+[custom_labels."area:backend"]
+description = "Изменения в backend/: FastAPI, SQLAlchemy, миграции"
+[custom_labels."area:frontend"]
+description = "Изменения в frontend/: Next.js, FSD, компоненты"
+[custom_labels."area:infra"]
+description = "CI, Docker, конфиги, workflows"
+[custom_labels."area:docs"]
+description = "Документация: docs/, README"
+[custom_labels."type:bug-fix"]
+description = "pr_agent:Добавляй, если PR исправляет некорректное поведение, баг или ошибку"
+[custom_labels."type:feature"]
+description = "pr_agent:Добавляй, если PR добавляет новую функциональность"
+[custom_labels."type:refactor"]
+description = "pr_agent:Добавляй, если PR меняет структуру кода без изменения поведения"
+[custom_labels."type:ui"]
+description = "pr_agent:Добавляй, если PR меняет внешний вид: стили, вёрстку, компоненты интерфейса"
+[custom_labels."type:tests"]
+description = "pr_agent:Добавляй, если PR добавляет или меняет тесты"
+[custom_labels."type:deps"]
+description = "pr_agent:Добавляй, если PR обновляет зависимости или конфигурацию пакетов"
