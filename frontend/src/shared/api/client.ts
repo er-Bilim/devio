@@ -1,47 +1,20 @@
-import axios, { type AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, type InternalAxiosRequestConfig } from 'axios';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+if (!API_URL) throw new Error('NEXT_PUBLIC_API_URL is not defined');
 let refreshPromise: Promise<boolean> | null = null;
 
-export class ApiError extends Error {
-  constructor(
-    public status: number,
-    public detail: string,
-  ) {
-    super(detail);
-  }
-}
-
-const axiosRequest = async <T>(
-  url: string,
-  config?: AxiosRequestConfig,
-): Promise<T> => {
-  try {
-    const { data } = await axios<T>({
-      url,
-      withCredentials: true,
-      ...config,
-    });
-
-    return data;
-  } catch (error) {
-    if (axios.isAxiosError<ApiError>(error)) {
-      if (error.response) {
-        const serverErrorData = error.response.data;
-        const statusCode = error.response.status;
-
-        throw new ApiError(statusCode, serverErrorData.detail);
-      }
-    }
-    throw error;
-  }
-};
+export const api = axios.create({
+  baseURL: API_URL,
+  withCredentials: true,
+});
 
 const ensureRefreshed = (): Promise<boolean> => {
-  refreshPromise ??= axios(`${API_URL}/auth/refresh`, {
-    method: 'POST',
-    withCredentials: true,
-  })
+  refreshPromise ??= axios
+    .post(`${API_URL}/auth/refresh`, null, {
+      withCredentials: true,
+    })
     .then(() => true)
     .catch(() => false)
     .finally(() => {
@@ -51,22 +24,31 @@ const ensureRefreshed = (): Promise<boolean> => {
   return refreshPromise;
 };
 
-export const api = async <T>(
-  url: string,
-  config?: AxiosRequestConfig,
-): Promise<T> => {
-  try {
-    return await axiosRequest<T>(url, config);
-  } catch (error) {
-    const is401 = error instanceof ApiError && error.status === 401;
-    const isAuthPath = url.startsWith('/auth/');
+interface RetriableConfig extends InternalAxiosRequestConfig {
+  _retried?: boolean;
+}
 
-    if (!is401 && !isAuthPath) throw error;
+api.interceptors.response.use(
+  (res) => res,
+  async (error: AxiosError) => {
+    const config = error.config as RetriableConfig;
+    const status = error.response?.status;
+    const url = config.url ?? '';
+
+    if (
+      status !== 401 ||
+      url.startsWith('/auth/') ||
+      config._retried ||
+      !config
+    ) {
+      throw error;
+    }
 
     const refreshed = await ensureRefreshed();
 
     if (!refreshed) throw error;
 
-    return await axiosRequest<T>(url, config);
-  }
-};
+    config._retried = true;
+    return api(config);
+  },
+);

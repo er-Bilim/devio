@@ -1,6 +1,5 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -61,6 +60,17 @@
   --color-signal-deep: var(--signal-deep);
   --color-mint: var(--mint);
   --color-amber: var(--amber);
+
+  --animate-station-pulse: station-pulse 2.4s ease-out infinite;
+  @keyframes station-pulse {
+    0%,
+    100% {
+      stroke-width: 3.5;
+    }
+    50% {
+      stroke-width: 6.5;
+    }
+  }
 }
 
 :root {

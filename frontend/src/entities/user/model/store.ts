@@ -9,6 +9,7 @@ type AuthState = {
   status: 'loading' | 'authed' | 'guest';
   init: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
+  register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -18,7 +19,7 @@ export const useAuth = create<AuthState>((set) => ({
 
   init: async () => {
     try {
-      const user = await api<User>('/users/me');
+      const { data: user } = await api.get<User>('/users/me');
       set({ user, status: 'authed' });
     } catch {
       set({ user: null, status: 'guest' });
@@ -26,10 +27,12 @@ export const useAuth = create<AuthState>((set) => ({
   },
 
   login: async (email, password) => {
-    const user = await api<User>('/auth/login', {
-      method: 'POST',
-      data: JSON.stringify({ email, password }),
-    });
+    const { data: user } = await api.post<User>('/auth/login', {email, password});
+    set({ user, status: 'authed' });
+  },
+
+  register: async (email, password) => {
+    const { data: user } = await api.post<User>('/auth/register', {email, password});
     set({ user, status: 'authed' });
   },
 
