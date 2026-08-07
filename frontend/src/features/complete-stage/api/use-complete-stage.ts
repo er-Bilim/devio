@@ -10,9 +10,11 @@ export const useCompleteStage = (roadmapSlug: string) => {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: completeStage,
-    onSuccess: () => {
-      void qc.invalidateQueries({ queryKey: qk.roadmap(roadmapSlug) });
-      void qc.invalidateQueries({ queryKey: qk.streak });
+    onSuccess: async () => {
+      await Promise.all([
+        qc.invalidateQueries({ queryKey: qk.roadmap(roadmapSlug) }),
+        qc.invalidateQueries({ queryKey: qk.streak }),
+      ]);
     },
   });
 };
