@@ -9,7 +9,7 @@ reviews:
   path_filters:
     - '!package-lock.json'
     - '!**/api.d.ts'
-  high_level_summary: true
+  high_level_summary: false
   high_level_summary_placeholder: '@coderabbitai summary'
   auto_title_placeholder: '@coderabbitai'
   labeling_instructions:
