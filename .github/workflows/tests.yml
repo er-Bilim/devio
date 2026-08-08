@@ -1,0 +1,33 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches: [dev]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: devio
+          POSTGRES_PASSWORD: devio
+          POSTGRES_DB: devio_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U devio"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cashe: pip
+      - run: pip install -r backend/requirements.txt pytest pytest-asyncio
+      - run: pytest
+        working-directory: backend
+        env:
+          SECRET_KEY: test-secret-not-real
+          DATABASE_URL: postgresql+asyncpg://devio:devio@localhost:5432/devio_test

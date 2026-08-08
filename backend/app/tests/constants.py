@@ -1,0 +1,1 @@
+TEST_USER = {"email": "test@gmail.com", "password": "secret123"}
