@@ -9,7 +9,8 @@ from app.models import Roadmap, Stage, StageProgress
 @pytest.fixture
 async def seeded(db, auth_client):
     """Юзер + роадмап с тремя этапами, прямо в базу"""
-    user = auth_client.cookies["user_id"]
+    resp = await auth_client.get("/users/me")
+    user = resp.json()["id"]
     roadmap = Roadmap(slug="frontend", title="Frontend", description="...")
     db.add_all([roadmap])
     await db.flush()
