@@ -9,11 +9,9 @@ from app.db import Base, get_db
 from app.main import app
 from app.tests.constants import TEST_USER
 
-TEST_DATABASE_URL = os.getenv("DATABASE_URL_TEST")
-
-if not TEST_DATABASE_URL:
-    raise ValueError("DATABASE_URL_TEST is not set")
-
+TEST_DATABASE_URL = os.getenv(
+    "DATABASE_URL", "postgresql+asyncpg://devio:devio@localhost:5432/devio_test"
+)
 
 engine = create_async_engine(TEST_DATABASE_URL, poolclass=NullPool)
 TestSession = async_sessionmaker(engine, expire_on_commit=False)
