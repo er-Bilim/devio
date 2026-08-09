@@ -1,3 +1,5 @@
+import os
+
 import pytest
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
@@ -7,7 +9,11 @@ from app.db import Base, get_db
 from app.main import app
 from app.tests.constants import TEST_USER
 
-TEST_DATABASE_URL = "postgresql+asyncpg://devio:devio@localhost:5432/devio_test"
+TEST_DATABASE_URL = os.getenv("DATABASE_URL_TEST")
+
+if not TEST_DATABASE_URL:
+    raise ValueError("DATABASE_URL_TEST is not set")
+
 
 engine = create_async_engine(TEST_DATABASE_URL, poolclass=NullPool)
 TestSession = async_sessionmaker(engine, expire_on_commit=False)
