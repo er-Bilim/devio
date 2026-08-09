@@ -61,8 +61,9 @@ async def test_old_refresh_is_revoked_after_rotation(auth_client: AsyncClient):
     old_refresh = auth_client.cookies["refresh_token"]
     await auth_client.post("/auth/refresh")
 
-    auth_client.cookies.set("refresh_token", old_refresh)
-    resp = await auth_client.post("/auth/refresh")
+    resp = await auth_client.post(
+        "/auth/refresh", headers={"Cookie": f"refresh_token={old_refresh}"}
+    )
 
     assert resp.status_code == 401
 

@@ -3,16 +3,15 @@ from datetime import datetime, timedelta, timezone
 import pytest
 from sqlalchemy import func, select
 
-from app.models import Roadmap, Stage, StageProgress, User
-from app.security import hash_password
+from app.models import Roadmap, Stage, StageProgress
 
 
 @pytest.fixture
-async def seeded(db):
+async def seeded(db, auth_client):
     """Юзер + роадмап с тремя этапами, прямо в базу"""
-    user = User(email="p@gmail.com", password_hash=hash_password("secret123"))
+    user = auth_client.cookies["user_id"]
     roadmap = Roadmap(slug="frontend", title="Frontend", description="...")
-    db.add_all([user, roadmap])
+    db.add_all([roadmap])
     await db.flush()
 
     stages = [

@@ -51,13 +51,14 @@ async def client(db):
 @pytest.fixture
 async def registered_client(client: AsyncClient):
     """Юзер зарегистрирован, но не авторизован (кук нет)"""
-    await client.post("/auth/register", json=TEST_USER)
-
+    response = await client.post("/auth/register", json=TEST_USER)
+    response.raise_for_status()
     return client
 
 
 @pytest.fixture
 async def auth_client(registered_client: AsyncClient):
     """Юзер зарегистрирован и авторизован (куки в кукоджаре)"""
-    await registered_client.post("/auth/login", json=TEST_USER)
+    response = await registered_client.post("/auth/login", json=TEST_USER)
+    response.raise_for_status()
     return registered_client
