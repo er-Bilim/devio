@@ -1,11 +1,14 @@
-from app.models import StageProgress, User
-from app.queries import progress as progress_q
-from app.queries import stages as stages_q
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.models import StageProgress, User
+from app.queries import progress as progress_q
+from app.queries import stages as stages_q
 
-async def complete_stage(db: AsyncSession, user: User, stage_id: int) -> tuple[StageProgress, bool]:
+
+async def complete_stage(
+    db: AsyncSession, user: User, stage_id: int
+) -> tuple[StageProgress, bool]:
     stage = await stages_q.get_by_id(db, stage_id)
     if stage is None:
         raise HTTPException(status_code=404, detail="Stage not found")
