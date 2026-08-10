@@ -6,9 +6,7 @@ Closes #
 
 ## Изменения
 
-pr_agent:summary
-
-pr_agent:walkthrough
+@coderabbitai summary
 
 ## Детали реализации
 

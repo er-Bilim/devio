@@ -74,12 +74,13 @@ async def longest_streak(db: AsyncSession, user_id) -> int:
     numbered = select(days_cte.c.day, rn).cte("numbered")
 
     group_key = (numbered.c.day - func.cast(numbered.c.rn, INTEGER)).label("grp")
-    stmt = (
+    lengths = (
         select(func.count().label("length"))
         .select_from(numbered)
         .group_by(group_key)
-        .order_by(func.count().desc())
+        .cte("length")
     )
+    stmt = select(func.max(lengths.c.length))
     result = await db.execute(stmt)
 
-    return result.scalar_one_or_none() or 0
+    return result.scalar() or 0
