@@ -8,7 +8,7 @@ from app.models import Roadmap, Stage, StageProgress
 
 @pytest.fixture
 async def seeded(db, auth_client):
-    """Юзер + роадмап с тремя этапами, прямо в базу"""
+    """Авторизованный юзер + роадмап с пятью этапами, прямо в базу"""
     resp = await auth_client.get("/users/me")
     user = resp.json()
     roadmap = Roadmap(slug="frontend", title="Frontend", description="...")
@@ -67,8 +67,9 @@ async def test_current_streak(db, seeded, auth_client, days_ago, expected):
     assert resp.json()["current"] == expected
 
 
-async def test_complete_nonexistent_stage_404(auth_client):
-    resp = await auth_client.post("/stages/34/complete")
+async def test_complete_nonexistent_stage_404(auth_client, seeded):
+    _, _, stages = seeded
+    resp = await auth_client.post(f"/stages/{stages[-1].id + 1000}/complete")
 
     assert resp.status_code == 404
 
@@ -80,15 +81,15 @@ async def test_admin_forbidden_for_user(auth_client):
 
 
 @pytest.mark.parametrize(
-    "longest_streak, expected", [([5, 4, 3, 1, 0], 3), ([0], 1), ([], 0)]
+    "days_ago, expected", [([5, 4, 3, 1, 0], 3), ([0], 1), ([], 0)]
 )
 async def test_longest_streak_survives_gap(
-    auth_client, longest_streak, expected, db, seeded
+    auth_client, days_ago, expected, db, seeded
 ):
     user, _, stages = seeded
     now = datetime.now(timezone.utc)
 
-    for index, d in enumerate(longest_streak):
+    for index, d in enumerate(days_ago):
         db.add(
             StageProgress(
                 user_id=user["id"],
