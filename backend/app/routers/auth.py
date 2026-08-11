@@ -1,14 +1,13 @@
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 from typing import Annotated
 
-from fastapi import APIRouter, Cookie, Depends, HTTPException, Response
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi import APIRouter, Cookie, HTTPException, Response
 from sqlalchemy import select
 
 from app.cookies import set_auth_cookies
 from app.dependencies import DbSession
 from app.models import RefreshToken, User
-from app.queries import refresh_tokens as tokens_q
+from app.queries import tokens as tokens_q
 from app.schemas import UserLogin, UserPublic, UserRegister
 from app.security import (
     create_access_token,
