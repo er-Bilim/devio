@@ -1,0 +1,14 @@
+services:
+  backend:
+    volumes:
+      - ./backend:/app
+    command: sh -c "alembic upgrade head && fastapi dev app/main.py --host 0.0.0.0"
+
+  frontend:
+    build:
+      context: ./frontend
+      target: builder
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev

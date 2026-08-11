@@ -1,0 +1,44 @@
+name: devio
+
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: devio
+      POSTGRES_PASSWORD: devio
+      POSTGRES_DB: devio
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/initdb:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U devio']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://devio:devio@db:5432/devio}
+      SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY in .env (any random string for dev)}
+    ports:
+      - '127.0.0.1:8000:8000'
+    depends_on:
+      db:
+        condition: service_healthy
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+
+  frontend:
+    build:
+      context: './frontend'
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - '127.0.0.1:3000:3000'
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
