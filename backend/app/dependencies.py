@@ -1,9 +1,8 @@
 import uuid
-from typing import Annotated, Tuple
+from typing import Annotated
 
 import jwt
 from fastapi import Cookie, Depends, HTTPException
-from sqlalchemy import Result, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.db import get_db
@@ -30,13 +29,13 @@ async def get_current_user(
         raise credentials_error
     try:
         payload = decode_access_token(access_token)
-    except jwt.InvalidTokenError:
-        raise credentials_error
+    except jwt.InvalidTokenError as err:
+        raise credentials_error from err
 
     try:
         user_id = uuid.UUID(payload.get("sub"))
-    except (ValueError, TypeError):
-        raise credentials_error
+    except (ValueError, TypeError) as err:
+        raise credentials_error from err
 
     user = await db.get(User, user_id)
 
