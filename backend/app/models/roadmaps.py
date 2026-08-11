@@ -23,6 +23,6 @@ class Stage(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     roadmap_id: Mapped[int] = mapped_column(ForeignKey("roadmaps.id"))
     title: Mapped[str]
-    position: Mapped[str]
+    position: Mapped[int]
 
     roadmap: Mapped["Roadmap"] = relationship(back_populates="stages")
