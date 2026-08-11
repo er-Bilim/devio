@@ -1,3 +1,4 @@
+from .auth import UserLogin, UserRegister
 from .progress import ProgressOut
 from .roadmaps import (
     Roadmap,
@@ -8,7 +9,7 @@ from .roadmaps import (
     StageOut,
 )
 from .stats import CompleteStageOut, DirectionStat, StreakOut
-from .users import UserLogin, UserPublic, UserRegister
+from .users import UserPublic
 
 __all__ = [
     "ProgressOut",
