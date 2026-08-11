@@ -1,141 +1,94 @@
-# devio
+# devio 🚇
 
-**Интерактивные роадмапы для входа в IT — этапы, примеры, практика.**
+Интерактивные роадмапы для входа в IT. Каждое направление — ветка метро: станции в правильном порядке, прогресс на карте, стрик не даёт сойти с маршрута.
 
-Вместо хаотичного гугления «с чего начать» — понятный путь: направления, этапы, примеры и отслеживание собственного прогресса. Визуальная метафора проекта — карта метро: каждый этап обучения это станция, а направление — ветка.
-
----
-
-## Возможности
-
-**Роадмапы по направлениям**
-Пошаговые пути обучения — Frontend и Backend (DevOps и Mobile в планах). Каждый роадмап разбит на этапы: что учить, в каком порядке и зачем, с примерами кода и практикой.
-
-**Профиль и прогресс**
-Текущая станция на карте, пройденные этапы, стрик — счётчик дней непрерывного обучения — и личная статистика.
-
-**Статистика популярности**
-Какие направления изучают чаще всего и какой этап становится следующим — считается по реальной активности пользователей.
-
----
-
-## Стек
-
-| Слой | Технологии |
-|---|---|
-| Frontend | Next.js (App Router), React, TypeScript (strict), Tailwind CSS, TanStack Query, Zustand |
-| Backend | FastAPI, Python 3.12 |
-| ORM / БД | SQLAlchemy 2.0 (async), asyncpg, PostgreSQL 17 |
-| Миграции | Alembic |
-| Auth | JWT (pyjwt) + argon2 (pwdlib), httpOnly cookies, access + refresh с ротацией |
-| Инфраструктура | Docker Compose |
-
----
-
-## Как устроен бэкенд
-
-```
-backend/
-├── alembic/                  миграции схемы БД
-├── app/
-│   ├── main.py               создание приложения, роутеры, CORS
-│   ├── config.py             настройки из .env (pydantic-settings)
-│   ├── db.py                 engine, async-сессии, зависимость get_db
-│   ├── models.py             таблицы: User, Roadmap, Stage, StageProgress, RefreshToken
-│   ├── schemas.py            Pydantic-схемы запросов и ответов
-│   ├── security.py           хеширование паролей, выпуск и проверка токенов
-│   ├── dependencies.py       get_current_user, роли, алиасы зависимостей
-│   ├── queries/              SQL-запросы статистики
-│   └── routers/              эндпоинты: auth, users, roadmaps, stats
-├── docker-compose.yml
-└── requirements.txt
-```
-
-**Аутентификация.** Пароли хранятся только в виде argon2-хеша. После логина клиент получает пару токенов в httpOnly cookies: короткий access (JWT) и долгий refresh. Refresh хранится в БД в виде sha256-хеша, при каждом использовании ротируется, отзыв возможен в любой момент.
-
-**Статистика.** Популярность направлений и стрик считаются на стороне базы — агрегациями с JOIN и оконными функциями, без выгрузки строк в приложение.
+**Стек:** FastAPI · SQLAlchemy 2.0 (async) · PostgreSQL 17 · Alembic · Next.js (App Router) · TypeScript · Tailwind · TanStack Query · Zustand
 
 ---
 
 ## Быстрый старт
 
-Нужны Docker и Python 3.12+.
+Нужен только Docker:
 
 ```bash
-git clone https://github.com/er-Bilim/devio.git
-cd devio/backend
+git clone https://github.com/er-Bilim/devio.git && cd devio
+cp backend/.env.example backend/.env    # вписать SECRET_KEY (для дева — любая строка)
+docker compose up --build
 ```
 
-**1. Поднять базу**
+Через минуту:
+
+| Что | Где |
+|---|---|
+| Фронтенд | http://localhost:3000 |
+| API + Swagger | http://localhost:8000/docs |
+| PostgreSQL | localhost:5432 (`devio` / тестовая `devio_test` создаётся сама) |
+
+Миграции накатываются при старте автоматически. Порты привязаны к 127.0.0.1.
+
+## Режимы запуска
 
 ```bash
-docker compose up -d
+docker compose up                        # ДЕВ: bind mounts + hot-reload бэка и фронта
+docker compose -f docker-compose.yml up  # ПРОД-репетиция: standalone-образы, код запечён
 ```
 
-**2. Окружение и зависимости**
+Подробная шпаргалка команд: [docs/docker-commands.md](docs/docker-commands.md)
+
+## Тесты
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate      # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+cd backend && pytest -v
 ```
 
-**3. Переменные окружения**
+Интеграционные тесты против настоящего Postgres (`devio_test`): auth-цикл целиком (регистрация → логин → refresh-ротация → отзыв → логаут), идемпотентность завершения этапов, стрик на параметризованных сценариях дат. Изоляция — savepoint-транзакции: каждый тест стартует с чистой базы.
 
-Скопируйте `.env.example` в `.env` и заполните:
+CI гоняет тесты + ruff на каждый PR; красное не мержится.
 
-```env
-SECRET_KEY=сгенерируйте: openssl rand -hex 32
-DATABASE_URL=postgresql+asyncpg://devio:devio@localhost:5432/devio
+## Как устроен код
+
+```
+backend/app/
+├── routers/      # HTTP-слой: принял → отдал (без SQL и бизнес-логики)
+├── services/     # сценарии: транзакции, составные операции
+├── queries/      # весь SQL проекта
+├── models/       # таблицы по доменам (users, roadmaps, progress, tokens)
+├── schemas/      # Pydantic-контракты по доменам
+└── tests/        # pytest + фикстурная лестница client → registered → auth
+
+frontend/src/
+├── app/          # роуты Next: страницы только собирают виджеты
+├── widgets/      # блоки страниц (hero, header)
+├── features/     # действия юзера (логин, завершить этап)
+├── entities/     # сущности (roadmap, user) — данные и отображение
+└── shared/       # api-клиент, ui-кит, сгенерированные типы
 ```
 
-**4. Применить миграции**
+Типы фронта генерируются из OpenAPI-схемы бэка: `npm run gen:api` — контракт один, руками не дублируется.
 
-```bash
-alembic upgrade head
-```
+## Auth
 
-**5. Запустить API**
-
-```bash
-fastapi dev app/main.py
-```
-
-- API: http://127.0.0.1:8000
-- Интерактивная документация: http://127.0.0.1:8000/docs
-
----
+JWT в httpOnly-куках: короткий access + refresh с ротацией (хеши refresh — в базе, украденный и использованный токен бесполезен). Пароли — argon2.
 
 ## Документация
 
-В папке `docs/` — серия справочников по стеку проекта, написанных по ходу разработки:
+Проект разрабатывается вместе с подробным справочником (на русском) — от первого эндпоинта до контейнеризации: [docs/](docs/)
 
-| Файл | О чём |
-|---|---|
-| `fastapi-basics.md` | Основы FastAPI: роуты, параметры, Pydantic, структура проекта |
-| `fastapi-depends.md` | Система зависимостей: цепочки, yield, Annotated, подмена в тестах |
-| `fastapi-auth.md` | Аутентификация с нуля: argon2, JWT, get_current_user |
-| `docker-basics.md` | Docker и Compose на примере PostgreSQL |
-| `fastapi-database.md` | SQLAlchemy 2.0 async, модели, связи, Alembic |
-| `fastapi-auth-cookies.md` | Переезд с Bearer-заголовка на httpOnly cookies, CSRF и CORS |
-| `fastapi-refresh-tokens.md` | Пара access + refresh, ротация, отзыв сессий |
-| `fastapi-sql-stats.md` | SQL для статистики: JOIN, GROUP BY, оконные функции, стрик |
+Ключевые: `fastapi-testing` (тестовая инфраструктура), `fastapi-refactoring` + `backend-imports-naming` (архитектура и конвенции), `docker-devio` (контейнеры), `fsd-structure` (фронт-слои), `next-components` (серверные/клиентские компоненты).
 
----
+## Автоматизация PR
+
+CodeRabbit — описание PR (плейсхолдер в шаблоне), авто-лейблы, авторевью. Qodo — второе мнение (`/review`, `/improve`). pr-size-labeler — size:XS–XL. Плюс ruff локально и в CI.
 
 ## Статус
 
-- [x] Схема БД и миграции
-- [x] Регистрация, логин, защищённые эндпоинты
-- [x] httpOnly cookies, access + refresh с ротацией
-- [x] Запросы статистики: популярность направлений, стрик
-- [ ] CRUD роадмапов и наполнение контентом
-- [ ] Фронтенд: главная, страница направления, профиль
-- [ ] Тесты
+- [x] Бэк: auth, роадмапы, прогресс, стрик, статистика
+- [x] Тесты + CI
+- [x] Рефакторинг по доменам
+- [x] Docker: весь проект одной командой
+- [ ] Фронт: перенос ночного дизайна (в процессе)
 - [ ] Деплой
 
 ---
 
-## Лицензия
-
-MIT
+*построено ночью, работает круглосуточно*
