@@ -5,9 +5,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models import Roadmap, Stage, StageProgress
 
-"""Агрегатные запросы: платформенная витрина (popularity, top_stages)
-и стрики юзера. Личное/платформенное разделим при росте файла"""
-
 
 async def directions_popularity(db: AsyncSession):
     learners = func.count(func.distinct(StageProgress.user_id)).label("learners")
@@ -60,7 +57,7 @@ async def current_streak(db: AsyncSession, user_id):
         return 0
 
     streak = 1
-    for prev, cur in zip(days, days[1:]): # noqa:B905 - пары соседей, длины различаются намеренно
+    for prev, cur in zip(days, days[1:]):  # noqa:B905 - пары соседей, длины различаются намеренно
         if prev - cur == timedelta(days=1):
             streak += 1
         else:
