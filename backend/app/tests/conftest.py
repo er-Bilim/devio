@@ -5,8 +5,9 @@ from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
-from app.db import Base, get_db
+from app.db import get_db
 from app.main import app
+from app.models import Base
 from app.tests.constants import TEST_USER
 
 TEST_DATABASE_URL = os.getenv(

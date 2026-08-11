@@ -21,13 +21,14 @@ async def directions_popularity(db: AsyncSession):
 
 
 async def top_stages(db: AsyncSession, day: int = 30, limit=5):
-    since = datetime.now(timezone.utc) - timedelta(day)
+    since = datetime.now(timezone.utc) - timedelta(days=day)
 
     stmt = (
         select(Roadmap.slug, Stage.title, func.count().label("completions"))
+        .select_from(StageProgress)
         .join(Stage, StageProgress.stage_id == Stage.id)
         .join(Roadmap, Stage.roadmap_id == Roadmap.id)
-        .where(StageProgress.completed_at <= since)
+        .where(StageProgress.completed_at >= since)
         .group_by(Roadmap.slug, Stage.title)
         .order_by(func.count().desc())
         .limit(limit)
@@ -57,7 +58,7 @@ async def current_streak(db: AsyncSession, user_id):
         return 0
 
     streak = 1
-    for prev, cur in zip(days, days[1:]):
+    for prev, cur in zip(days, days[1:]):  # noqa:B905 - пары соседей, длины различаются намеренно
         if prev - cur == timedelta(days=1):
             streak += 1
         else:

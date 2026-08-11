@@ -16,7 +16,7 @@ async def seeded(db, auth_client):
     await db.flush()
 
     stages = [
-        Stage(title=f"Stage {i}", position=str(i), roadmap_id=roadmap.id)
+        Stage(title=f"Stage {i}", position=i, roadmap_id=roadmap.id)
         for i in range(1, 6)
     ]
 

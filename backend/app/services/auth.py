@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 
+from fastapi import HTTPException
+from sqlalchemy.ext.asyncio import AsyncSession
+
 from app.models import User
-from app.queries import refresh_tokens as tokens_q
+from app.queries import tokens as tokens_q
 from app.queries import users as users_q
 from app.security import (
     create_access_token,
@@ -9,8 +12,6 @@ from app.security import (
     hash_password,
     verify_password,
 )
-from fastapi import HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
 
 
 @dataclass

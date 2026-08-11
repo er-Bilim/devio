@@ -30,4 +30,5 @@ async def complete_stage(
 
     return entry
 
+
 # @router.delete("/{stage_id}/complete", status_code=204)
