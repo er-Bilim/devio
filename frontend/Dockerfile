@@ -1,4 +1,5 @@
-FROM node:22.12.0-alpine AS builder
+ARG NODE_VERSION=22.12.0
+FROM node:${NODE_VERSION}-alpine AS builder
 WORKDIR /app
 
 ARG NEXT_PUBLIC_API_URL
@@ -10,13 +11,14 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:22-alpine
+FROM node:${NODE_VERSION}-alpine
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/public ./public
+COPY --from=builder --chown=node:node /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
+COPY --from=builder --chown=node:node /app/public ./public
 
+USER node
 EXPOSE 3000
 CMD ["node", "server.js"]
