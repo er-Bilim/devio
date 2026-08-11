@@ -34,7 +34,7 @@ class RoadmapOut(BaseModel):
 class RoadmapCreate(BaseModel):
     slug: str
     title: str
-    description: str | None
+    description: str | None = None
 
 
 class RoadmapUpdate(BaseModel):
