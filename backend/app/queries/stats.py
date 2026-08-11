@@ -25,6 +25,7 @@ async def top_stages(db: AsyncSession, day: int = 30, limit=5):
 
     stmt = (
         select(Roadmap.slug, Stage.title, func.count().label("completions"))
+        .select_from(StageProgress)
         .join(Stage, StageProgress.stage_id == Stage.id)
         .join(Roadmap, Stage.roadmap_id == Roadmap.id)
         .where(StageProgress.completed_at >= since)
