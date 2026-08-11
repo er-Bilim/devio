@@ -8,23 +8,23 @@ services:
       POSTGRES_PASSWORD: devio
       POSTGRES_DB: devio
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./docker/initdb:/docker-entrypoint-initdb.d
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U devio"]
+      test: ['CMD-SHELL', 'pg_isready -U devio']
       interval: 5s
       timeout: 5s
       retries: 10
 
   backend:
     build: ./backend
-    environment: 
+    environment:
       DATABASE_URL: ${DATABASE_URL:-postgresql+asyncpg://devio:devio@db:5432/devio}
-      SECRET_KEY: dev-not-a-secret
+      SECRET_KEY: ${SECRET_KEY:-dev-not-a-secret}
     ports:
-      - "8000:8000"
+      - '8000:8000'
     depends_on:
       db:
         condition: service_healthy
@@ -36,7 +36,7 @@ services:
       args:
         NEXT_PUBLIC_API_URL: http://localhost:8000
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - backend
 
