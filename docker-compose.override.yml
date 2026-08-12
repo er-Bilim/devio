@@ -8,6 +8,8 @@ services:
     build:
       context: ./frontend
       target: builder
+    environment:
+      INTERNAL_API_URL: ${INTERNAL_API_URL:-http://backend:8000}
     volumes:
       - ./frontend:/app
       - /app/node_modules
