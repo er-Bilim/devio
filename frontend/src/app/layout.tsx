@@ -1,6 +1,7 @@
 import './globals.css';
 import { cn } from '@/shared/lib/utils';
 import { Unbounded, Onest, JetBrains_Mono } from 'next/font/google';
+import { Providers } from './providers';
 
 const unbounded = Unbounded({
   subsets: ['cyrillic', 'latin'],
@@ -36,7 +37,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col bg-night font-body text-[15px]">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
