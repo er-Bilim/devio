@@ -4,8 +4,10 @@ import {
   Fire03Icon,
   ChampionIcon,
   UserGroup02Icon,
+  DotIcon,
 } from '@hugeicons/core-free-icons';
-import { NightMap, type Station } from './NightMap';
+import Link from 'next/link';
+import { type Station, RoadmapLine } from '@/entities/roadmap/index';
 
 interface BrandAsideProps {
   variant: string | 'signin' | 'signup';
@@ -42,7 +44,17 @@ export function BrandAside({ variant }: BrandAsideProps) {
       }}
     >
       <div className="w-full">
-        <Logo />
+        <Link href="/" className="flex items-start gap-4 flex-row">
+          <Logo />
+          <p className="font-display font-bold text-[20px] text-mist inline-flex items-end gap-1">
+            devio
+            <HugeiconsIcon
+              icon={DotIcon}
+              strokeWidth={7}
+              className="size-4 text-signal"
+            />
+          </p>
+        </Link>
       </div>
       <div className="max-w-115 mx-auto">
         <div>
@@ -61,7 +73,7 @@ export function BrandAside({ variant }: BrandAsideProps) {
               'Выбери направление, и карта начнёт загораться станция за станцией. Первая – сегодня.'}
           </p>
 
-          <NightMap stations={isLogin ? loginStations : guestStations} />
+          <RoadmapLine stations={isLogin ? loginStations : guestStations} />
         </div>
       </div>
 
