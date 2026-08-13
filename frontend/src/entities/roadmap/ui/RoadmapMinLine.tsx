@@ -20,9 +20,12 @@ export function RoadmapMiniLine({
   filled,
   tone = 'mint',
 }: RoadmapMiniLineProps) {
+  if (total <= 0) return null;
+
+  const completed = Math.min(Math.max(filled, 0), total);
   const GAP = 85;
   const width = 12 + GAP * (total - 1) + 12;
-  const filledX = 12 + GAP * Math.max(filled - 1, 0);
+  const filledX = 12 + GAP * Math.max(completed - 1, 0);
   const t = toneClass[tone];
 
   return (
