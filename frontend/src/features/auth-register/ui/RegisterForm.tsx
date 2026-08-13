@@ -8,14 +8,13 @@ import { schemaRegister, type SchemaRegisterData } from '../model/schema';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   MailAtSign01Icon,
-  SquareLockPasswordIcon,
   PasswordValidationIcon,
-  LookBottomIcon,
   ArrowRight02Icon,
   AlertCircleIcon,
 } from '@hugeicons/core-free-icons';
 import { isAxiosError } from 'axios';
 import { PasswordInput } from '@/src/shared/ui/password-input';
+import { Spinner } from '@/shared/ui/spinner';
 
 export function RegisterForm() {
   const registerUser = useAuth((state) => state.register);
@@ -23,7 +22,7 @@ export function RegisterForm() {
     register,
     reset,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setError,
   } = useForm<SchemaRegisterData>({
     resolver: zodResolver(schemaRegister),
@@ -155,7 +154,11 @@ export function RegisterForm() {
             className="w-full py-5 bg-signal text-[#071120] font-body font-bold text-[15px] flex items-center justify-center gap-2.25 hover:bg-[#6ab4ff] active:bg-signal-deep"
           >
             Создать аккаунт
-            <HugeiconsIcon icon={ArrowRight02Icon} strokeWidth={1.8} />
+            {isSubmitting ? (
+              <Spinner />
+            ) : (
+              <HugeiconsIcon icon={ArrowRight02Icon} strokeWidth={1.8} />
+            )}
           </Button>
         </div>
       </div>

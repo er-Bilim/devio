@@ -1,4 +1,4 @@
-export type Station = { title: string; status: 'done' | 'here' | 'next' };
+import type { Station } from '../model/types';
 
 interface NightMapProps {
   stations: Station[];
@@ -16,8 +16,8 @@ const labelClass: Record<Station['status'], string> = {
   next: 'fill-mist-soft',
 };
 
-export function NightMap({ stations }: NightMapProps) {
-  const GAP = 107;
+export function RoadmapLine({ stations }: NightMapProps) {
+  const GAP = 108;
   const width = 16 + GAP * (stations.length - 1) + 16;
   const doneCount = stations.filter((s) => s.status === 'done').length;
   const doneX = 16 + GAP * Math.max(doneCount - 1, 0);

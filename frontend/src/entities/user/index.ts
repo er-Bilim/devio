@@ -1,2 +1,2 @@
 export { useAuth } from './model/store';
-export type { UserRegister, UserLogin } from './model/types';
+export type { UserRegister, UserLogin, UserPublic } from './model/types';

@@ -17,6 +17,7 @@ import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { isAxiosError } from 'axios';
 import { PasswordInput } from '@/src/shared/ui/password-input';
+import { Spinner } from '@/shared/ui/spinner';
 
 export function LoginForm() {
   const loginUser = useAuth((state) => state.login);
@@ -24,7 +25,7 @@ export function LoginForm() {
     register,
     reset,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setError,
   } = useForm({
     resolver: zodResolver(schemaLogin),
@@ -120,11 +121,16 @@ export function LoginForm() {
 
         <div className="mt-0.3">
           <Button
+            disabled={isSubmitting}
             type="submit"
             className="w-full py-6 bg-signal text-[#071120] font-body font-bold text-[15px] flex items-center justify-center gap-2.25 hover:bg-[#6ab4ff] active:bg-signal-deep"
           >
             Войти
-            <HugeiconsIcon icon={ArrowRight02Icon} strokeWidth={1.8} />
+            {isSubmitting ? (
+              <Spinner />
+            ) : (
+              <HugeiconsIcon icon={ArrowRight02Icon} strokeWidth={1.8} />
+            )}
           </Button>
         </div>
       </div>
