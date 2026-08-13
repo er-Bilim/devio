@@ -23,7 +23,7 @@ export async function DirectionsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
           {roadmaps.map((roadmap) => (
             <Link
               key={roadmap.id}
@@ -45,7 +45,7 @@ export async function DirectionsSection() {
               </div>
 
               <div className="mt-1.5 mb-4">
-                <RoadmapMiniLine total={6} filled={3} />
+                <RoadmapMiniLine total={roadmap.stages.length} filled={3} />
               </div>
 
               <p className="text-mist-soft text-[14.5px] mb-4.5">

@@ -1,7 +1,4 @@
 export function StripSection() {
-
-  
-  
   const stripItems = [
     { title: 'направления открыты', count: 2 },
     { title: 'станций с материалами', count: 14 },
@@ -10,7 +7,7 @@ export function StripSection() {
 
   return (
     <div className="border-t border-b border-line bg-panel-2">
-      <div className="wrap grid grid-cols-3 gap-6 py-6.5">
+      <div className="wrap grid grid-cols-1 grid-3.5 md:grid-cols-3 md:gap-6 py-6.5">
         {stripItems.map((item, index) => (
           <div key={index} className="flex items-baseline gap-3 justify-center">
             <span className="font-mono text-[26px] text-mist">

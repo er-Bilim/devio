@@ -23,14 +23,14 @@ export function HeroSection() {
             radial-gradient(700px 420px at 95% 100%, #101B33 0%, transparent 55%)`,
         }}
       />
-      <div className="wrap relative grid grid-cols-[1fr_1fr] gap-14 items-center">
+      <div className="wrap relative grid items-center grid-cols-1 gap-10 md:grid-cols-2 md:gap-14">
         <div>
           <p className="font-mono text-[12.5px] tracking-[.14em] text-signal uppercase mb-4.5">
             Интерактивные роадмапы
           </p>
           <h1 className="font-display font-semibold text-[clamp(30px,3.6vw,46px)] leading-[1.18] tracking-[-.5px] mb-5 text-mist">
-            Путь в IT – это карта. <p className="text-signal">Выбери ветку</p> и
-            поезжай.
+            Путь в IT – это карта.
+            <span className="text-signal ml-2">Выбери ветку</span> и поезжай.
           </h1>
           <p className="text-mist-soft text-[17px] max-w-[46ch] mb-8">
             Каждое направление — линия метро: станции в правильном порядке, с

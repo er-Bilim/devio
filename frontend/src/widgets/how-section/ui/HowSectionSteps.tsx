@@ -11,7 +11,7 @@ interface HowSectionStepsProps {
 
 export function HowSectionSteps({ steps }: HowSectionStepsProps) {
   return (
-    <div className="grid grid-cols-3 gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
       {steps.map((step) => {
         const Icon = step.icon;
 
