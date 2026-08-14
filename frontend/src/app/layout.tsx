@@ -2,6 +2,8 @@ import './globals.css';
 import { cn } from '@/shared/lib/utils';
 import { Unbounded, Onest, JetBrains_Mono } from 'next/font/google';
 import { Providers } from './providers';
+import { AuthHydrator } from '@/entities/user/ui/AuthHydratator';
+import { getMe } from '@/entities/user/api/server';
 
 const unbounded = Unbounded({
   subsets: ['cyrillic', 'latin'],
@@ -20,11 +22,13 @@ const jbMono = JetBrains_Mono({
   variable: '--font-mono',
 });
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const me = await getMe();
+
   return (
     <html
       lang="en"
@@ -37,7 +41,10 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col bg-night font-body text-[15px]">
-        <Providers>{children}</Providers>
+        <Providers>
+          <AuthHydrator user={me} />
+          {children}
+        </Providers>
       </body>
     </html>
   );

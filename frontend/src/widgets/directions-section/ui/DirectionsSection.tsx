@@ -6,6 +6,10 @@ import { getRoadmaps } from '@/entities/roadmap/api/server';
 
 export async function DirectionsSection() {
   const roadmaps = await getRoadmaps();
+  
+  if (!roadmaps) {
+    return null;
+  }
 
   return (
     <section className="py-20">
