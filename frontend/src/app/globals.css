@@ -60,6 +60,20 @@
   --color-signal-deep: var(--signal-deep);
   --color-mint: var(--mint);
   --color-amber: var(--amber);
+  --color-alarm: var(--alarm);
+  --color-azure: var(--azure);
+
+  --animate-drift: drift var(--dur, 9s) ease-in-out var(--delay, 0s) infinite
+    alternate;
+
+  @keyframes drift {
+    from {
+      transform: translate(-50%, -50%) translate(-2px, -13px) rotate(-0.8deg);
+    }
+    to {
+      transform: translate(-50%, -50%) translate(9px, 13px) rotate(0.8deg);
+    }
+  }
 
   --animate-station-pulse: station-pulse 2.4s ease-out infinite;
   @keyframes station-pulse {
@@ -85,6 +99,8 @@
   --signal-deep: #2e7fe0;
   --mint: #3ecf8e;
   --amber: #f5a623;
+  --alarm: #f06a6a;
+  --azure: #6ab4ff;
   /*CUSTOM*/
 
   --background: oklch(1 0 0);
