@@ -8,7 +8,7 @@ import { UserMenu } from './UserMenu';
 
 export function Header() {
   const links: LinkType[] = [
-    { label: 'Направления', href: '/directions' },
+    { label: 'Направления', href: '/roadmaps' },
     { label: 'Как это работает', href: '/how' },
     { label: 'Статистика', href: '/stats' },
   ];

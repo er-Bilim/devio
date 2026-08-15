@@ -31,7 +31,7 @@ export async function DirectionsSection() {
           {roadmaps.map((roadmap) => (
             <Link
               key={roadmap.id}
-              href="/directions"
+              href={`/roadmaps/${roadmap.slug}`}
               className="relative bg-panel border border-line p-6.5 rounded-xl hover:border-signal transform hover:-translate-y-0.5 duration-200"
             >
               <div className="flex items-center justify-between mb-4.5">
