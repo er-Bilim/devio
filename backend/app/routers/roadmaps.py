@@ -14,10 +14,10 @@ async def list_roadmaps(db: DbSession):
     return roadmaps
 
 
-@router.get("/{roadmap_id}", response_model=RoadmapOut)
-async def get_roadmap(roadmap_id: int, db: DbSession):
+@router.get("/{slug}", response_model=RoadmapOut)
+async def get_roadmap(slug: str, db: DbSession):
 
-    roadmap = await roadmaps_q.get_by_id(db, roadmap_id)
+    roadmap = await roadmaps_q.get_by_slug(db, slug)
     if roadmap is None:
         raise HTTPException(status_code=404, detail="Roadmap not found")
     return roadmap
