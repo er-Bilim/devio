@@ -11,7 +11,7 @@ export function DirectionsMap({ roadmaps }: RoadmapsProps) {
   return (
     <>
       <RoadmapHubCard roadmaps={roadmaps} />
-      <StationChip stages={roadmaps[0]?.stages}/>
+      {/*<StationChip stages={roadmaps[0]?.stages}/>*/}
     </>
   );
 }
