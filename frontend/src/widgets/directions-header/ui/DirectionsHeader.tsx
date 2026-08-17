@@ -2,7 +2,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import { CircleIcon } from '@hugeicons/core-free-icons';
 
 export function DirectionsHeader() {
-  const seg = 'w-[clamp(60px,10vw,110px)] h-0.5 rounded-0.5';
+  const seg = 'w-[clamp(60px,10vw,110px)] h-0.5 rounded-xs';
 
   return (
     <header className="relative z-10 pt-15.5 text-center">
