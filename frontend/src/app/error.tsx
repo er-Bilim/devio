@@ -14,10 +14,10 @@ export default function Error({ reset }: ErrorProps) {
     <section className="grid place-items-center overflow-hidden px-6 min-h-screen">
       <div className="max-w-140 w-full mx-auto text-center">
         <MetroScene variant="broken" />
-        <p className="font-mono text-[12.5px] tracking-[.14em] text-alarm uppercase mb-3.5">
+        <p className="font-mono text-[12.5px] tracking-[.14em] text-alarm uppercase mb-10">
           // сбой на линии
         </p>
-        <h1 className="font-display font-semibold text-[clamp(24px,3vw,32px)] leading-1.25 mb-3 text-mist">
+        <h1 className="font-display font-semibold text-[clamp(24px,3vw,32px)] leading-1.25 mb-10 text-mist">
           Поезд дальше не идёт
         </h1>
         <p className="text-mist-soft text-[16px] max-w-[42ch] mx-auto mb-7.5">
