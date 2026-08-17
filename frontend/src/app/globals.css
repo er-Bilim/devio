@@ -200,3 +200,26 @@
   padding-left: 1.5rem;
   padding-right: 1.5rem;
 }
+
+.thread-base {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+  opacity: 0.5;
+}
+.thread {
+  fill: none;
+  stroke: var(--thread-color, var(--mist-soft));
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+.flow {
+  stroke-dasharray: 7 15;
+  animation: flow 2.8s linear infinite;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -88;
+  }
+}
