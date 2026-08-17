@@ -68,10 +68,10 @@
 
   @keyframes drift {
     from {
-      transform: translate(-50%, -50%) translate(-2px, -13px) rotate(-0.8deg);
+      transform: translate(-2px, -13px) rotate(-0.8deg);
     }
     to {
-      transform: translate(-50%, -50%) translate(9px, 13px) rotate(0.8deg);
+      transform: translate(9px, 13px) rotate(0.8deg);
     }
   }
 
@@ -222,4 +222,64 @@
   to {
     stroke-dashoffset: -88;
   }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--night);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 5px;
+  border: 2px solid var(--night);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mist-soft);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mint) var(--night);
+}
+
+[data-active] .stop {
+  border-color: var(--accent);
+  color: var(--mist);
+  box-shadow: 0 12px 30px -14px var(--accent);
+  scale: 1.06;
+}
+
+[data-active] .flow {
+  animation-duration: 1.3s;
+}
+[data-active] .thread {
+  stroke-width: 3.2;
+  opacity: 1;
+}
+
+[data-active] .hub {
+  opacity: 1;
+}
+
+.stop {
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    scale 0.3s,
+    color 0.3s;
+}
+.thread {
+  transition:
+    stroke-width 0.3s,
+    opacity 0.3s;
+}
+.hub {
+  transition:
+    opacity 0.3s;
 }
