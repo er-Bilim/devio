@@ -1,5 +1,6 @@
 import { getRoadmap } from '@/entities/roadmap/api/server';
 import { notFound } from 'next/navigation';
+import { RoadmapHeader } from '@/widgets/roadmap-header';
 
 interface RoadmapProps {
   params: Promise<{ slug: string }>;
@@ -11,5 +12,9 @@ export default async function Roadmap({ params }: RoadmapProps) {
 
   if (!roadmap) notFound();
 
-  return <h1 className="text-mist">{roadmap.slug}</h1>;
+  return (
+    <div className='wrap'>
+      <RoadmapHeader roadmap={roadmap} />
+    </div>
+  );
 }
