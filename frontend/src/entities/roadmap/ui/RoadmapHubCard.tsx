@@ -6,7 +6,7 @@ import {
   ArrowRight02Icon,
 } from '@hugeicons/core-free-icons';
 import type { Roadmap } from '../model/types';
-import { configHubRoadmap } from '../model/layout';
+import { configHubRoadmap } from '@/widgets/directions-map';
 import { StationChip } from './StationChip';
 import { MapThreads } from '@/widgets/directions-map';
 

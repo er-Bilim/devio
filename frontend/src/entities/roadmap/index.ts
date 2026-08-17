@@ -3,4 +3,3 @@ export { RoadmapLine } from './ui/RoadmapLine';
 export { RoadmapMiniLine } from './ui/RoadmapMinLine';
 export { RoadmapHubCard } from './ui/RoadmapHubCard';
 export { StationChip } from './ui/StationChip';
-export { configHubRoadmap } from './model/layout';
