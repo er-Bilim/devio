@@ -13,6 +13,7 @@ class StageOut(BaseModel):
     id: int
     title: str
     position: int
+    description: str | None = None
 
 
 class Roadmap(BaseModel):

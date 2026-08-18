@@ -24,5 +24,6 @@ class Stage(Base):
     roadmap_id: Mapped[int] = mapped_column(ForeignKey("roadmaps.id"))
     title: Mapped[str]
     position: Mapped[int]
+    description: Mapped[str | None]
 
     roadmap: Mapped["Roadmap"] = relationship(back_populates="stages")
