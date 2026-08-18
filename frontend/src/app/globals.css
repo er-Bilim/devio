@@ -280,6 +280,25 @@
     opacity 0.3s;
 }
 .hub {
-  transition:
-    opacity 0.3s;
+  transition: opacity 0.3s;
+}
+
+.spine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--accent) 0 9px,
+    transparent 9px 26px
+  );
+  animation: flowY 3.2s linear infinite;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+@keyframes flowY {
+  to {
+    background-position: 0 104px;
+  }
 }
