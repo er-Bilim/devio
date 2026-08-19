@@ -4,6 +4,7 @@ import { Unbounded, Onest, JetBrains_Mono } from 'next/font/google';
 import { Providers } from './providers';
 import { AuthHydrator } from '@/entities/user/ui/AuthHydratator';
 import { getMe } from '@/entities/user/api/server';
+import type { Metadata } from 'next';
 
 const unbounded = Unbounded({
   subsets: ['cyrillic', 'latin'],
@@ -21,6 +22,14 @@ const jbMono = JetBrains_Mono({
   weight: ['400', '500'],
   variable: '--font-mono',
 });
+
+export const metadata: Metadata = {
+  title: {
+    template: '%s · devio',
+    default: 'devio – маршруты в IT',
+  },
+  description: 'Интерактивные роадмапы: что учить, зачем и что после чего',
+};
 
 export default async function RootLayout({
   children,

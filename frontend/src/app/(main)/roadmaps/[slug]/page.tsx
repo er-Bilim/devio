@@ -7,6 +7,15 @@ interface RoadmapProps {
   params: Promise<{ slug: string }>;
 }
 
+export const generateMetadata = async ({ params }: RoadmapProps) => {
+  const { slug } = await params;
+  const roadmap = await getRoadmap(slug);
+  return {
+    title: roadmap?.title ?? 'Роадмап',
+    description: roadmap?.description ?? 'Описание роадмапа',
+  };
+};
+
 export default async function Roadmap({ params }: RoadmapProps) {
   const { slug } = await params;
   const roadmap = await getRoadmap(slug);
@@ -14,7 +23,7 @@ export default async function Roadmap({ params }: RoadmapProps) {
   if (!roadmap) notFound();
 
   return (
-    <div className="wrap">
+    <div className="wrap pb-20">
       <RoadmapHeader roadmap={roadmap} />
       <RoadmapRoute roadmap={roadmap} />
     </div>
