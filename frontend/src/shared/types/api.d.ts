@@ -333,6 +333,13 @@ export interface components {
             position: number;
             /** Description */
             description?: string | null;
+            /**
+             * Topics
+             * @default []
+             */
+            topics: string[];
+            /** Duration Weeks */
+            duration_weeks: number;
         };
         /** StreakOut */
         StreakOut: {
