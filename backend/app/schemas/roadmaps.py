@@ -14,6 +14,8 @@ class StageOut(BaseModel):
     title: str
     position: int
     description: str | None = None
+    topics: list[str] = []
+    duration_weeks: int
 
 
 class Roadmap(BaseModel):

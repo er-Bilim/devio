@@ -1,4 +1,5 @@
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, text
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
@@ -25,5 +26,9 @@ class Stage(Base):
     title: Mapped[str]
     position: Mapped[int]
     description: Mapped[str | None]
+    topics: Mapped[list[str]] = mapped_column(
+        JSONB, nullable=False, default=list, server_default=text("'[]'::jsonb")
+    )
+    duration_weeks: Mapped[int]
 
     roadmap: Mapped["Roadmap"] = relationship(back_populates="stages")
