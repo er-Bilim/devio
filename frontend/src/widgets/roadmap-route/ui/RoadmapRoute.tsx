@@ -1,4 +1,7 @@
 import { StationCard, type Roadmap } from '@/entities/roadmap';
+import Link from 'next/link';
+import { HugeiconsIcon } from '@hugeicons/react';
+import { ArrowRight02Icon } from '@hugeicons/core-free-icons';
 
 interface RoadmapRouteProps {
   roadmap: Roadmap;
@@ -22,9 +25,26 @@ export function RoadmapRoute({ roadmap }: RoadmapRouteProps) {
 
         <ol className="flex flex-col gap-11.5">
           {roadmap.stages.map((stage) => (
-            <StationCard key={stage.id} stage={stage} />
+            <StationCard key={stage.id} stage={stage} roadmap={roadmap} />
           ))}
         </ol>
+      </div>
+
+      <div className="relative z-10 mt-13.5 mx-auto max-w-130 text-center p-7 border border-dashed border-line rounded-xl bg-panel/30">
+        <p className="text-mist-soft mb-4">
+          Конечная – твоё портфолио. Дальше – собеседования
+        </p>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2.25 py-3.25 px-7 rounded-lg font-bold text-[15px] bg-accent text-night duration-300 hover:brightness-[1.12]"
+        >
+          Начать с первой станции
+          <HugeiconsIcon
+            icon={ArrowRight02Icon}
+            strokeWidth={3}
+            className="size-2.5 text-night"
+          />
+        </Link>
       </div>
     </section>
   );

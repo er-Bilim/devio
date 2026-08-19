@@ -12,14 +12,8 @@ export function RoadmapRouteSkeleton() {
             const isEven = index % 2 === 0;
 
             return (
-              // <Skeleton
-              //   key={index}
-              //   className={cn(
-              //     'relative flex w-35 h-7 bg-panel/30 border border-line animate-pulse',
-              //     isEven && 'justify-end',
-              //   )}
-              // />
               <li
+                key={index}
                 className={cn('relative flex', isEven && 'justify-end')}
                 style={
                   {
