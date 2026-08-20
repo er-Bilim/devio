@@ -16,7 +16,7 @@ async def seeded(db, auth_client):
     await db.flush()
 
     stages = [
-        Stage(title=f"Stage {i}", position=i, roadmap_id=roadmap.id)
+        Stage(title=f"Stage {i}", position=i, roadmap_id=roadmap.id, duration_weeks=i)
         for i in range(1, 6)
     ]
 
@@ -83,9 +83,7 @@ async def test_admin_forbidden_for_user(auth_client):
 @pytest.mark.parametrize(
     "days_ago, expected", [([5, 4, 3, 1, 0], 3), ([0], 1), ([], 0)]
 )
-async def test_longest_streak_survives_gap(
-    auth_client, days_ago, expected, db, seeded
-):
+async def test_longest_streak_survives_gap(auth_client, days_ago, expected, db, seeded):
     user, _, stages = seeded
     now = datetime.now(timezone.utc)
 
