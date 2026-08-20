@@ -313,6 +313,8 @@ export interface components {
              * @default []
              */
             stages: components["schemas"]["StageOut"][];
+            /** Status */
+            status: string;
         };
         /** RoadmapUpdate */
         RoadmapUpdate: {
