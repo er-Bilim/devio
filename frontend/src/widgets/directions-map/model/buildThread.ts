@@ -27,25 +27,38 @@ export const buildThread = (params: ThreadParams) => {
 
   if (dx === 0 && dy === 0) return '';
 
-  const kx: number = CARD_HALF_W / Math.abs(dx);
-  const ky: number = CARD_HALF_H / Math.abs(dy);
+  const kx: number = dx !== 0 ? CARD_HALF_W / Math.abs(dx) : Infinity;
+  const ky: number = dy !== 0 ? CARD_HALF_H / Math.abs(dy) : Infinity;
+  const kRay: number = Math.min(kx, ky);
 
-  const k: number = Math.min(kx, ky);
+  let ax: number;
+  let ay: number;
 
-  const ax: number = viewBoxHub.x + dx * k;
-  const ay: number = viewBoxHub.y + dy * k;
+  if (kRay >= 1) {
+    ax = viewBoxHub.x;
+    ay = viewBoxHub.y;
+  } else {
+    ax = viewBoxHub.x + dx * kRay;
+    ay = viewBoxHub.y + dy * kRay;
+  }
+
+  const lineDx = sx - ax;
+  const lineDy = sy - ay;
+  const len = Math.hypot(lineDx, lineDy);
+
+  if (len === 0) return '';
 
   const mx: number = (ax + sx) / 2;
   const my: number = (ay + sy) / 2;
 
-  const len = Math.hypot(dx, dy);
-  const px = -dy / len;
-  const py = dx / len;
+  const px = -lineDy / len;
+  const py = lineDx / len;
 
   const bend = Math.min(40, len * 0.22);
+  const offset = i % 2 === 1 ? bend : -bend;
 
-  const cx = mx + px * (i % 2 ? bend : -bend);
-  const cy = my + py * (i % 2 ? bend : -bend);
+  const cx = mx + px * offset;
+  const cy = my + py * offset;
 
   return `M ${ax} ${ay} Q ${cx} ${cy} ${sx} ${sy}`;
 };
