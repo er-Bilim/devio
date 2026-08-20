@@ -12,8 +12,11 @@ interface ErrorProps {
 }
 
 export default function Error({ error, reset }: ErrorProps) {
+
+  console.error(error);
+  
   return (
-    <section className="wrap flex items-cetner justify-center">
+    <section className="wrap flex items-center justify-center">
       <div className="max-w-140 w-full mx-auto text-center absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <MetroScene variant="broken" />
         <p className="font-mono text-[12.5px] tracking-[.14em] text-alarm uppercase mb-7">
