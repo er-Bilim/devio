@@ -141,7 +141,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/roadmaps/{roadmap_id}": {
+    "/roadmaps/{slug}": {
         parameters: {
             query?: never;
             header?: never;
@@ -149,7 +149,23 @@ export interface paths {
             cookie?: never;
         };
         /** Get Roadmap */
-        get: operations["get_roadmap_roadmaps__roadmap_id__get"];
+        get: operations["get_roadmap_roadmaps__slug__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/roadmaps/{roadmap_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
         put?: never;
         post?: never;
         /** Delete Roadmap */
@@ -280,7 +296,7 @@ export interface components {
             /** Title */
             title: string;
             /** Description */
-            description: string | null;
+            description?: string | null;
         };
         /** RoadmapOut */
         RoadmapOut: {
@@ -297,6 +313,8 @@ export interface components {
              * @default []
              */
             stages: components["schemas"]["StageOut"][];
+            /** Status */
+            status: string;
         };
         /** RoadmapUpdate */
         RoadmapUpdate: {
@@ -315,6 +333,15 @@ export interface components {
             title: string;
             /** Position */
             position: number;
+            /** Description */
+            description?: string | null;
+            /**
+             * Topics
+             * @default []
+             */
+            topics: string[];
+            /** Duration Weeks */
+            duration_weeks: number;
         };
         /** StreakOut */
         StreakOut: {
@@ -653,12 +680,12 @@ export interface operations {
             };
         };
     };
-    get_roadmap_roadmaps__roadmap_id__get: {
+    get_roadmap_roadmaps__slug__get: {
         parameters: {
             query?: never;
             header?: never;
             path: {
-                roadmap_id: number;
+                slug: string;
             };
             cookie?: never;
         };

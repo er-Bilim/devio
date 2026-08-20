@@ -1,11 +1,14 @@
+import { Header } from '@/widgets/header';
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <main>
-      {children}
-    </main>
+    <>
+      <Header />
+      <main>{children}</main>
+    </>
   );
 }

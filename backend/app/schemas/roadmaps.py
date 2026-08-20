@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
+from app.enums import StatusEnum
+
 
 class StageCreate(BaseModel):
     title: str
@@ -13,6 +15,9 @@ class StageOut(BaseModel):
     id: int
     title: str
     position: int
+    description: str | None = None
+    topics: list[str] = []
+    duration_weeks: int
 
 
 class Roadmap(BaseModel):
@@ -29,6 +34,7 @@ class RoadmapOut(BaseModel):
     title: str
     description: str | None
     stages: list[StageOut] = []
+    status: StatusEnum
 
 
 class RoadmapCreate(BaseModel):

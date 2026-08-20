@@ -60,6 +60,20 @@
   --color-signal-deep: var(--signal-deep);
   --color-mint: var(--mint);
   --color-amber: var(--amber);
+  --color-alarm: var(--alarm);
+  --color-azure: var(--azure);
+
+  --animate-drift: drift var(--dur, 9s) ease-in-out var(--delay, 0s) infinite
+    alternate;
+
+  @keyframes drift {
+    from {
+      transform: translate(-2px, -13px) rotate(-0.8deg);
+    }
+    to {
+      transform: translate(9px, 13px) rotate(0.8deg);
+    }
+  }
 
   --animate-station-pulse: station-pulse 2.4s ease-out infinite;
   @keyframes station-pulse {
@@ -85,6 +99,8 @@
   --signal-deep: #2e7fe0;
   --mint: #3ecf8e;
   --amber: #f5a623;
+  --alarm: #f06a6a;
+  --azure: #6ab4ff;
   /*CUSTOM*/
 
   --background: oklch(1 0 0);
@@ -183,4 +199,106 @@
   margin: 0 auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+
+.thread-base {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 2;
+  opacity: 0.5;
+}
+.thread {
+  fill: none;
+  stroke: var(--thread-color, var(--mist-soft));
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+.flow {
+  stroke-dasharray: 7 15;
+  animation: flow 2.8s linear infinite;
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -88;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--night);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 5px;
+  border: 2px solid var(--night);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mist-soft);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--mint) var(--night);
+}
+
+[data-active] .stop {
+  border-color: var(--accent);
+  color: var(--mist);
+  box-shadow: 0 12px 30px -14px var(--accent);
+  scale: 1.06;
+}
+
+[data-active] .flow {
+  animation-duration: 1.3s;
+}
+[data-active] .thread {
+  stroke-width: 3.2;
+  opacity: 1;
+}
+
+[data-active] .hub {
+  opacity: 1;
+}
+
+.stop {
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s,
+    scale 0.3s,
+    color 0.3s;
+}
+.thread {
+  transition:
+    stroke-width 0.3s,
+    opacity 0.3s;
+}
+.hub {
+  transition: opacity 0.3s;
+}
+
+.spine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--accent) 0 9px,
+    transparent 9px 26px
+  );
+  animation: flowY 3.2s linear infinite;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+@keyframes flowY {
+  to {
+    background-position: 0 104px;
+  }
 }

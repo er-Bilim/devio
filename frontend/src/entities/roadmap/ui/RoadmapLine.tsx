@@ -44,7 +44,7 @@ export function RoadmapLine({ stations }: NightMapProps) {
       />
 
       {stations.map((s, i) => (
-        <g key={s.title}>
+        <g key={s.title + (i * i + 1)}>
           <circle
             cx={16 + GAP * i}
             cy="28"

@@ -10,16 +10,70 @@ INSERT INTO users (id, email, password_hash, role) VALUES (
   'user'
 );
 
-INSERT INTO roadmaps (slug, title, description) VALUES
-  ('frontend', 'Frontend', 'От HTML до продакшен-React: вёрстка, JavaScript, TypeScript, фреймворки и первый деплой.'),
-  ('backend',  'Backend',  'Python, FastAPI, базы данных и API: от первого эндпоинта до сервера с реальными пользователями.');
+INSERT INTO roadmaps (id, slug, title, description, status) VALUES
+  (1, 'frontend', 'Frontend', 'От HTML до продакшен-React: вёрстка, JavaScript, TypeScript, фреймворки и первый деплой.', 'active'),
+  (2, 'backend',  'Backend',  'Python, FastAPI, базы данных и API: от первого эндпоинта до сервера с реальными пользователями.', 'active'),
+  (3, 'devops',   'DevOps',   'Инфраструктура, CI/CD, контейнеризация и оркестрация приложений.', 'draft'),
+  (4, 'mobile',   'Mobile',   'Кроссплатформенная и нативная разработка мобильных приложений.', 'draft');
 
-INSERT INTO stages (roadmap_id, title, position) VALUES
-  (1, 'HTML', 1), (1, 'CSS', 2), (1, 'JavaScript', 3),
-  (1, 'TypeScript', 4), (1, 'React', 5), (1, 'Next.js', 6),
-  (2, 'Python', 1), (2, 'Linux & Terminal', 2), (2, 'Git', 3),
-  (2, 'SQL', 4), (2, 'FastAPI', 5), (2, 'PostgreSQL', 6),
-  (2, 'Docker', 7), (2, 'Deploy', 8);
+INSERT INTO stages (id, roadmap_id, title, description, topics, duration_weeks, position) VALUES
+  -- Frontend Roadmap
+  (1, 1, 'HTML', 
+   'Скелет любой страницы: теги, семантика, формы, доступность. Фундамент, на котором стоит всё остальное.', 
+   '["Базовые теги и семантика", "Формы и валидация", "Доступность (a11y)", "SEO-теги и Open Graph"]'::jsonb, 1, 1),
+
+  (2, 1, 'CSS', 
+   'Стилизация и адаптивность: Flexbox, Grid, медиазапросы, CSS-переменные и анимации для создания современных интерфейсов.', 
+   '["Селекторы и каскад", "Flexbox & CSS Grid", "Адаптивная вёрстка & Media Queries", "CSS-переменные и анимации"]'::jsonb, 2, 2),
+
+  (3, 1, 'JavaScript', 
+   'Язык интерактивности: синтаксис, DOM, асинхронность (Promises, async/await), Event Loop и работа с API.', 
+   '["Основы языка и ES6+", "Работа с DOM и событиями", "Асинхронность (Fetch, Promises, async/await)", "Event Loop и замыкания"]'::jsonb, 3, 3),
+
+  (4, 1, 'TypeScript', 
+   'Статическая типизация поверх JS: интерфейсы, дженерики, типы. Защита от ошибок на этапе разработки.', 
+   '["Базовые типы и интерфейсы", "Generics & Utility Types", "Типизация API и внешних библиотек", "Конфигурация tsconfig"]'::jsonb, 2, 4),
+
+  (5, 1, 'React', 
+   'Компонентный подход: JSX, хуки (useState, useEffect), управление состоянием, жизненный цикл и экосистема.', 
+   '["JSX и компоненты", "Основные хуки (useState, useEffect, useRef)", "Управление состоянием (Zustand/Redux)", "React Router & Формы"]'::jsonb, 3, 5),
+
+  (6, 1, 'Next.js', 
+   'Fullstack React-фреймворк: SSR, SSG, файловый роутинг, оптимизация производительности и SEO из коробки.', 
+   '["App Router и серверные компоненты (RSC)", "Data Fetching (SSR, SSG, ISR)", "Server Actions и API Routes", "Оптимизация изображений и SEO"]'::jsonb, 2, 6),
+
+  -- Backend Roadmap
+  (7, 2, 'Python', 
+   'Базовый язык бэкенда: переменные, структуры данных, ООП, декораторы, генераторы и работа с пакетами.', 
+   '["Синтаксис и встроенные структуры данных", "ООП и магические методы", "Декораторы и генераторы", "Управление окружением (uv/poetry)"]'::jsonb, 2, 1),
+
+  (8, 2, 'Linux & Terminal', 
+   'Уверенная работа с командной строкой: права доступа, управление процессами, SSH и bash-скрипты.', 
+   '["Базовые команды и навигация", "Права доступа и пользователи", "Управление процессами и фоновые задачи", "SSH и основы Bash-скриптов"]'::jsonb, 1, 2),
+
+  (9, 2, 'Git', 
+   'Контроль версий: ветвление, коммиты, слияния, разрешение конфликтов и командная работа через GitHub/GitLab.', 
+   '["Коммиты и история (log, diff)", "Ветвление и слияние (merge, rebase)", "Разрешение конфликтов", "Командный workflow (PR / Code Review)"]'::jsonb, 1, 3),
+
+  (10, 2, 'SQL', 
+   'Язык запросов к данным: выборки, фильтрация, JOIN-ы, агрегатные функции, индексы и транзакции.', 
+   '["Основы SELECT, INSERT, UPDATE, DELETE", "Связи и JOIN-ы (INNER, LEFT, RIGHT)", "Агрегатные функции и GROUP BY", "Индексы и транзакции (ACID)"]'::jsonb, 2, 4),
+
+  (11, 2, 'FastAPI', 
+   'Современный веб-фреймворк: асинхронные эндпоинты, валидация через Pydantic, автоматическая Swagger-документация.', 
+   '["Маршрутизация и Request/Response", "Валидация данных с Pydantic", "Dependency Injection (Зависимости)", "Обработка ошибок и Middleware"]'::jsonb, 2, 5),
+
+  (12, 2, 'PostgreSQL', 
+   'Реляционная БД: проектирование схем, внешние ключи, ORM (SQLAlchemy / SQLModel), миграции и оптимизация.', 
+   '["Проектирование схем и нормализация", "SQLAlchemy / Async ORM", "Миграции базы данных (Alembic)", "Сложные запросы и оптимизация"]'::jsonb, 2, 6),
+
+  (13, 2, 'Docker', 
+   'Контейнеризация: написание Dockerfile, изолированные окружения, мульти-контейнерные сборки с Docker Compose.', 
+   '["Основы контейнеров и образов", "Написание оптимального Dockerfile", "Docker Compose для мультисервисов", "Volumes и сети в Docker"]'::jsonb, 2, 7),
+
+  (14, 2, 'Deploy', 
+   'Вывод приложения в продакшен: настройка Nginx/Caddy, CI/CD пайплайны, системные службы и мониторинг.', 
+   '["Аренда VPS и первоначальная настройка", "Reverse Proxy (Nginx / Caddy) + SSL", "Systemd и фоновые процессы", "Базовый CI/CD (GitHub Actions)"]'::jsonb, 2, 8);
 
 -- Прогресс: HTML/CSS/JS пройдены, стрик 3 дня (сегодня/вчера/позавчера)
 INSERT INTO stage_progress (user_id, stage_id, completed_at) VALUES
