@@ -1,5 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 
+from app.enums import StatusEnum
+
 
 class StageCreate(BaseModel):
     title: str
@@ -32,6 +34,7 @@ class RoadmapOut(BaseModel):
     title: str
     description: str | None
     stages: list[StageOut] = []
+    status: StatusEnum
 
 
 class RoadmapCreate(BaseModel):

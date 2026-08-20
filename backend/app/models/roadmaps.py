@@ -1,6 +1,8 @@
-from sqlalchemy import ForeignKey, text
+from sqlalchemy import Enum, ForeignKey, text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from app.enums import StatusEnum
 
 from .base import Base
 
@@ -12,9 +14,18 @@ class Roadmap(Base):
     slug: Mapped[str] = mapped_column(unique=True, index=True)
     title: Mapped[str]
     description: Mapped[str | None]
-
     stages: Mapped[list["Stage"]] = relationship(
         back_populates="roadmap", order_by="Stage.position"
+    )
+    status: Mapped[StatusEnum] = mapped_column(
+        Enum(
+            StatusEnum,
+            native_enum=False,
+            values_callable=lambda x: [e.value for e in x],
+        ),
+        default=StatusEnum.DRAFT,
+        server_default=text("'draft'"),
+        nullable=False,
     )
 
 
