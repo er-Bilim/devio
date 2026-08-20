@@ -19,11 +19,11 @@ export function RoadmapRoute({ roadmap }: RoadmapRouteProps) {
 
       <div className="relative">
         <div
-          className="spine absolute left-1/2 -top-2.5 -bottom-2.5 w-0.75 -translate-x-1/2 bg-line opacity-[0.6] rounded-lg"
+          className="spine absolute left-2.5 lg:left-1/2 -top-2.5 -bottom-2.5 w-0.75 -translate-x-1/2 bg-line opacity-[0.6] rounded-lg"
           aria-hidden="true"
         />
 
-        <ol className="flex flex-col gap-11.5">
+        <ol className="flex flex-col gap-5.5 lg:gap-11.5">
           {roadmap.stages.map((stage) => (
             <StationCard key={stage.id} stage={stage} roadmap={roadmap} />
           ))}

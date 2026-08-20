@@ -7,6 +7,7 @@ import {
 } from '@hugeicons/core-free-icons';
 import type { Roadmap } from '../model/types';
 import { configHubRoadmap } from '@/widgets/directions-map';
+import { padNumber, pluralize } from '@/shared/lib/format';
 
 interface RoadmapHubCardProps {
   roadmap: Roadmap;
@@ -18,7 +19,7 @@ export function RoadmapHubCard({ roadmap }: RoadmapHubCardProps) {
       <div key={roadmap.id}>
         <Link
           href={`/roadmaps/${roadmap.slug}`}
-          className="absolute -translate-x-1/2 -translate-y-1/2 z-10 animate-drift"
+          className="static lg:absolute -translate-x-1/2 -translate-y-1/2 z-10 animate-drift"
           style={
             {
               left: `${configHubRoadmap[roadmap.slug]?.hub.x}%`,
@@ -30,7 +31,7 @@ export function RoadmapHubCard({ roadmap }: RoadmapHubCardProps) {
           }
         >
           <div
-            className={`w-[min(372px,33vw)] pt-6.5 px-7 pb-5.5 rounded-xl border border-line backdrop-blur-[7px] shadow-[0_30px_70px_-32px_var(--accent)] duration-300
+            className={`w-full lg:w-[min(372px,33vw)] pt-6.5 px-7 pb-5.5 rounded-xl border border-line backdrop-blur-[7px] shadow-[0_30px_70px_-32px_var(--accent)] duration-300
                 transform
                 hover:border-accent hover:scale-[1.04] hover:shadow-[0_36px_84px_-26px_var(--accent)]`}
             style={
@@ -39,6 +40,19 @@ export function RoadmapHubCard({ roadmap }: RoadmapHubCardProps) {
               } as React.CSSProperties
             }
           >
+            <div className="lg:hidden flex flex-wrap gap-3 pb-7">
+              {roadmap.stages.map((stage) => (
+                <div
+                  key={stage.id}
+                  className="inline-flex gap-1 items-center text-[11.5px] border border-accent border-dashed px-2 py-1 rounded-xl"
+                >
+                  <span className="text-accent text-[10px]">
+                    {padNumber(stage.position)}
+                  </span>
+                  <span className="text-mist">{stage.title}</span>
+                </div>
+              ))}
+            </div>
             <div className="flex items-center gap-3.75 m-3.5">
               <p className="w-12.5 h-12.5 rounded-full grid place-items-center shrink-0 border-3 border-accent text-accent bg-night font-display font-bold text-[19px] shadow-[0_0_26px_-4px_var(--accent)] uppercase">
                 {roadmap.slug.charAt(0)}
@@ -48,7 +62,17 @@ export function RoadmapHubCard({ roadmap }: RoadmapHubCardProps) {
                   {roadmap.title}
                 </h2>
                 <div className="flex items-center gap-3 font-mono text-[12px] text-mist-soft mt-1">
-                  <span>{roadmap.stages.length} станций</span>
+                  <p className="flex items-center gap-1">
+                    {roadmap.stages.length}
+                    <span>
+                      {pluralize(
+                        roadmap.stages.length,
+                        'станция',
+                        'станции',
+                        'станций',
+                      )}
+                    </span>
+                  </p>
                   <HugeiconsIcon
                     icon={CircleIcon}
                     strokeWidth={7}
@@ -61,7 +85,7 @@ export function RoadmapHubCard({ roadmap }: RoadmapHubCardProps) {
             <p className="text-mist-soft text-[14.5px] mb-4">
               {roadmap.description}
             </p>
-            <div className="flex items-center justify-between pt-3.5 border-t border-t-line">
+            <div className="flex items-center flex-row justify-between pt-3.5 border-t border-t-line ">
               <div className="inline-flex items-center gap-1 font-mono text-[12px] text-amber">
                 <HugeiconsIcon
                   icon={TradeUpIcon}
@@ -74,8 +98,8 @@ export function RoadmapHubCard({ roadmap }: RoadmapHubCardProps) {
                 Открыть линию
                 <HugeiconsIcon
                   icon={ArrowRight02Icon}
-                  strokeWidth={1.5}
-                  className="size-5 text-accent"
+                  strokeWidth={2}
+                  className="size-4 text-accent"
                 />
               </div>
             </div>

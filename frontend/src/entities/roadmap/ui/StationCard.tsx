@@ -14,7 +14,7 @@ export function StationCard({ roadmap, stage }: StationCardProps) {
 
   return (
     <li
-      className={cn('relative flex', isEven && 'justify-end')}
+      className={cn('relative flex justify-start pl-9.5 lg:pl-0', isEven && 'lg:justify-end')}
       style={
         {
           '--accent': 'var(--mint)',
@@ -22,19 +22,19 @@ export function StationCard({ roadmap, stage }: StationCardProps) {
       }
     >
       <div
-        className="absolute left-1/2 top-6.5 w-4.75 h-4.75 rounded-full -translate-x-1/2 bg-night border-3 border-accent z-20"
+        className="absolute left-2.5 lg:left-1/2 top-6.5 w-4.75 h-4.75 rounded-full -translate-x-1/2 bg-night border-3 border-accent z-20"
         aria-hidden="true"
       />
       <div
         className={cn(
-          'absolute top-8.25 h-[2.5px] w-15 z-10 bg-[repeating-linear-gradient(90deg,var(--accent)_0_6px,transparent_6px_15px)] opacity-85 right-1/2',
-          isEven && 'left-1/2 ml-2',
+          'left-3.5 right-auto m-0 w-5.5 absolute top-8.25 h-[2.5px] lg:w-15 z-10 bg-[repeating-linear-gradient(90deg,var(--accent)_0_6px,transparent_6px_15px)] opacity-85 lg:right-1/2 lg:left-auto',
+          isEven && 'lg:left-1/2 lg:ml-2',
         )}
         aria-hidden="true"
       />
-      <article className="w-[calc(50%-66px)] bg-[linear-gradient(160deg,rgba(19,28,50,.95)_0%,rgba(11,16,32,.95)_100%)] border border-line rounded-xl py-5 px-6 relative duration-300 hover:border-accent hover:-translate-y-0.75 hover:shadow-[0_20px_44px_-28px_var(--accent)]">
+      <article className="w-full lg:w-[calc(50%-66px)] bg-[linear-gradient(160deg,rgba(19,28,50,.95)_0%,rgba(11,16,32,.95)_100%)] border border-line rounded-xl py-5 px-6 relative duration-300 hover:border-accent hover:-translate-y-0.75 hover:shadow-[0_20px_44px_-28px_var(--accent)]">
         <Link href={`/roadmaps/${roadmap.slug}/station/${stage.title}`}>
-          <div className="flex items-baseline justify-between gap-3 mb-1.5">
+          <div className="flex items-baseline justify-between  gap-3 mb-1.5">
             <h3 className="font-display font-medium text-[17px] text-mist">
               <span className="text-accent font-mono text-[11.5px] mr-2.5">
                 {padNumber(stage.position)}

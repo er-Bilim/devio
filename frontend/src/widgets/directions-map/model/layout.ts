@@ -18,12 +18,12 @@ export type HubConfig = {
 
 export const configHubRoadmap: Record<string, HubConfig> = {
   frontend: {
-    hub: { x: 70, y: 25, color: `var(--mint)` },
+    hub: { x: 65, y: 25, color: `var(--mint)` },
     stops: [
-      { x: 44.5, y: 8, dur: 7.4, delay: -2 },
+      { x: 40, y: 8, dur: 7.4, delay: -2 },
       { x: 38.5, y: 28, dur: 8.2, delay: -4 },
       { x: 93, y: 24.4, dur: 6.8, delay: -1 },
-      { x: 100, y: 42.2, dur: 7.9, delay: -3 },
+      { x: 90, y: 42.2, dur: 7.9, delay: -3 },
       { x: 69, y: 56, dur: 8.6, delay: -5 },
       { x: 82, y: 59.5, dur: 7.1, delay: 2.5 },
     ],

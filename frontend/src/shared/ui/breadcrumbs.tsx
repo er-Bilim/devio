@@ -20,7 +20,7 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
-    <Breadcrumb>
+    <Breadcrumb className="py-5">
       <BreadcrumbList>
         {items.map((item, index) => {
           const isLast = index === items.length - 1;

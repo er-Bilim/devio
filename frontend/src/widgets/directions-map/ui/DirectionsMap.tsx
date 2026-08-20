@@ -38,7 +38,11 @@ export function DirectionsMap({ roadmaps }: RoadmapsProps) {
         >
           <RoadmapHubCard roadmap={roadmap} />
           {stages.map((stage, index) => (
-            <div key={stage.id} data-active={isActive || undefined}>
+            <div
+              key={stage.id}
+              data-active={isActive || undefined}
+              className="hidden lg:block"
+            >
               <StationChip
                 key={stage.id}
                 roadmap={roadmap}
@@ -52,7 +56,7 @@ export function DirectionsMap({ roadmaps }: RoadmapsProps) {
       ))}
 
       <svg
-        className="absolute inset-0 h-full w-full"
+        className="hidden lg:block absolute inset-0 h-full w-full"
         viewBox="0 0 1160 770"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
