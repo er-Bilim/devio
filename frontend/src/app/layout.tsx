@@ -1,10 +1,11 @@
 import './globals.css';
-import { cn } from '@/shared/lib/utils';
+
 import { Unbounded, Onest, JetBrains_Mono } from 'next/font/google';
 import { Providers } from './providers';
 import { AuthHydrator } from '@/entities/user/ui/AuthHydrator';
 import { getMe } from '@/entities/user/api/server';
 import type { Metadata } from 'next';
+import { cn } from '@/shared/lib/utils';
 
 const unbounded = Unbounded({
   subsets: ['cyrillic', 'latin'],
