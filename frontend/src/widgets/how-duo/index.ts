@@ -1,0 +1,1 @@
+export { HowDuo } from './ui/HowDuo';

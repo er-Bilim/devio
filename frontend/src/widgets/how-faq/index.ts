@@ -1,0 +1,1 @@
+export { HowFaq } from './ui/HowFaq';
