@@ -222,3 +222,4 @@ thumb
 sketch
 
 .zed/
+frontend/src/app/**/dev-preview/
