@@ -6,6 +6,7 @@ import { StripSection } from '@/src/widgets/strip-section';
 export default function Home() {
   return (
     <>
+      <div className="aura" />
       <HeroSection />
       <StripSection />
       <DirectionsSection />

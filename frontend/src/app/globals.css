@@ -365,3 +365,23 @@
   font-size: 13.5px;
   color: var(--mist-soft);
 }
+
+.aura {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  background-image:
+    radial-gradient(
+      700px 440px at 70% 28%,
+      rgba(62, 207, 142, 0.11) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      640px 420px at 26% 74%,
+      rgba(77, 163, 255, 0.11) 0%,
+      transparent 60%
+    );
+}

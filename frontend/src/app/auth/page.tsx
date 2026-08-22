@@ -3,7 +3,12 @@ import { AuthPanel } from '@/src/widgets/auth-panel';
 export const metadata = { title: 'Авторизация' };
 
 const Auth = () => {
-  return <AuthPanel />;
+  return (
+    <>
+      <div className="aura" />
+      <AuthPanel />
+    </>
+  );
 };
 
 export default Auth;
