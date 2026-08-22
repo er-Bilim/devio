@@ -55,7 +55,7 @@ export function HowPeek({ roadmap }: HowPeekProps) {
         <p className="sec-sub mb-6">
           так выглядит одна остановка на линии Frontend
         </p>
-        <div className="grid grid-cols-2 gap-6.5 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6.5 items-center">
           <div className="bg-[linear-gradient(165deg,rgba(19,28,50,.95),rgba(12,18,34,.95))] border border-line rounded-xl py-5 px-5.5 shadow-[0_26px_56px_-34px_rgba(0,0,0,.9)]">
             <div className="flex items-baseline justify-between gap-2.5 mb-1.75">
               <h4 className="font-display font-medium text-[16px] text-mist">

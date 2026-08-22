@@ -25,7 +25,7 @@ export function HowDuo() {
           две вещи, которые держат в пути, когда мотивация кончилась
         </p>
 
-        <div className="grid grid-cols-2 gap-8.5">
+        <div className="grid lg:grid-cols-2 gap-8.5">
           <div>
             <h3 className="font-display font-semibold text-[16px] mb-2 flex items-center gap-2.25 text-mist">
               <HugeiconsIcon
