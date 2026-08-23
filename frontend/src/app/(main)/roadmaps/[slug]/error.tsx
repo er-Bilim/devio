@@ -1,9 +1,9 @@
 'use client';
 
-import { MetroScene } from '@/shared/ui/metro-scene';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { MapingIcon, Refresh01Icon } from '@hugeicons/core-free-icons';
+import { Refresh01Icon } from '@hugeicons/core-free-icons';
 import Link from 'next/link';
+import { MetroScene } from '@/shared/ui/metro-scene';
 import { Button } from '@/shared/ui/button';
 
 interface ErrorProps {
@@ -12,15 +12,14 @@ interface ErrorProps {
 }
 
 export default function Error({ error, reset }: ErrorProps) {
-
   console.error(error);
-  
+
   return (
     <section className="wrap flex items-center justify-center">
       <div className="max-w-140 w-full mx-auto text-center absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <MetroScene variant="broken" />
         <p className="font-mono text-[12.5px] tracking-[.14em] text-alarm uppercase mb-7">
-          // Сбой на линии
+          {'// Сбой на линии'}
         </p>
         <h1 className="font-display font-semibold text-[clamp(24px,3vw,32px)]  mb-5 text-mist ">
           Движение временно приостановлено

@@ -8,15 +8,15 @@ import { AuthFormTitle } from './AuthFormTitle';
 import { BrandAside } from './BrandAside';
 
 export function AuthPanel() {
-  const [activeTab, setActiveTab] = useState<
-    'signin' | 'signup' | string | null
-  >(null);
+  const [activeTab, setActiveTab] = useState<'signin' | 'signup' | null>(null);
 
   const tabsTriggerStyle: string =
     'flex-1 text-center py-5 font-semibold text-[14px] text-mist-soft border-transparent bg-transparent font-body data-[state=active]:bg-panel data-[state=active]:text-mist data-[state=active]:inset-ring-1 data-[state=active]:inset-ring-line [&:hover:not([data-state=active])]:text-mist';
 
   const handleTabChange = (value: string) => {
-    setActiveTab(value);
+    if (value === 'signin' || value === 'signup') {
+      setActiveTab(value);
+    }
   };
 
   return (

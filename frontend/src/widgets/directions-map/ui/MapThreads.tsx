@@ -1,10 +1,11 @@
 import type { Roadmap } from '@/entities/roadmap';
 import { buildThread } from '../model/buildThread';
-import { configHubRoadmap } from '../model/layout';
+import type { HubConfig } from '../model/layout';
+
 
 export interface MapThreadsProps {
   roadmap: Roadmap;
-  config: (typeof configHubRoadmap)[Roadmap['slug']];
+  config: HubConfig;
   position: number;
 }
 

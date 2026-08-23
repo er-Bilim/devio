@@ -33,7 +33,7 @@ const eslintConfig = defineConfig([
       '@typescript-eslint/no-floating-promises': 'error', // забытый await
       '@typescript-eslint/no-misused-promises': [
         'error',
-        { checkVoidReturn: { attributes: false } },
+        { checksVoidReturn: { attributes: false } },
       ], // async в onClick без обработки
     },
   },

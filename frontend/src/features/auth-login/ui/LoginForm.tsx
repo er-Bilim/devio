@@ -4,17 +4,13 @@ import { Input } from '@/src/shared/ui/input';
 import { HugeiconsIcon } from '@hugeicons/react';
 import {
   MailAtSign01Icon,
-  SquareLockPasswordIcon,
-  LookBottomIcon,
   ArrowRight02Icon,
   AlertCircleIcon,
-  LookRightIcon,
 } from '@hugeicons/core-free-icons';
 import { useAuth } from '@/src/entities/user';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schemaLogin } from '../model/schema';
 import { useForm } from 'react-hook-form';
-import { useState } from 'react';
 import { isAxiosError } from 'axios';
 import { PasswordInput } from '@/src/shared/ui/password-input';
 import { Spinner } from '@/shared/ui/spinner';

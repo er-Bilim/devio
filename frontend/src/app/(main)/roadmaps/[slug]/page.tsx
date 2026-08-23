@@ -24,6 +24,7 @@ export default async function Roadmap({ params }: RoadmapProps) {
 
   return (
     <div className="wrap pb-20">
+      <div className="aura" />
       <RoadmapHeader roadmap={roadmap} />
       <RoadmapRoute roadmap={roadmap} />
     </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuth, type UserPublic } from '@/entities/user';
+import { useAuth } from '@/entities/user';
 import { Skeleton } from '@/shared/ui/skeleton';
 import Link from 'next/link';
 

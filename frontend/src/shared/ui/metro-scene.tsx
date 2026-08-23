@@ -1,6 +1,3 @@
-import { HugeiconsIcon } from '@hugeicons/react';
-import { Alert02Icon } from '@hugeicons/core-free-icons';
-
 interface MetroSceneProps {
   variant: 'broken' | 'empty';
 }

@@ -18,7 +18,7 @@ export default function Loading() {
             >
               <Skeleton className="w-full lg:w-[min(372px,33vw)] h-70 lg:h-60 rounded-xl border border-line bg-panel/60 animate-pulse p-10">
                 <div className="lg:hidden flex flex-row gap-3 mb-5">
-                  {[...Array(5)].map((_, i) => (
+                  {Array.from({ length: 5 }, (_, i) => (
                     <Skeleton
                       key={i}
                       className="w-20 h-7 animate-pulse bg-line"
@@ -46,7 +46,7 @@ export default function Loading() {
           <DirectionDepotHead />
         </div>
         <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4 mb-10">
-          {[...Array(2)].map((_, i) => (
+          {Array.from({ length: 5 }, (_, i) => (
             <Skeleton
               key={i}
               className="relative w-full h-35 rounded-xl border border-line bg-panel/30 animate-pulse p-7"

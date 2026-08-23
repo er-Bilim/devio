@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { type Station, RoadmapLine } from '@/entities/roadmap/index';
 
 interface BrandAsideProps {
-  variant: string | 'signin' | 'signup';
+  variant: 'signin' | 'signup';
 }
 
 export function BrandAside({ variant }: BrandAsideProps) {

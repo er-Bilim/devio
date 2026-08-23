@@ -1,5 +1,5 @@
 import 'server-only';
-import { cookies, headers } from 'next/headers';
+import { cookies } from 'next/headers';
 
 const BASE_URL = process.env.API_URL_INTERNAL ?? 'http://localhost:8000';
 
