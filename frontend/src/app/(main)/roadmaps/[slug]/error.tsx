@@ -19,7 +19,7 @@ export default function Error({ error, reset }: ErrorProps) {
       <div className="max-w-140 w-full mx-auto text-center absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
         <MetroScene variant="broken" />
         <p className="font-mono text-[12.5px] tracking-[.14em] text-alarm uppercase mb-7">
-          // Сбой на линии
+          {'// Сбой на линии'}
         </p>
         <h1 className="font-display font-semibold text-[clamp(24px,3vw,32px)]  mb-5 text-mist ">
           Движение временно приостановлено

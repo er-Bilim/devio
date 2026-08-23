@@ -15,7 +15,7 @@ export default function Error({ reset }: ErrorProps) {
       <div className="max-w-140 w-full mx-auto text-center">
         <MetroScene variant="broken" />
         <p className="font-mono text-[12.5px] tracking-[.14em] text-alarm uppercase mb-10">
-          // сбой на линии
+          {'// сбой на линии'}
         </p>
         <h1 className="font-display font-semibold text-[clamp(24px,3vw,32px)] leading-1.25 mb-10 text-mist">
           Поезд дальше не идёт
