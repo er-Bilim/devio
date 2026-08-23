@@ -8,12 +8,12 @@ export function RoadmapRouteSkeleton() {
 
       <div className="relative">
         <ol className="flex flex-col gap-11.5">
-          {[...Array(5)].map((_, index) => {
-            const isEven = index % 2 === 0;
+          {Array.from({ length: 5 }, (_, i) => {
+            const isEven = i % 2 === 0;
 
             return (
               <li
-                key={index}
+                key={i}
                 className={cn(
                   'relative flex justify-start',
                   isEven && 'lg:justify-end',
@@ -35,6 +35,6 @@ export function RoadmapRouteSkeleton() {
         <Skeleton className="w-2/3 h-5 bg-panel" />
         <Skeleton className="w-50 h-10 bg-panel mt-5" />
       </Skeleton>
-    </section>
+    </section> 
   );
 }

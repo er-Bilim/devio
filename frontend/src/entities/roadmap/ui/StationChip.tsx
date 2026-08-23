@@ -1,11 +1,11 @@
 import { padNumber } from '@/shared/lib/format';
 import type { Roadmap, Stage } from '../model/types';
-import { configHubRoadmap } from '@/widgets/directions-map';
+import type { HubConfig } from '@/widgets/directions-map';
 
 interface StationChipProps {
   roadmap: Roadmap;
   stage: Stage;
-  config: (typeof configHubRoadmap)[Roadmap['slug']];
+  config: HubConfig;
   position: number;
 }
 

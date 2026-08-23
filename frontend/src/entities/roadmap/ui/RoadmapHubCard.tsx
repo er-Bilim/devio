@@ -34,11 +34,9 @@ export function RoadmapHubCard({ roadmap }: RoadmapHubCardProps) {
             className={`w-full lg:w-[min(372px,33vw)] pt-6.5 px-7 pb-5.5 rounded-xl border border-line backdrop-blur-[7px] shadow-[0_30px_70px_-32px_var(--accent)] duration-300
                 transform
                 hover:border-accent hover:scale-[1.04] hover:shadow-[0_36px_84px_-26px_var(--accent)]`}
-            style={
-              {
-                backgroundImage: `linear-gradient(158deg, rgba(19,28,50,.96) 0%, rgba(11,16,32,.96) 100%)`,
-              } as React.CSSProperties
-            }
+            style={{
+              backgroundImage: `linear-gradient(158deg, rgba(19,28,50,.96) 0%, rgba(11,16,32,.96) 100%)`,
+            }}
           >
             <div className="lg:hidden flex flex-wrap gap-3 pb-7">
               {roadmap.stages.map((stage) => (

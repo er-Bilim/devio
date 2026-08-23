@@ -8,7 +8,7 @@ export function HowStepsSkeleton() {
         <Skeleton className="w-1/3 h-5 bg-panel/30 border border-line mb-6" />
 
         <div className="pl-10.5 mt-2">
-          {[...Array(3)].map((_, i) => (
+          {Array.from({ length: 3 }, (_, i) => (
             <div key={i} className="pb-10.5 mt-2">
               <Skeleton className="w-25 h-4.25 bg-panel/30 border border-line" />
               <Skeleton className="mt-1.25 mb-2 w-45 h-7 bg-panel/30 border border-line" />

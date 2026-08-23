@@ -3,7 +3,6 @@ import { NavLinks, type Link as LinkType } from './NavLinks';
 import Link from 'next/link';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { DotIcon } from '@hugeicons/core-free-icons';
-import { useAuth } from '@/entities/user';
 import { UserMenu } from './UserMenu';
 
 export function Header() {

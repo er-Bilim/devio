@@ -11,8 +11,11 @@ export function DirectionsSectionSkeleton() {
         </div>
 
         <div className="grid gap-5 grid-cols-1 md:grid-cols-2">
-          {[...Array(2)].map((_, i) => (
-            <Skeleton key={i} className="h-55 w-full bg-panel/30 animate-pulse border border-line" />
+          {Array.from({ length: 2 }, (_, i) => (
+            <Skeleton
+              key={i}
+              className="h-55 w-full bg-panel/30 animate-pulse border border-line"
+            />
           ))}
         </div>
       </div>

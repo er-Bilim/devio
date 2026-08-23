@@ -8,7 +8,7 @@ export function HowFaqSkeleton() {
 
       <div className="border border-line rounded-xl">
         <div className="w-full">
-          {[...Array(5)].map((_, i) => (
+          {Array.from({ length: 5 }, (_, i) => (
             <div key={i} className="py-4 px-10">
               <Skeleton className="h-7 bg-panel/30 border border-line px-15" />
             </div>

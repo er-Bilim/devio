@@ -1,5 +1,5 @@
 interface AuthFormTitleProps {
-  variant: string | 'signin' | 'signup';
+  variant: 'signin' | 'signup';
 }
 
 export function AuthFormTitle({ variant }: AuthFormTitleProps) {

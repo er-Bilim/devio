@@ -1,4 +1,4 @@
-import { RoadmapCard, type Roadmap } from '@/entities/roadmap/';
+import { RoadmapCard } from '@/entities/roadmap/';
 import { getRoadmaps } from '@/entities/roadmap/api/server';
 
 export async function DirectionsSection() {

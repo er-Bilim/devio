@@ -9,7 +9,7 @@ export function HowSectionSkeleton() {
           <Skeleton className="h-11 w-[75%] bg-panel/30 animate-pulse border border-line" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          {[...Array(3)].map((_, i) => (
+          {Array.from({ length: 3 }, (_, i) => (
             <Skeleton
               key={i}
               className="h-53.5 w-full bg-panel/30 animate-pulse border border-line"

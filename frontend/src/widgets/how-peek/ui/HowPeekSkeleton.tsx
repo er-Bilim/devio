@@ -16,14 +16,14 @@ export function HowPeekSkeleton() {
             <Skeleton className="w-full h-12 bg-panel" />
 
             <div className="flex gap-1.75 flex-wrap mt-3">
-              {[...Array(5)].map((_, index) => (
+              {Array.from({ length: 5 }, (_, index) => (
                 <Skeleton key={index} className="w-20 h-6 bg-panel" />
               ))}
             </div>
           </Skeleton>
 
           <div className="flex flex-col gap-3.75">
-            {[...Array(4)].map((_, index) => (
+            {Array.from({ length: 4 }, (_, index) => (
               <Skeleton
                 key={index}
                 className="w-full h-5 bg-panel/30 border border-line"

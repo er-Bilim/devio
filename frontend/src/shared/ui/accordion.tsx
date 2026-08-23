@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { ChevronDownIcon } from 'lucide-react';
 import { Accordion as AccordionPrimitive } from 'radix-ui';
-import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
 
 import { cn } from '@/shared/lib/utils';
 

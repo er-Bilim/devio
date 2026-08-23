@@ -5,7 +5,7 @@ export function RoadmapHeaderSkeleton() {
     <>
       <div className="flex justify-center">
         <div className="w-full flex flex-row items-center justify-center py-10 gap-3">
-          {[...Array(3)].map((_, i) => (
+          {[...(Array(3) as number[])].map((_, i) => (
             <Skeleton
               key={i}
               className="w-13 h-4.5 bg-panel/30 border border-line"
@@ -23,7 +23,7 @@ export function RoadmapHeaderSkeleton() {
                 <Skeleton className="w-25 h-6 bg-panel/30 border border-line" />
               </div>
               <div className="flex flex-col mt-5 lg:mt-8 lg:flex-row gap-3 lg:items-center">
-                {[...Array(3)].map((_, i) => (
+                {Array.from({ length: 3 }, (_, i) => (
                   <Skeleton
                     key={i}
                     className="w-30 lg:w-17 h-3 bg-panel/30 border border-line"
