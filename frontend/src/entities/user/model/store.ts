@@ -6,20 +6,23 @@ type User = components['schemas']['UserPublic'];
 
 type AuthState = {
   user: User | null;
-  status: 'loading' | 'authed' | 'guest';
+  status: 'idle' | 'loading' | 'authed' | 'guest';
   init: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 };
 
-export const useAuth = create<AuthState>((set) => ({
+export const useAuth = create<AuthState>((set, get) => ({
   user: null,
-  status: 'loading',
+  status: 'idle',
 
   init: async () => {
     try {
+      if (get().status !== 'idle') return;
+      set({ status: 'loading' });
       const { data: user } = await api.get<User>('/users/me');
+
       set({ user, status: 'authed' });
     } catch {
       set({ user: null, status: 'guest' });

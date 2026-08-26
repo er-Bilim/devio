@@ -7,7 +7,7 @@ import Link from 'next/link';
 export function UserMenu() {
   const { user, status } = useAuth((state) => state);
 
-  if (status === 'loading') {
+  if (status === 'loading' || status === 'idle') {
     return <Skeleton className="h-9 w-24 animate-pulse rounded-lg bg-panel" />;
   }
 

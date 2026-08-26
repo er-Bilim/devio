@@ -2,8 +2,6 @@ import './globals.css';
 
 import { Unbounded, Onest, JetBrains_Mono } from 'next/font/google';
 import { Providers } from './providers';
-import { AuthHydrator } from '@/entities/user/ui/AuthHydrator';
-import { getMe } from '@/entities/user/api/server';
 import type { Metadata } from 'next';
 import { cn } from '@/shared/lib/utils';
 
@@ -32,13 +30,11 @@ export const metadata: Metadata = {
   description: 'Интерактивные роадмапы: что учить, зачем и что после чего',
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const me = await getMe();
-
   return (
     <html
       lang="en"
@@ -52,7 +48,6 @@ export default async function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-night font-body text-[15px]">
         <Providers>
-          <AuthHydrator user={me} />
           {children}
         </Providers>
       </body>
