@@ -21,11 +21,11 @@ app = FastAPI(title="devio API")
 app.state.limiter = limiter
 
 
-def custom_rate_limit_handler(request: Request, exc: Exception):
-    return _rate_limit_exceeded_handler(request, exc)  # type: ignore
+@app.exception_handler(RateLimitExceeded)
+def custom_rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return _rate_limit_exceeded_handler(request, exc)
 
 
-app.add_exception_handler(RateLimitExceeded, custom_rate_limit_handler)
 app.add_middleware(SlowAPIMiddleware)
 app.add_middleware(
     CORSMiddleware,

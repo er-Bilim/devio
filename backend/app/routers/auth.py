@@ -69,8 +69,8 @@ async def logout(
     response.delete_cookie(key="refresh_token", path="/auth")
 
 
-@limiter.limit("10/minute")
 @router.post("/refresh", response_model=UserPublic)
+@limiter.limit("10/minute")
 async def refresh_tokens(
     request: Request,
     response: Response,
