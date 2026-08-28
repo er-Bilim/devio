@@ -1,10 +1,11 @@
 from datetime import datetime, timezone
 from typing import Annotated
 
-from fastapi import APIRouter, Cookie, HTTPException, Response
+from fastapi import APIRouter, Cookie, HTTPException, Request, Response
 from sqlalchemy import select
 
 from app.cookies import set_auth_cookies
+from app.core.limiter import limiter
 from app.dependencies import DbSession
 from app.models import RefreshToken, User
 from app.queries import tokens as tokens_q
@@ -20,13 +21,22 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 
 @router.post("/register", response_model=UserPublic, status_code=201)
-async def register(data: UserRegister, db: DbSession):
-    user = await auth_service.register(db, email=data.email, password=data.password)
+@limiter.limit("3/minute")
+async def register(request: Request, data: UserRegister, db: DbSession):
+    user = await auth_service.register(
+        db,
+        username=data.username,
+        display_name=data.display_name,
+        email=data.email,
+        password=data.password,
+    )
     return user
 
 
 @router.post("/login", response_model=UserPublic)
+@limiter.limit("5/minute")
 async def login(
+    request: Request,
     data: UserLogin,
     response: Response,
     db: DbSession,
@@ -59,8 +69,10 @@ async def logout(
     response.delete_cookie(key="refresh_token", path="/auth")
 
 
+@limiter.limit("10/minute")
 @router.post("/refresh", response_model=UserPublic)
 async def refresh_tokens(
+    request: Request,
     response: Response,
     db: DbSession,
     refresh_token: Annotated[str | None, Cookie()] = None,

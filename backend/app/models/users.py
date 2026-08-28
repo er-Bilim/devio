@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from sqlalchemy import DateTime, func, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy.types import String
 
 from .base import Base
 
@@ -18,6 +19,10 @@ class User(Base):
         primary_key=True, server_default=text("gen_random_uuid()")
     )
     email: Mapped[str] = mapped_column(unique=True, index=True)
+    username: Mapped[str] = mapped_column(
+        String(30), unique=True, index=True, nullable=False
+    )
+    display_name: Mapped[str] = mapped_column(unique=True, index=True)
     password_hash: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()

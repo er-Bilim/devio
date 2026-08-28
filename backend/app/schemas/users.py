@@ -8,3 +8,5 @@ class UserPublic(BaseModel):
 
     id: uuid.UUID
     email: EmailStr
+    username: str
+    display_name: str
