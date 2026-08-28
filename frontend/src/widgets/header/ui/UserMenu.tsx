@@ -23,11 +23,13 @@ export function UserMenu() {
 
   return (
     <div>
-      <div className='flex items-center gap-3'>
-        <p className="w-8.5 h-8.5 rounded-full bg-signal grid place-items-center font-bold text-[14px] text-night cursor-pointer uppercase">
-          {user.display_name.charAt(0)}
+      <div className="flex items-center gap-3">
+        <p className="text-mint tracking-widest font-medium">
+          @{user.username}
         </p>
-        <p className="text-">@{user.username}</p>
+        <p className="w-8.5 h-8.5 rounded-full bg-mint border-2 border-mist grid place-items-center font-bold text-[14px] text-night cursor-pointer uppercase">
+          {user.email.charAt(0)}
+        </p>
       </div>
     </div>
   );
