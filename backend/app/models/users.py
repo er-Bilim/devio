@@ -22,7 +22,9 @@ class User(Base):
     username: Mapped[str] = mapped_column(
         String(30), unique=True, index=True, nullable=False
     )
-    display_name: Mapped[str] = mapped_column(unique=True, index=True)
+    display_name: Mapped[str] = mapped_column(
+        String(25), unique=False, index=True, nullable=False
+    )
     password_hash: Mapped[str]
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()

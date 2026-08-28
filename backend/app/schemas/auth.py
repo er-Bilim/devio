@@ -14,12 +14,12 @@ class UserRegister(BaseModel):
     def validate_username(cls, value: str) -> str:
         username = value.lstrip("@").strip().lower()
 
-        if not re.match(r"^[a-zA-Z0-9_]+$", value):
+        if not re.match(r"^[a-zA-Z0-9_]+$", username):
             raise ValueError(
                 "Username can only contain Latin letters, numbers, and underscores"
             )
 
-        if len(value) < 5 or len(value) > 30:
+        if len(username) < 5 or len(username) > 30:
             raise ValueError("Username must be between 5 and 30 characters")
 
         return username
@@ -29,10 +29,10 @@ class UserRegister(BaseModel):
     def validate_display_name(cls, value: str) -> str:
         display_name = value.strip().lower()
 
-        if not re.match(r"^[a-zA-Z0-9]+$", value):
+        if not re.match(r"^[a-zA-Z0-9]+$", display_name):
             raise ValueError("Display name can only contain Latin letters and numbers")
 
-        if len(value) < 3 or len(value) > 25:
+        if len(display_name) < 3 or len(display_name) > 25:
             raise ValueError("Display name must be between 3 and 25 characters")
 
         return display_name
