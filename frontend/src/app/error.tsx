@@ -17,7 +17,7 @@ export default function Error({ reset }: ErrorProps) {
         <p className="font-mono text-[12.5px] tracking-[.14em] text-alarm uppercase mb-10">
           {'// сбой на линии'}
         </p>
-        <h1 className="font-display font-semibold text-[clamp(24px,3vw,32px)] leading-1.25 mb-10 text-mist">
+        <h1 className="font-display font-semibold text-[clamp(24px,3vw,32px)] lg:leading-1.25 mb-10 text-mist">
           Поезд дальше не идёт
         </h1>
         <p className="text-mist-soft text-[16px] max-w-[42ch] mx-auto mb-7.5">
