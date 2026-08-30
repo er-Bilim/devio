@@ -14,9 +14,12 @@ import { useForm } from 'react-hook-form';
 import { isAxiosError } from 'axios';
 import { PasswordInput } from '@/src/shared/ui/password-input';
 import { Spinner } from '@/shared/ui/spinner';
+import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
   const loginUser = useAuth((state) => state.login);
+  const router = useRouter();
+
   const {
     register,
     reset,
@@ -29,7 +32,9 @@ export function LoginForm() {
 
   const onSubmitLogin = handleSubmit(async (data) => {
     try {
-      await loginUser(data.email, data.password).then(() => reset());
+      await loginUser(data.email, data.password)
+        .then(() => reset())
+        .then(() => router.replace('/'));
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
         setError('root', { message: 'Неверный email или пароль' });
@@ -42,43 +47,6 @@ export function LoginForm() {
   return (
     <form onSubmit={onSubmitLogin}>
       <div className="grid grid-cols-1 gap-3">
-        {/*<div className="mb-2">
-          <label
-            htmlFor="username"
-            className="block text-[12px] text-mist-soft font-mono mb-1.75 uppercase"
-          >
-            username
-          </label>
-
-          <div className="relative">
-            <HugeiconsIcon
-              icon={AtIcon}
-              strokeWidth={1.8}
-              className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
-            />
-            <Input
-              id="username"
-              placeholder="your_username"
-              className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
-              autoComplete="username"
-              type="text"
-              {...register('username')}
-            />
-          </div>
-          {errors.username && (
-            <div
-              className=" mt-2 text-[12.5px]  text-red-400 inline-flex items-center gap-2"
-              role="alert"
-            >
-              <HugeiconsIcon
-                icon={AlertCircleIcon}
-                strokeWidth={1.8}
-                className="size-4"
-              />
-              <p>{errors.username.message}</p>
-            </div>
-          )}
-        </div>*/}
         <div className="mb-2">
           <label
             htmlFor="email"

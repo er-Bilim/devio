@@ -17,9 +17,11 @@ import {
 import { isAxiosError } from 'axios';
 import { PasswordInput } from '@/src/shared/ui/password-input';
 import { Spinner } from '@/shared/ui/spinner';
+import { useRouter } from 'next/navigation';
 
 export function RegisterForm() {
   const registerUser = useAuth((state) => state.register);
+  const router = useRouter();
   const {
     register,
     reset,
@@ -37,7 +39,9 @@ export function RegisterForm() {
         data.username,
         data.display_name,
         data.password,
-      ).then(() => reset());
+      )
+        .then(() => reset())
+        .then(() => router.replace('/'));
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
         setError('root', { message: 'Неверный email или пароль' });
