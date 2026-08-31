@@ -93,7 +93,7 @@ export function RegisterForm() {
         </div>
         <div className="mb-2">
           <label
-            htmlFor="username"
+            htmlFor="display_name"
             className="block text-[12px] text-mist-soft font-mono mb-1.75 uppercase"
           >
             display name
