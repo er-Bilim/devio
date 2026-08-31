@@ -17,6 +17,7 @@ import {
   User02Icon,
 } from '@hugeicons/core-free-icons';
 import { useState } from 'react';
+import { cn } from '@/shared/lib/utils';
 
 type MenuItem = {
   label: string;
@@ -49,8 +50,6 @@ export function UserMenu() {
         <DropdownMenuTrigger asChild>
           <Button
             className="flex items-center gap-4 py-6 pr-2.5 pl-5.5 rounded-full border border-line bg-night/70 cursor-pointer duration-200 hover:border-mint/45 hover:bg-night/30 drop-shadow-[0_0_3px_rgba(62,207,142,0.15)]"
-            aria-haspopup="menu"
-            aria-expanded="false"
             title="Меню профиля"
           >
             <div className="flex flex-col items-start leading-[1.15] pl-3">
@@ -70,13 +69,13 @@ export function UserMenu() {
               />
             </div>
             <HugeiconsIcon
-              icon={isOpen ? ArrowUp01Icon : ArrowDown01Icon}
+              icon={ArrowDown01Icon}
               strokeWidth={1.5}
-              className="size-3.5 text-mint"
+              className={cn("size-3.5 text-mint duration-200", isOpen && 'rotate-180')}
             />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-75 p-2 bg-night/70 border-line shadow-[0_28px_60px_-28px_rgba(0,0,0,0.9)] pointer-events-none drop-shadow-[0_0_3px_rgba(62,207,142,0.15)] rounded-xl mt-3 backdrop-blur-xl">
+        <DropdownMenuContent className="w-75 p-2 bg-night/70 border-line shadow-[0_28px_60px_-28px_rgba(0,0,0,0.9)] drop-shadow-[0_0_3px_rgba(62,207,142,0.15)] rounded-xl mt-3 backdrop-blur-xl">
           <div className="p-3 border-b border-b-line mb-1.5">
             <p className="text-mist font-display font-semibold text-[14.5px]">
               {user.display_name}
