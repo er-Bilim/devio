@@ -5,7 +5,13 @@ from app.tests.constants import TEST_USER
 
 async def test_register_creates_user(client: AsyncClient):
     resp = await client.post(
-        "/auth/register", json={"email": "new@gmail.com", "password": "secret123"}
+        "/auth/register",
+        json={
+            "email": "new@gmail.com",
+            "username": "newuser",
+            "display_name": "newuser",
+            "password": "secret123",
+        },
     )
     assert resp.status_code == 201
     body = resp.json()
