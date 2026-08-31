@@ -24,7 +24,12 @@ export const serverFetchPublic = async <T>(
     next: { revalidate, tags },
   });
 
-  if (res.status === 404) return null;
-  if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
-  return res.json() as Promise<T>;
+  try {
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
+    return res.json() as Promise<T>;
+  } catch (error) {
+    console.warn(error);
+    return null;
+  }
 };
