@@ -24,7 +24,6 @@ export function MobileNav() {
   const [isActive, setIsActive] = useState<boolean>(false);
   const { user, logout } = useAuth();
 
-  if (!user) return null;
   const toggleActive = () => {
     setIsActive(!isActive);
   };
@@ -88,7 +87,7 @@ export function MobileNav() {
           <ul className="steps relative pl-10">
             {NAV_ITEMS.map((item) => (
               <li key={item.href} className="relative">
-                <DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link
                     href={item.href}
                     className="w-full flex items-center justify-between py-3.5 text-[15px] text-mist-soft duration-200 group"
@@ -106,49 +105,58 @@ export function MobileNav() {
               </li>
             ))}
           </ul>
-          <div className="flex items-center gap-3 mt-5 pt-4.5 border-t border-t-mist-soft/20 justify-between w-full">
-            <div className="flex items-center flex-row-reverse gap-2.5">
-              <div className="flex flex-col items-end leading-[1.15]">
-                <p className="text-[13.5px] font-semibold text-mist">
-                  {user.display_name}
-                </p>
-                <p className="font-mono text-[10.5px] text-mist-soft">
-                  @{user.username}
-                </p>
+          {user ? (
+            <div className="flex items-center gap-3 mt-5 pt-4.5 border-t border-t-mist-soft/20 justify-between w-full">
+              <div className="flex items-center flex-row-reverse gap-2.5">
+                <div className="flex flex-col items-end leading-[1.15]">
+                  <p className="text-[13.5px] font-semibold text-mist">
+                    {user.display_name}
+                  </p>
+                  <p className="font-mono text-[10.5px] text-mist-soft">
+                    @{user.username}
+                  </p>
+                </div>
+                <div className="w-8.75 h-8.75 rounded-full shrink-0 overflow-hidden relative border-2 border-mint">
+                  <Image
+                    src={'/avatars/avatar-soft-3-halo.jpg'}
+                    alt={`Аватар ${user.username}`}
+                    fill
+                    className="rounded-full"
+                  />
+                </div>
               </div>
-              <div className="w-8.75 h-8.75 rounded-full shrink-0 overflow-hidden relative border-2 border-mint">
-                <Image
-                  src={'/avatars/avatar-soft-3-halo.jpg'}
-                  alt={`Аватар ${user.username}`}
-                  fill
-                  className="rounded-full"
-                />
+              <div className="flex gap-2">
+                <Link
+                  href="/profile"
+                  title="Профиль"
+                  className="grid place-items-center w-9.5 h-9.5 rounded-lg border border-line bg-[rgba(18,26,46,.7)] duration-200 hover:border-mist-soft"
+                >
+                  <HugeiconsIcon
+                    icon={User02Icon}
+                    strokeWidth={1.8}
+                    className="size-4 text-mist"
+                  />
+                </Link>
+                <Button
+                  className="grid place-items-center w-9.5 h-9.5 rounded-lg border border-line bg-[rgba(18,26,46,.7)] duration-200 hover:bg-[rgba(18,26,46,.7)] hover:border-alarm"
+                  onClick={logout}
+                >
+                  <HugeiconsIcon
+                    icon={Logout03Icon}
+                    strokeWidth={1.8}
+                    className="size-4 text-alarm"
+                  />
+                </Button>
               </div>
             </div>
-            <div className="flex gap-2">
-              <Link
-                href="/profile"
-                title="Профиль"
-                className="grid place-items-center w-9.5 h-9.5 rounded-lg border border-line bg-[rgba(18,26,46,.7)] duration-200 hover:border-mist-soft"
-              >
-                <HugeiconsIcon
-                  icon={User02Icon}
-                  strokeWidth={1.8}
-                  className="size-4 text-mist"
-                />
-              </Link>
-              <Button
-                className="grid place-items-center w-9.5 h-9.5 rounded-lg border border-line bg-[rgba(18,26,46,.7)] duration-200 hover:bg-[rgba(18,26,46,.7)] hover:border-alarm"
-                onClick={logout}
-              >
-                <HugeiconsIcon
-                  icon={Logout03Icon}
-                  strokeWidth={1.8}
-                  className="size-4 text-alarm"
-                />
-              </Button>
-            </div>
-          </div>
+          ) : (
+            <Link
+              href="/auth"
+              className="inline-flex items-center justify-center gap-2.25 py-2.75 font-bold text-[15px] font-body border border-line text-mist rounded-xl duration-150 hover:border-signal hover:text-signal w-full mt-5"
+            >
+              Войти
+            </Link>
+          )}
         </DropdownMenuContent>
       </DropdownMenu>
     </>
