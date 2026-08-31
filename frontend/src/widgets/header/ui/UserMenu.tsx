@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Button } from '@/shared/ui/button';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { ArrowDown01Icon, ArrowUp01Icon } from '@hugeicons/core-free-icons';
+import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
 import {
   DropdownMenu,
   DropdownMenuContent,
