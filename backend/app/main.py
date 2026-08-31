@@ -1,8 +1,12 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+from slowapi.middleware import SlowAPIMiddleware
 
+from app.core.limiter import limiter
 from app.db import engine
 from app.routers import auth, roadmaps, stages, stats, users
 
@@ -14,7 +18,15 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="devio API")
+app.state.limiter = limiter
 
+
+@app.exception_handler(RateLimitExceeded)
+def custom_rate_limit_handler(request: Request, exc: RateLimitExceeded):
+    return _rate_limit_exceeded_handler(request, exc)
+
+
+app.add_middleware(SlowAPIMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],

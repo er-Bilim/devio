@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, computed_field
 
 from app.enums import StatusEnum
 
@@ -35,6 +35,11 @@ class RoadmapOut(BaseModel):
     description: str | None
     stages: list[StageOut] = []
     status: StatusEnum
+
+    @computed_field
+    @property
+    def duration_weeks_total(self) -> int:
+        return sum(s.duration_weeks for s in self.stages)
 
 
 class RoadmapCreate(BaseModel):

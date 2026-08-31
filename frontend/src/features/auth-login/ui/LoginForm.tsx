@@ -14,9 +14,12 @@ import { useForm } from 'react-hook-form';
 import { isAxiosError } from 'axios';
 import { PasswordInput } from '@/src/shared/ui/password-input';
 import { Spinner } from '@/shared/ui/spinner';
+import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
   const loginUser = useAuth((state) => state.login);
+  const router = useRouter();
+
   const {
     register,
     reset,
@@ -29,12 +32,14 @@ export function LoginForm() {
 
   const onSubmitLogin = handleSubmit(async (data) => {
     try {
-      await loginUser(data.email, data.password).then(() => reset());
+      await loginUser(data.email, data.password);
+      reset();
+      router.replace('/');
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
         setError('root', { message: 'Неверный email или пароль' });
       } else {
-        setError('root', { message: 'Что-то пошло не так, попробуйте снова' });
+        setError('root', { message: 'Что-то пошло не так, попробуйте позже' });
       }
     }
   });

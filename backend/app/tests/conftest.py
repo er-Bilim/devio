@@ -5,6 +5,7 @@ from httpx import ASGITransport, AsyncClient
 from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 from sqlalchemy.pool import NullPool
 
+from app.core.limiter import limiter
 from app.db import get_db
 from app.main import app
 from app.models import Base
@@ -16,6 +17,7 @@ TEST_DATABASE_URL = os.getenv(
 
 engine = create_async_engine(TEST_DATABASE_URL, poolclass=NullPool)
 TestSession = async_sessionmaker(engine, expire_on_commit=False)
+limiter.enabled = False
 
 
 @pytest.fixture(scope="session", autouse=True)
