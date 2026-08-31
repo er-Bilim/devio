@@ -1,5 +1,6 @@
 import asyncio
 import subprocess
+from pathlib import Path
 
 import typer
 
@@ -8,14 +9,16 @@ from app.db import SessionLocal
 from app.queries.users import get_by_email
 
 app = typer.Typer()
+current_dir = Path(__file__).resolve().parent
 
 
 @app.command()
 def seed(force: bool = False):
     """Seed the database with initial data."""
+    seed_sql = current_dir / 'seed_dev.sql'
     if force:
         console.print("Seeding...")
-        with open("./seed_dev.sql") as f:
+        with open(seed_sql) as f:
             subprocess.run(
                 [
                     "docker",
