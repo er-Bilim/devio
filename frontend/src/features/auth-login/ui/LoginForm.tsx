@@ -32,9 +32,9 @@ export function LoginForm() {
 
   const onSubmitLogin = handleSubmit(async (data) => {
     try {
-      await loginUser(data.email, data.password)
-        .then(() => reset())
-        .then(() => router.replace('/'));
+      await loginUser(data.email, data.password);
+      reset();
+      router.replace('/');
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
         setError('root', { message: 'Неверный email или пароль' });

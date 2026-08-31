@@ -39,9 +39,9 @@ export function RegisterForm() {
         data.username,
         data.display_name,
         data.password,
-      )
-        .then(() => reset())
-        .then(() => router.replace('/'));
+      );
+      reset();
+      router.replace('/');
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
         setError('root', { message: 'Неверный email или пароль' });
