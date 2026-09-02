@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const padNumber = (number: number): string => {
   if (number < 10) {
     return `0${number}`;
@@ -22,4 +24,9 @@ export const pluralize = (
   if (countMod10 >= 2 && countMod10 <= 4) return few;
 
   return many;
+};
+
+export const formatDate = (date: string): string => {
+  const formatedDate = format(new Date(date), 'yyyy-MM-dd');
+  return formatedDate;
 };

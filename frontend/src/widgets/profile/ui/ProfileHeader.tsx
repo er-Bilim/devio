@@ -1,4 +1,7 @@
 import type { UserPublic } from '@/entities/user';
+import { formatDate } from '@/shared/lib/format';
+import { Calendar02Icon } from '@hugeicons/core-free-icons';
+import { HugeiconsIcon } from '@hugeicons/react';
 import Image from 'next/image';
 
 interface ProfileHeaderProps {
@@ -8,7 +11,7 @@ interface ProfileHeaderProps {
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
   return (
     <header className="flex items-start gap-7 pt-14 pb-1.5 flex-wrap relative z-20">
-      <div className="w-40 h-40 rounded-full shrink-0 overflow-hidden relative border-2 border-mint">
+      <div className="w-30 h-30 rounded-full shrink-0 overflow-hidden relative border-2 border-mint">
         <Image
           src={'/avatars/avatar-soft-3-halo.jpg'}
           alt={`Аватар ${profile.username}`}
@@ -20,6 +23,19 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
         <h1 className="font-display font-semibold text-[clamp(25px,3.4vw,34px)] tracking-[-.6px] leading-[1.12] text-mist">
           {profile.display_name}
         </h1>
+        <p className="font-mono text-mint text-[14px] mt-1">
+          @{profile.username}
+        </p>
+        <div className="flex items-center gap-3.5 mt-3.5 flex-wrap font-mono text-[12px] text-mist-soft">
+          <div className="flex flex-row gap-2 items-center">
+            <HugeiconsIcon
+              icon={Calendar02Icon}
+              strokeWidth={2}
+              className="hidden lg:block size-3.5 text-mist-soft"
+            />
+            <p>в пути с марта {formatDate(profile.created_at)}</p>
+          </div>
+        </div>
       </div>
     </header>
   );
