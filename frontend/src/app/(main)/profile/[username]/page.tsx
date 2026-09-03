@@ -1,5 +1,5 @@
 import { getProfile } from '@/entities/user/api/server';
-import { ProfileHeader } from '@/widgets/profile';
+import { ProfileHeader, TripsCalendar } from '@/widgets/profile';
 
 interface ProfileProps {
   params: Promise<{ username: string }>;
@@ -14,6 +14,7 @@ export default async function Profile({ params }: ProfileProps) {
   return (
     <div className="wrap">
       <ProfileHeader profile={profile} />
+      <TripsCalendar/>
     </div>
   );
 }
