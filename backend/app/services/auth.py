@@ -29,11 +29,19 @@ async def _issue_tokens(db: AsyncSession, user: User) -> TokenPair:
     return TokenPair(access=access, refresh=refresh)
 
 
-async def register(db: AsyncSession, email: str, password: str) -> User:
+async def register(
+    db: AsyncSession, username: str, display_name: str, email: str, password: str
+) -> User:
     if await users_q.get_by_email(db, email) is not None:
         raise HTTPException(status_code=409, detail="Email already registered")
 
-    user = await users_q.create(db, email=email, password_hash=hash_password(password))
+    user = await users_q.create(
+        db,
+        username=username,
+        display_name=display_name,
+        email=email,
+        password_hash=hash_password(password),
+    )
     return user
 
 

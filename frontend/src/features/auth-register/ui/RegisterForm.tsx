@@ -11,13 +11,17 @@ import {
   PasswordValidationIcon,
   ArrowRight02Icon,
   AlertCircleIcon,
+  AtIcon,
+  User02Icon,
 } from '@hugeicons/core-free-icons';
 import { isAxiosError } from 'axios';
 import { PasswordInput } from '@/src/shared/ui/password-input';
 import { Spinner } from '@/shared/ui/spinner';
+import { useRouter } from 'next/navigation';
 
 export function RegisterForm() {
   const registerUser = useAuth((state) => state.register);
+  const router = useRouter();
   const {
     register,
     reset,
@@ -30,12 +34,19 @@ export function RegisterForm() {
 
   const onSubmitRegister = handleSubmit(async (data) => {
     try {
-      await registerUser(data.email, data.password).then(() => reset());
+      await registerUser(
+        data.email,
+        data.username,
+        data.display_name,
+        data.password,
+      );
+      reset();
+      router.replace('/');
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 401) {
         setError('root', { message: 'Неверный email или пароль' });
       } else {
-        setError('root', { message: 'Что-то пошло не так, попробуйте снова' });
+        setError('root', { message: 'Что-то пошло не так, попробуйте позже' });
       }
     }
   });
@@ -43,6 +54,80 @@ export function RegisterForm() {
   return (
     <form onSubmit={onSubmitRegister}>
       <div className="grid grid-cols-1 gap-3">
+        <div className="mb-2">
+          <label
+            htmlFor="username"
+            className="block text-[12px] text-mist-soft font-mono mb-1.75 uppercase"
+          >
+            username
+          </label>
+
+          <div className="relative">
+            <HugeiconsIcon
+              icon={AtIcon}
+              strokeWidth={1.8}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
+            />
+            <Input
+              id="username"
+              placeholder="your_username"
+              className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
+              autoComplete="username"
+              type="text"
+              {...register('username')}
+            />
+          </div>
+          {errors.username && (
+            <div
+              className=" mt-2 text-[12.5px]  text-red-400 inline-flex items-center gap-2"
+              role="alert"
+            >
+              <HugeiconsIcon
+                icon={AlertCircleIcon}
+                strokeWidth={1.8}
+                className="size-4"
+              />
+              <p>{errors.username.message}</p>
+            </div>
+          )}
+        </div>
+        <div className="mb-2">
+          <label
+            htmlFor="display_name"
+            className="block text-[12px] text-mist-soft font-mono mb-1.75 uppercase"
+          >
+            display name
+          </label>
+
+          <div className="relative">
+            <HugeiconsIcon
+              icon={User02Icon}
+              strokeWidth={1.8}
+              className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
+            />
+            <Input
+              id="display_name"
+              placeholder="your name"
+              className="w-full py-6 pr-10 pl-10 bg-panel-2 text-mist border border-line placeholder:text-[#556184] focus-visible:outline-none focus-visible:border-signal focus-visible:shadow-[4px_5px_10px_rgba(77,163,255,0.18)]"
+              autoComplete="username"
+              type="text"
+              {...register('display_name')}
+            />
+          </div>
+          {errors.display_name && (
+            <div
+              className=" mt-2 text-[12.5px]  text-red-400 inline-flex items-center gap-2"
+              role="alert"
+            >
+              <HugeiconsIcon
+                icon={AlertCircleIcon}
+                strokeWidth={1.8}
+                className="size-4"
+              />
+              <p>{errors.display_name.message}</p>
+            </div>
+          )}
+        </div>
         <div className="mb-2">
           <label
             htmlFor="email"
@@ -67,7 +152,10 @@ export function RegisterForm() {
             />
           </div>
           {errors.email && (
-            <div className=" mt-2 text-[12.5px]  text-red-400 inline-flex items-center gap-2" role='alert'>
+            <div
+              className=" mt-2 text-[12.5px]  text-red-400 inline-flex items-center gap-2"
+              role="alert"
+            >
               <HugeiconsIcon
                 icon={AlertCircleIcon}
                 strokeWidth={1.8}

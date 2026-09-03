@@ -20,11 +20,15 @@ export const serverFetchPublic = async <T>(
   path: string,
   { revalidate = 3600, tags = [] as string[] } = {},
 ): Promise<T | null> => {
-  const res = await fetch(`${BASE_URL}${path}`, {
-    next: { revalidate, tags },
-  });
-
-  if (res.status === 404) return null;
-  if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
-  return res.json() as Promise<T>;
+  try {
+    const res = await fetch(`${BASE_URL}${path}`, {
+      next: { revalidate, tags },
+    });
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(`Failed to fetch ${path}: ${res.status}`);
+    return res.json() as Promise<T>;
+  } catch (error) {
+    console.warn(error);
+    return null;
+  }
 };

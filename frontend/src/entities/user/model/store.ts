@@ -9,7 +9,12 @@ type AuthState = {
   status: 'idle' | 'loading' | 'authed' | 'guest';
   init: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
+  register: (
+    email: string,
+    username: string,
+    display_name: string,
+    password: string,
+  ) => Promise<void>;
   logout: () => Promise<void>;
 };
 
@@ -37,9 +42,11 @@ export const useAuth = create<AuthState>((set, get) => ({
     set({ user, status: 'authed' });
   },
 
-  register: async (email, password) => {
+  register: async (email, username, display_name, password) => {
     const { data: user } = await api.post<User>('/auth/register', {
       email,
+      username,
+      display_name,
       password,
     });
     set({ user, status: 'authed' });

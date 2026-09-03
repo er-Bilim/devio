@@ -313,8 +313,9 @@ export interface components {
              * @default []
              */
             stages: components["schemas"]["StageOut"][];
-            /** Status */
-            status: string;
+            status: components["schemas"]["StatusEnum"];
+            /** Duration Weeks Total */
+            readonly duration_weeks_total: number;
         };
         /** RoadmapUpdate */
         RoadmapUpdate: {
@@ -343,6 +344,11 @@ export interface components {
             /** Duration Weeks */
             duration_weeks: number;
         };
+        /**
+         * StatusEnum
+         * @enum {string}
+         */
+        StatusEnum: "draft" | "active";
         /** StreakOut */
         StreakOut: {
             /** Current */
@@ -372,6 +378,10 @@ export interface components {
              * Format: email
              */
             email: string;
+            /** Username */
+            username: string;
+            /** Display Name */
+            display_name: string;
         };
         /** UserRegister */
         UserRegister: {
@@ -380,6 +390,10 @@ export interface components {
              * Format: email
              */
             email: string;
+            /** Username */
+            username: string;
+            /** Display Name */
+            display_name: string;
             /** Password */
             password: string;
         };
