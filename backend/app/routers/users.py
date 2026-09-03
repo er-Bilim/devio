@@ -8,15 +8,15 @@ from app.schemas import StreakOut, UserPublic
 router = APIRouter(prefix="/users", tags=["users"])
 
 
+@router.get("/me", response_model=UserPublic)
+def read_me(current_user: CurrentUser):
+    return current_user
+
+
 @router.get("/{username}", response_model=UserPublic)
 async def user_profile(username: str, db: DbSession):
     user = await users_q.get_by_username(db, username)
     return user
-
-
-@router.get("/me", response_model=UserPublic)
-def read_me(current_user: CurrentUser):
-    return current_user
 
 
 @router.get("/me/progress")
