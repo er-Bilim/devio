@@ -1,7 +1,7 @@
 import 'server-only';
 import { cookies } from 'next/headers';
 
-const BASE_URL = process.env.API_URL_INTERNAL ?? 'http://localhost:8000';
+const BASE_URL = process.env.API_URL_INTERNAL ?? 'http://127.0.0.1:8000';
 
 export const serverFetch = async <T>(path: string): Promise<T | null> => {
   const cookieStore = await cookies();
