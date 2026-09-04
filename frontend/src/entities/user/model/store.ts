@@ -1,11 +1,9 @@
 import { create } from 'zustand';
 import { api } from '@/shared/api';
-import type { components } from '@/src/shared/types/api';
-
-type User = components['schemas']['UserPublic'];
+import type { UserPrivate } from './types';
 
 type AuthState = {
-  user: User | null;
+  user: UserPrivate | null;
   status: 'idle' | 'loading' | 'authed' | 'guest';
   init: () => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
@@ -26,7 +24,7 @@ export const useAuth = create<AuthState>((set, get) => ({
     try {
       if (get().status !== 'idle') return;
       set({ status: 'loading' });
-      const { data: user } = await api.get<User>('/users/me');
+      const { data: user } = await api.get<UserPrivate>('/users/me');
 
       set({ user, status: 'authed' });
     } catch {
@@ -35,7 +33,7 @@ export const useAuth = create<AuthState>((set, get) => ({
   },
 
   login: async (email, password) => {
-    const { data: user } = await api.post<User>('/auth/login', {
+    const { data: user } = await api.post<UserPrivate>('/auth/login', {
       email,
       password,
     });
@@ -43,7 +41,7 @@ export const useAuth = create<AuthState>((set, get) => ({
   },
 
   register: async (email, username, display_name, password) => {
-    const { data: user } = await api.post<User>('/auth/register', {
+    const { data: user } = await api.post<UserPrivate>('/auth/register', {
       email,
       username,
       display_name,

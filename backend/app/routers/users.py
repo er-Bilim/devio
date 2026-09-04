@@ -2,14 +2,22 @@ from fastapi import APIRouter
 
 from app.dependencies import CurrentUser, DbSession
 from app.queries import stats
-from app.schemas import StreakOut, UserPublic
+from app.queries import users as users_q
+from app.schemas import StreakOut
+from app.schemas.users import UserPrivate, UserProfile
 
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.get("/me", response_model=UserPublic)
+@router.get("/me", response_model=UserPrivate)
 def read_me(current_user: CurrentUser):
     return current_user
+
+
+@router.get("/{username}", response_model=UserProfile)
+async def user_profile(username: str, db: DbSession):
+    user = await users_q.get_by_username(db, username)
+    return user
 
 
 @router.get("/me/progress")
