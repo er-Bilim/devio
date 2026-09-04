@@ -1,6 +1,5 @@
 import { serverFetchPublic } from '@/shared/api/server';
-import type { UserPublic } from '../model/types';
+import type { UserProfile } from '../model/types';
 
 export const getProfile = (username: string) =>
-  serverFetchPublic<UserPublic>(`/users/${username}`, { tags: ['profile'] });
-// export const get
+  serverFetchPublic<UserProfile>(`/users/${username}`, { tags: ['profile'] });

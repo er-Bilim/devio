@@ -282,6 +282,21 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        /** BadgeOut */
+        BadgeOut: {
+            /** Code */
+            code: string;
+            /** Title */
+            title: string;
+            tier: components["schemas"]["BadgeTier"];
+            /** Icon */
+            icon: string;
+        };
+        /**
+         * BadgeTier
+         * @enum {string}
+         */
+        BadgeTier: "common" | "rare" | "epic" | "legend";
         /** DirectionStat */
         DirectionStat: {
             /** Slug */
@@ -373,6 +388,15 @@ export interface components {
             /** Longest */
             longest: number;
         };
+        /** UserBadgeOut */
+        UserBadgeOut: {
+            /**
+             * Earned At
+             * Format: date-time
+             */
+            earned_at: string;
+            badge: components["schemas"]["BadgeOut"];
+        };
         /** UserLogin */
         UserLogin: {
             /**
@@ -383,8 +407,8 @@ export interface components {
             /** Password */
             password: string;
         };
-        /** UserPublic */
-        UserPublic: {
+        /** UserPrivate */
+        UserPrivate: {
             /**
              * Id
              * Format: uuid
@@ -395,6 +419,37 @@ export interface components {
              * Format: email
              */
             email: string;
+            /** Username */
+            username: string;
+            /** Display Name */
+            display_name: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+        };
+        /** UserProfile */
+        UserProfile: {
+            /** Username */
+            username: string;
+            /** Display Name */
+            display_name: string;
+            /**
+             * Created At
+             * Format: date-time
+             */
+            created_at: string;
+            /** Badges */
+            badges: components["schemas"]["UserBadgeOut"][];
+        };
+        /** UserPublic */
+        UserPublic: {
+            /**
+             * Id
+             * Format: uuid
+             */
+            id: string;
             /** Username */
             username: string;
             /** Display Name */
@@ -584,7 +639,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserPublic"];
+                    "application/json": components["schemas"]["UserPrivate"];
                 };
             };
             /** @description Validation Error */
@@ -615,7 +670,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserPublic"];
+                    "application/json": components["schemas"]["UserProfile"];
                 };
             };
             /** @description Validation Error */

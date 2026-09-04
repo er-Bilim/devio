@@ -1,4 +1,4 @@
-import type { UserPublic } from '@/entities/user';
+import type { UserProfile } from '@/entities/user/model/types';
 import { formatDate } from '@/shared/lib/format';
 import {
   Calendar02Icon,
@@ -9,7 +9,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import Image from 'next/image';
 
 interface ProfileHeaderProps {
-  profile: UserPublic;
+  profile: UserProfile;
 }
 
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
