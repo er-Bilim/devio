@@ -9,7 +9,7 @@ from .roadmaps import (
     StageOut,
 )
 from .stats import CompleteStageOut, DirectionStat, StreakOut
-from .users import UserPublic
+from .users import UserPrivate, UserPublic
 
 __all__ = [
     "ProgressOut",
@@ -25,4 +25,5 @@ __all__ = [
     "UserLogin",
     "UserPublic",
     "UserRegister",
+    "UserPrivate",
 ]

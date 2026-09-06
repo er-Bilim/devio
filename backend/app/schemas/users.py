@@ -27,6 +27,7 @@ class UserPrivate(BaseModel):
 
 class UserProfile(BaseModel):
     model_config = ConfigDict(from_attributes=True)
+
     username: str
     display_name: str
     created_at: datetime

@@ -2,7 +2,7 @@ BEGIN;
 
 TRUNCATE stage_progress, refresh_tokens, user_badges, badges, stages, roadmaps, users RESTART IDENTITY CASCADE;
 
--- Юзер
+-- Юзер (без изменений)
 INSERT INTO users (id, username, display_name, email, password_hash, role) VALUES (
   'a1b2c3d4-0000-4000-8000-000000000001',
   'devio',
@@ -41,7 +41,7 @@ INSERT INTO stages (id, roadmap_id, title, description, topics, duration_weeks, 
    'Fullstack React-фреймворк: SSR, SSG, файловый роутинг, оптимизация производительности и SEO из коробки.',
    '["App Router и серверные компоненты (RSC)", "Data Fetching (SSR, SSG, ISR)", "Server Actions и API Routes", "Оптимизация изображений и SEO"]'::jsonb, 2, 6),
 
--- Backend Roadmap
+  -- Backend Roadmap
   (7, 2, 'Python',
    'Базовый язык бэкенда: переменные, структуры данных, ООП, декораторы, генераторы и работа с пакетами.',
    '["Синтаксис и встроенные структуры данных", "ООП и магические методы", "Декораторы и генераторы", "Управление окружением (uv/poetry)"]'::jsonb, 2, 1),
@@ -67,23 +67,25 @@ INSERT INTO stages (id, roadmap_id, title, description, topics, duration_weeks, 
    'Вывод приложения в продакшен: настройка Nginx/Caddy, CI/CD пайплайны, системные службы и мониторинг.',
    '["Аренда VPS и первоначальная настройка", "Reverse Proxy (Nginx / Caddy) + SSL", "Systemd и фоновые процессы", "Базовый CI/CD (GitHub Actions)"]'::jsonb, 2, 8);
 
--- Достижения (Badges)
+-- Достижения (Badges) — охватываем все 4 тира из enum BadgeTier
 INSERT INTO badges (id, code, title, description, condition, tier, icon, sort_order, is_active) VALUES
   ('b1000000-0000-4000-8000-000000000001', 'first_step', 'Первый шаг', 'Пройдите ваш первый этап обучения.', 'Пройден 1 этап', 'common', 'footprints', 1, true),
   ('b1000000-0000-4000-8000-000000000002', 'streak_3', 'В ритме', 'Занимайтесь 3 дня подряд.', 'Стрик 3 дня', 'common', 'flame', 2, true),
   ('b1000000-0000-4000-8000-000000000003', 'frontend_master', 'Фронтендер', 'Полностью закройте роадмап Frontend.', 'Пройдены все этапы Frontend', 'rare', 'layout', 3, true),
-  ('b1000000-0000-4000-8000-000000000004', 'backend_master', 'Бэкендер', 'Полностью закройте роадмап Backend.', 'Пройдены все этапы Backend', 'rare', 'server', 4, true),
+  ('b1000000-0000-4000-8000-000000000004', 'backend_master', 'Бэкендер', 'Полностью закройте роадмап Backend.', 'Пройдены все этапы Backend', 'epic', 'server', 4, true),
   ('b1000000-0000-4000-8000-000000000005', 'fullstack_legend', 'Легенда Fullstack', 'Завершите оба направления: Frontend и Backend.', 'Завершены Frontend и Backend', 'legend', 'trophy', 5, true);
 
 -- Прогресс
 INSERT INTO stage_progress (user_id, stage_id, completed_at) VALUES
-  ('a1b2c3d4-0000-4000-8000-000000000001', 1, now() - interval '2 days'),
-  ('a1b2c3d4-0000-4000-8000-000000000001', 2, now() - interval '1 day'),
-  ('a1b2c3d4-0000-4000-8000-000000000001', 3, now());
+  ('a1b2c3d4-0000-4000-8000-000000000001', 1, now() - interval '3 days'),
+  ('a1b2c3d4-0000-4000-8000-000000000001', 2, now() - interval '2 days'),
+  ('a1b2c3d4-0000-4000-8000-000000000001', 3, now() - interval '1 day');
 
--- Выдача начальных ачивок пользователю
+-- Привязка к пользователю devio по одной ачивке из каждого тира
 INSERT INTO user_badges (id, user_id, badge_id, earned_at) VALUES
-  ('a1b2c3d4-0000-4000-8000-000000000001', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000001', now() - interval '2 days'),
-  ('a1b2c3d4-0000-4000-8000-000000000002', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000002', now());
+  ('c1000000-0000-4000-8000-000000000001', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000001', now() - interval '6 days'),
+  ('c1000000-0000-4000-8000-000000000003', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000003', now() - interval '4 days'),
+  ('c1000000-0000-4000-8000-000000000004', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000004', now() - interval '2 days'),
+  ('c1000000-0000-4000-8000-000000000005', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000005', now());
 
 COMMIT;

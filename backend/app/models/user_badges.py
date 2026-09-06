@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import DateTime, ForeignKey, UniqueConstraint, func
+from sqlalchemy import DateTime, ForeignKey, UniqueConstraint, func, text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
@@ -17,7 +17,7 @@ class UserBadge(Base):
     __table_args__ = ((UniqueConstraint("user_id", "badge_id", name="uq_user_badge")),)
 
     id: Mapped[uuid.UUID] = mapped_column(
-        primary_key=True,
+        primary_key=True, server_default=text("gen_random_uuid()")
     )
     user: Mapped["User"] = relationship(back_populates="badges")
     badge: Mapped["Badge"] = relationship()

@@ -1,6 +1,7 @@
 import enum
 import uuid
 
+from sqlalchemy import text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .base import Base
@@ -16,7 +17,9 @@ class BadgeTier(str, enum.Enum):
 class Badge(Base):
     __tablename__ = "badges"
 
-    id: Mapped[uuid.UUID] = mapped_column(primary_key=True)
+    id: Mapped[uuid.UUID] = mapped_column(
+        primary_key=True, server_default=text("gen_random_uuid()")
+    )
     code: Mapped[str] = mapped_column(unique=True, index=True)
     title: Mapped[str]
     description: Mapped[str]

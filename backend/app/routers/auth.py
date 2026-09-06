@@ -9,7 +9,7 @@ from app.core.limiter import limiter
 from app.dependencies import DbSession
 from app.models import RefreshToken, User
 from app.queries import tokens as tokens_q
-from app.schemas import UserLogin, UserPublic, UserRegister
+from app.schemas import UserLogin, UserPrivate, UserRegister
 from app.security import (
     create_access_token,
     generate_refresh_token,
@@ -20,7 +20,7 @@ from app.services import auth as auth_service
 router = APIRouter(prefix="/auth", tags=["auth"])
 
 
-@router.post("/register", response_model=UserPublic, status_code=201)
+@router.post("/register", response_model=UserPrivate, status_code=201)
 @limiter.limit("3/minute")
 async def register(request: Request, data: UserRegister, db: DbSession):
     user = await auth_service.register(
@@ -33,7 +33,7 @@ async def register(request: Request, data: UserRegister, db: DbSession):
     return user
 
 
-@router.post("/login", response_model=UserPublic)
+@router.post("/login", response_model=UserPrivate)
 @limiter.limit("5/minute")
 async def login(
     request: Request,
@@ -69,7 +69,7 @@ async def logout(
     response.delete_cookie(key="refresh_token", path="/auth")
 
 
-@router.post("/refresh", response_model=UserPublic)
+@router.post("/refresh", response_model=UserPrivate)
 @limiter.limit("10/minute")
 async def refresh_tokens(
     request: Request,
