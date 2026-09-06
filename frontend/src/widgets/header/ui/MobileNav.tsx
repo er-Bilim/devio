@@ -127,7 +127,7 @@ export function MobileNav() {
               </div>
               <div className="flex gap-2">
                 <Link
-                  href="/profile"
+                  href={`/profile/${user.username}`}
                   title="Профиль"
                   className="grid place-items-center w-9.5 h-9.5 rounded-lg border border-line bg-[rgba(18,26,46,.7)] duration-200 hover:border-mist-soft"
                 >

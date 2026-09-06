@@ -7,7 +7,13 @@ import { cn } from '@/shared/lib/utils';
 export function TripsCalendar() {
   const dates = getAllDaysOfYear(new Date().getFullYear());
   const allWeekNames = getWeekDayNames('ru', 'short');
-
+  const shades = [
+    'bg-[rgba(36,48,80,.36)]',
+    'bg-mint/30',
+    'bg-mint/50',
+    'bg-mint/70',
+    'bg-mint',
+  ];
   return (
     <section>
       <div className="flex items-end justify-between gap-4 flex-wrap my-5.5">
@@ -33,7 +39,7 @@ export function TripsCalendar() {
       </div>
 
       <div className="flex gap-2.25 overflow-x-auto pb-1.5">
-        <div className="grid grid-template-cols-[repeat(7,13px)] gap-5.5 pt-5 shrink-0">
+        <div className="grid gap-5.5 pt-5 shrink-0">
           {allWeekNames.map((name, index) => {
             const isOdd = index % 2 !== 0;
             return (
@@ -77,20 +83,17 @@ export function TripsCalendar() {
         <div className="flex items-center gap-1.25">
           <p>меньше</p>
           {Array.from({ length: 5 }, (_, i) => {
-            const isFirst = i === 0;
-            const isLast = i === 4;
-            const bg = isFirst
-              ? 'bg-[rgba(36,48,80,.36)]'
-              : isLast
-                ? 'bg-mint'
-                : `bg-mint/${i + 1 * 2}0`;
             return (
-              <div key={i} className={`w-3.5 h-3.5 rounded-[4px] ${bg}`} />
+              <div
+                key={i}
+                className={`w-3.5 h-3.5 rounded-[4px] ${shades[i]}`}
+              />
             );
           })}
           <p>больше</p>
         </div>
       </div>
+      <div className="rule" />
     </section>
   );
 }
