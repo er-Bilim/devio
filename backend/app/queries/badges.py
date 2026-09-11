@@ -5,7 +5,7 @@ from app.models import Badge
 
 
 async def get_all_badges(db: AsyncSession):
-    stmt = select(Badge)
+    stmt = select(Badge).order_by(Badge.sort_order.desc())
 
     result = await db.execute(stmt)
     return result.scalars().all()
