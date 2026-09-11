@@ -39,7 +39,7 @@ export function TripsCalendar() {
       </div>
 
       <div className="flex gap-2.25 overflow-x-auto pb-1.5">
-        <div className="grid gap-5.5 pt-5 shrink-0">
+        <div className="grid grid-rows-[repeat(7,16px)] gap-1 pt-5 shrink-0">
           {allWeekNames.map((name, index) => {
             const isOdd = index % 2 !== 0;
             return (
@@ -47,7 +47,7 @@ export function TripsCalendar() {
                 key={name}
                 className={cn(
                   'font-mono text-[9.5px] text-mist-soft leading-3 block',
-                  isOdd && 'hidden',
+                  isOdd && 'invisible',
                 )}
               >
                 {name}

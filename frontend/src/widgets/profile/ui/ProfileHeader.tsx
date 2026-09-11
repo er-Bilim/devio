@@ -15,7 +15,7 @@ interface ProfileHeaderProps {
 
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
   const date = formatDate(profile.created_at);
-  
+
   const profileMetaDate = [
     {
       title: `в пути с ${date.month} ${date.year}`,
@@ -39,6 +39,7 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
             src={'/avatars/avatar-soft-3-halo.jpg'}
             alt={`Аватар ${profile.username}`}
             fill
+            sizes="160px"
             className="rounded-full"
           />
         </div>
