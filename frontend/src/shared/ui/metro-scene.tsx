@@ -1,3 +1,5 @@
+import { ErrorNotFoundIcon } from './error-not-found-ic';
+
 interface MetroSceneProps {
   variant: 'broken' | 'empty';
 }
@@ -149,25 +151,7 @@ export function MetroScene({ variant }: MetroSceneProps) {
             className="fill-night stroke-signal"
             strokeWidth={6}
           />
-          <g className="animate-pulse" filter="url(#ghost-glow)">
-            <circle
-              cx="566"
-              cy="60"
-              r="26"
-              className="fill-none stroke-alarm"
-              strokeWidth={2}
-              strokeDasharray="4 7"
-            />
-            <text
-              x="566"
-              y="65"
-              className="fill-alarm font-mono"
-              textAnchor="middle"
-              fontSize="14"
-            >
-              404
-            </text>
-          </g>
+          <ErrorNotFoundIcon cx={'566'} cy={'60'} textY={'65'} />
         </svg>
       )}
     </div>
