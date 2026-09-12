@@ -1,0 +1,101 @@
+.t-common .ring {
+  background: conic-gradient(from 200deg, #3c4a6b, #1b2438);
+}
+.t-common .ring {
+  background: linear-gradient(145deg, #3c4a6b, #1b2438);
+}
+.t-common .icon {
+  stroke: var(--mist-soft);
+}
+.t-common .tier {
+  color: var(--mist-soft);
+}
+
+.t-rare .ring {
+  background: linear-gradient(145deg, #4da3ff, #1b4e86);
+  box-shadow: 0 0 18px -4px rgba(77, 163, 255, 0.75);
+}
+.t-rare .icon {
+  stroke: var(--signal);
+}
+.t-rare .tier {
+  color: var(--signal);
+}
+.t-rare .medal::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(77, 163, 255, 0.28),
+    transparent 68%
+  );
+  animation: breathe 3.6s ease-in-out infinite;
+}
+
+.t-epic .ring {
+  background: linear-gradient(140deg, #ffd98a, #f5a623 42%, #9c6206);
+  box-shadow: 0 0 22px -4px rgba(245, 166, 35, 0.8);
+}
+.t-epic .icon {
+  stroke: var(--amber);
+}
+.t-epic .tier {
+  color: var(--amber);
+}
+.t-epic .ring::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(
+    115deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.75) 50%,
+    transparent 62%
+  );
+  background-size: 280% 280%;
+  animation: sweep 3.4s linear infinite;
+}
+
+.t-legend .ring {
+  background: conic-gradient(
+    from 0deg,
+    #3ecf8e,
+    #4da3ff,
+    #b98bff,
+    #f5a623,
+    #3ecf8e
+  );
+  animation: spin 7s linear infinite;
+  box-shadow: 0 0 26px -3px rgba(120, 190, 255, 0.7);
+}
+.t-legend .disc {
+  background: radial-gradient(circle at 32% 28%, #16203a, #080d1a);
+}
+.t-legend .icon {
+  stroke: #dce8ff;
+}
+.t-legend .tier {
+  color: #b98bff;
+}
+.t-legend .medal::after {
+  content: '';
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(150, 190, 255, 0.3),
+    transparent 66%
+  );
+  animation: breathe 3s ease-in-out infinite;
+}
+.t-legend .name {
+  background: linear-gradient(100deg, #8fe3c0, #9cc7ff, #c9a6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

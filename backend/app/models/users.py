@@ -10,6 +10,7 @@ from .base import Base
 
 if TYPE_CHECKING:
     from .progress import StageProgress
+    from .user_badges import UserBadge
 
 
 class User(Base):
@@ -31,3 +32,4 @@ class User(Base):
     )
     progress: Mapped[list["StageProgress"]] = relationship(back_populates="user")
     role: Mapped[str] = mapped_column(server_default=text("'user'"))
+    badges: Mapped[list["UserBadge"]] = relationship(back_populates="user")

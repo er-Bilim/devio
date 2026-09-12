@@ -8,7 +8,7 @@ from slowapi.middleware import SlowAPIMiddleware
 
 from app.core.limiter import limiter
 from app.db import engine
-from app.routers import auth, roadmaps, stages, stats, users
+from app.routers import auth, badges, roadmaps, stages, stats, users
 
 
 @asynccontextmanager
@@ -40,6 +40,7 @@ app.include_router(users.router)
 app.include_router(roadmaps.router)
 app.include_router(stats.router)
 app.include_router(stages.router)
+app.include_router(badges.router)
 
 
 @app.get("/health")

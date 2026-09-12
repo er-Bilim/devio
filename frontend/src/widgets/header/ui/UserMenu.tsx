@@ -40,7 +40,7 @@ export function UserMenu() {
     );
 
   const menuItems: MenuItem[] = [
-    { label: 'Профиль', href: '/profile', icon: User02Icon },
+    { label: 'Профиль', href: `/profile/${user.username}`, icon: User02Icon },
     { label: 'Мой маршрут', href: '/route', icon: Route01Icon },
   ];
 

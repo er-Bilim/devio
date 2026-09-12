@@ -8,5 +8,6 @@ export const POST = (request: Request) => {
   }
 
   revalidateTag('roadmaps', 'max');
+  revalidateTag('profile', 'max');
   return NextResponse.json({ ok: true });
 };

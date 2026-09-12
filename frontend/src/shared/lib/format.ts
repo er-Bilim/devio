@@ -1,3 +1,6 @@
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
+
 export const padNumber = (number: number): string => {
   if (number < 10) {
     return `0${number}`;
@@ -22,4 +25,32 @@ export const pluralize = (
   if (countMod10 >= 2 && countMod10 <= 4) return few;
 
   return many;
+};
+
+export const formatDate = (
+  date: string,
+): { year: string; month: string; day: string } => {
+  const year = format(new Date(date), 'yyyy');
+  const month = format(new Date(date), 'MMMM', { locale: ru });
+  const day = format(new Date(date), 'dd');
+  return {
+    year,
+    month,
+    day,
+  };
+};
+
+export const getWeekDayNames = (
+  locale = 'ru',
+  format: 'short' | 'long' | 'narrow' = 'short',
+) => {
+  const year = new Date().getFullYear();
+  const formatter = new Intl.DateTimeFormat(locale, { weekday: format });
+
+  const weeks = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(year, 0, 5 + i);
+    return formatter.format(date);
+  });
+
+  return weeks;
 };

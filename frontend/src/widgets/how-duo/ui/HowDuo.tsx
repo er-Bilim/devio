@@ -6,8 +6,9 @@ import {
 } from '@hugeicons/core-free-icons';
 import { RoadmapMiniLine } from '@/entities/roadmap';
 import { cn } from '@/shared/lib/utils';
+import { getWeekDayNames } from '@/shared/lib/format';
 
-const weeks: string[] = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+const weeks = getWeekDayNames('ru', 'short');
 
 export function HowDuo() {
   return (
