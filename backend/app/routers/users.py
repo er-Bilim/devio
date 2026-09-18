@@ -16,11 +16,13 @@ def read_me(current_user: CurrentUser):
 
 @router.get("/{username}", response_model=UserProfile)
 async def user_profile(username: str, db: DbSession):
+    print("!!! ручка вызвана")
     user = await users_q.get_by_username(db, username)
 
     if user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
+    user.badges.sort(key=lambda ub: ub.badge.sort_order, reverse=True)
     return user
 
 

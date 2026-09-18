@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.models import User, UserBadge
+from app.models import Badge, User, UserBadge
 
 
 async def get_by_email(db: AsyncSession, email: str) -> User | None:
@@ -17,7 +17,6 @@ async def get_by_username(db: AsyncSession, username: str) -> User | None:
         select(User)
         .where(User.username == username)
         .options(selectinload(User.badges).selectinload(UserBadge.badge))
-        .order_by(UserBadge.badge.sort_order.desc())
     )
     return result.scalar_one_or_none()
 
