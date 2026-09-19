@@ -1,7 +1,16 @@
-export default function BadgesPage() {
+import { getBadges, getCompletedBadges } from '@/entities/badges/api/server';
+import { BadgesHero } from '@/widgets/badges-hero';
+
+export default async function BadgesPage() {
+  const badges = await getBadges();
+  const completedBadges = await getCompletedBadges();
+
+  if (!badges) return null;
+
   return (
-    <div>
-      <h1 className="text-mist">Жетоны</h1>
+    <div className="wrap">
+      <div className="aura-v2" />
+      <BadgesHero badges={badges} completedBadges={completedBadges}/>
     </div>
   );
 }

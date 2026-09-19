@@ -386,3 +386,29 @@
       transparent 60%
     );
 }
+
+.aura-v2 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      860px 540px at 10% -8%,
+      rgba(185, 139, 255, 0.1) 0%,
+      transparent 58%
+    ),
+    radial-gradient(
+      700px 480px at 92% 22%,
+      rgba(245, 166, 35, 0.07) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      600px 460px at 45% 104%,
+      rgba(62, 207, 142, 0.06) 0%,
+      transparent 60%
+    );
+}
