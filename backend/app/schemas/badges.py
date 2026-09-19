@@ -17,3 +17,8 @@ class UserBadgeOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     earned_at: datetime
     badge: BadgeOut
+
+
+class UserBadgesCompleted(BaseModel):
+    code: str
+    earned_at: datetime
