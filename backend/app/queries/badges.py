@@ -2,9 +2,8 @@ from uuid import UUID
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.orm import selectinload
 
-from app.models import Badge, User, UserBadge
+from app.models import Badge, UserBadge
 
 
 async def get_all_badges(db: AsyncSession):
@@ -21,9 +20,9 @@ async def get_badge_by_code(db: AsyncSession, code: str):
 
 async def get_user_badges(db: AsyncSession, id: UUID):
     result = await db.execute(
-        select(UserBadge)
+        select(Badge.code, UserBadge.earned_at)
+        .join(UserBadge, Badge.id == UserBadge.badge_id)
         .where(UserBadge.user_id == id)
-        .options(selectinload(User.badges).selectinload(UserBadge.badge))
     )
 
-    return result.scalar_one_or_none()
+    return result.all()

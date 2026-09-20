@@ -20,5 +20,6 @@ class UserBadgeOut(BaseModel):
 
 
 class UserBadgesCompleted(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
     code: str
     earned_at: datetime

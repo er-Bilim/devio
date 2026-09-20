@@ -27,7 +27,7 @@ async def user_profile(username: str, db: DbSession):
     return user
 
 
-@router.get("/badges", response_model=UserBadgesCompleted)
+@router.get("/me/badges", response_model=list[UserBadgesCompleted])
 async def user_badges(user: CurrentUser, db: DbSession):
     badges = await badges_q.get_user_badges(db, user.id)
     return badges
