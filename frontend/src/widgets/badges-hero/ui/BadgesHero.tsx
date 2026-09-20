@@ -16,6 +16,17 @@ export const BadgesHero = ({ badges, completedBadges }: Props) => {
         Их не покупают и не выдают за время – каждый отмечает что-то, что ты
         действительно сделал в пути. Редкие светятся.
       </p>
+
+      <div className="flex items-center gap-9.5 mt-9 flex-wrap">
+        <div className="relative w-29.5 h-29.5 shrink-0">
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.75">
+            <div>
+              <span>{completedBadges?.length ?? 0}</span>
+              <span>/{badges.length}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
