@@ -106,7 +106,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/users/badges": {
+    "/users/me/badges": {
         parameters: {
             query?: never;
             header?: never;
@@ -114,7 +114,7 @@ export interface paths {
             cookie?: never;
         };
         /** User Badges */
-        get: operations["user_badges_users_badges_get"];
+        get: operations["user_badges_users_me_badges_get"];
         put?: never;
         post?: never;
         delete?: never;
@@ -322,6 +322,8 @@ export interface components {
             code: string;
             /** Title */
             title: string;
+            /** Description */
+            description: string;
             tier: components["schemas"]["BadgeTier"];
             /** Icon */
             icon: string;
@@ -711,7 +713,7 @@ export interface operations {
             };
         };
     };
-    user_badges_users_badges_get: {
+    user_badges_users_me_badges_get: {
         parameters: {
             query?: never;
             header?: never;
@@ -728,7 +730,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserBadgesCompleted"];
+                    "application/json": components["schemas"]["UserBadgesCompleted"][];
                 };
             };
             /** @description Validation Error */

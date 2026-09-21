@@ -1,3 +1,4 @@
+import { getBadges } from '@/entities/badges/api/server';
 import { getProfile } from '@/entities/user/api/server';
 import { ProfileBadges, ProfileHeader, TripsCalendar } from '@/widgets/profile';
 import { notFound } from 'next/navigation';
@@ -9,6 +10,8 @@ interface ProfileProps {
 export default async function Profile({ params }: ProfileProps) {
   const { username } = await params;
   const profile = await getProfile(username);
+  const badges = await getBadges();
+  const badgesCount = badges ? badges.length : 0;
 
   if (!profile) return notFound();
 
@@ -16,7 +19,7 @@ export default async function Profile({ params }: ProfileProps) {
     <div className="wrap">
       <ProfileHeader profile={profile} />
       <TripsCalendar />
-      <ProfileBadges profile={profile} />
+      <ProfileBadges profile={profile} badgesCount={badgesCount} />
     </div>
   );
 }

@@ -1,30 +1,33 @@
+import { cn } from '@/shared/lib/utils';
 import { tierClasses } from '../model/tier';
-import type { UserBadge } from '../model/types';
+import type { Badge } from '../model/types';
 import { BadgeMedal } from './BadgeMedal';
 
 interface BadgeCardProps {
-  badge: UserBadge;
+  badge: Badge;
 }
 
 export function BadgeCard({ badge }: BadgeCardProps) {
-  const medal = badge.badge;
-  const isEarned = badge.earned_at ? true : false;
-  
   return (
     <div
-      className={`flex flex-col items-center text-center gap-1.25 ${tierClasses[medal.tier]}`}
+      className={cn(
+        `relative flex gap-5 items-start pt-6.5 pb-6 px-6.5 rounded-[20px] bg-panel-2 border border-line`,
+        tierClasses[badge.tier],
+      )}
     >
-      <p className="tier font-mono text-[8.5px] tracking-[.14em] uppercase text-mist mt-2 mb-3">
-        {medal.tier}
-      </p>
-      <BadgeMedal medal={medal}/>
-      <div className="text-[12px] font-semibold tracking-[1.3] text-mist">
-        <p className="name mt-2 mb-1">{medal.title}</p>
-        {isEarned && (
-          <p className="sub font-mono text-[9.5px] text-mist-soft">
-            пройдено
-          </p>
-        )}
+      <BadgeMedal medal={badge} />
+      <div className="min-w-0">
+        <h3 className="font-display font-semibold text-[15px] leading-[1.3] tracking-[-.2px] text-mist">
+          {badge.title}
+        </h3>
+        <p className="text-[13px] text-mist-soft mt-2 leading-[1.55] max-w-[30ch]">
+          {badge.description}
+        </p>
+        <div className="flex items-center gap-2.5 mt-4 font-mono text-[10px] text-mist-soft">
+          <span className="tier tracking-[.30em] uppercase font-medium">
+            {badge.tier}
+          </span>
+        </div>
       </div>
     </div>
   );
