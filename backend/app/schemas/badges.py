@@ -9,6 +9,7 @@ class BadgeOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     code: str
     title: str
+    description: str
     tier: BadgeTier
     icon: str
 
