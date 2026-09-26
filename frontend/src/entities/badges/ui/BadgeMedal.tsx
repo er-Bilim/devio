@@ -1,8 +1,8 @@
 import { HugeiconsIcon } from '@hugeicons/react';
 import type { Badge } from '../model/types';
-import { GemIcon } from '@hugeicons/core-free-icons';
 import { tierClasses } from '../model/tier';
 import './badge-medal.css';
+import { BADGE_ICONS, DEFAULT_ICON } from './badgeIcon';
 
 interface BadgeMedalProps {
   medal: Badge;
@@ -31,6 +31,8 @@ export function BadgeMedal({ medal, size = 'md' }: BadgeMedalProps) {
     },
   };
 
+  const Icon = BADGE_ICONS[medal.icon] ?? DEFAULT_ICON;
+
   return (
     <>
       <div
@@ -41,12 +43,12 @@ export function BadgeMedal({ medal, size = 'md' }: BadgeMedalProps) {
         >
           <div className="ring absolute inset-0 rounded-full z-10" />
           <div
-            className={`disc absolute ${sizes[size].disc} rounded-full bg-night grid place-items-center z-20`}
+            className={`disc absolute ${sizes[size].disc} rounded-full bg-night grid place-items-center z-20 tier`}
           >
             <HugeiconsIcon
-              icon={GemIcon}
-              strokeWidth={2.5}
-              className={`icon ${sizes[size].icon} text-mist-soft z-30`}
+              icon={Icon}
+              strokeWidth={2}
+              className={`icon ${sizes[size].icon} z-30`}
             />
           </div>
         </div>

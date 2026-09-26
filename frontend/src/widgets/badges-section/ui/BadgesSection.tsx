@@ -1,10 +1,7 @@
-import {
-  BadgeCard,
-  type Badge,
-} from '@/entities/badges';
+import { BadgeCard, type BadgeWithEarned } from '@/entities/badges';
 
 interface BadgesSectionProps {
-  badges: Badge[];
+  badges: BadgeWithEarned[];
 }
 
 export function BadgesSection({ badges }: BadgesSectionProps) {
@@ -15,6 +12,7 @@ export function BadgesSection({ badges }: BadgesSectionProps) {
           return <BadgeCard key={badge.code} badge={badge} />;
         })}
       </div>
+      <div className="rule" />
     </section>
   );
 }
