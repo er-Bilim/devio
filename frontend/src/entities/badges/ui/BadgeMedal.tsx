@@ -39,8 +39,9 @@ export function BadgeMedal({ medal, size = 'md' }: BadgeMedalProps) {
         className={`flex flex-col items-center text-center gap-1.25 ${tierClasses[medal.tier]}`}
       >
         <div
-          className={`medal relative ${sizes[size].size} grid place-items-center`}
+          className={`medal relative ${sizes[size].size} grid place-items-center flex-start`}
         >
+          {medal.tier === 'mythic' && <div className="orbit" />}
           <div className="ring absolute inset-0 rounded-full z-10" />
           <div
             className={`disc absolute ${sizes[size].disc} rounded-full bg-night grid place-items-center z-20 tier`}

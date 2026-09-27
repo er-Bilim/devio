@@ -11,15 +11,19 @@ interface BadgeCardProps {
 
 export function BadgeCard({ badge }: BadgeCardProps) {
   const isEarned: boolean = badge.earned;
+  const isEarnedMythic: boolean = badge.tier === 'mythic' && badge.earned;
+  const isLockerMythic: boolean = badge.tier === 'mythic' && !badge.earned;
 
   return (
     <div
       className={cn(
-        `relative flex gap-5 items-start pt-6.5 pb-6 px-6.5 rounded-[20px] bg-panel-2 border border-line duration-300`,
+        `card relative flex gap-5 items-stretch pt-6.5 pb-6 px-6.5 rounded-[20px] bg-panel-2 border border-line duration-300`,
         tierClasses[badge.tier],
         {
           'opacity-50': !isEarned,
           'hover:border-mint/40 hover:bg-mint/5': isEarned,
+          'hover:shadow-[0_18px_50px_-20px_rgba(255,92,138,0.55)]':
+            isEarnedMythic,
         },
       )}
     >
@@ -33,14 +37,21 @@ export function BadgeCard({ badge }: BadgeCardProps) {
         </div>
       )}
       <BadgeMedal medal={badge} />
-      <div className="min-w-0">
+      <div className="min-w-0 flex flex-col">
         <h3 className="font-display font-semibold text-[15px] leading-[1.3] tracking-[-.2px] text-mist">
           {badge.title}
         </h3>
-        <p className="text-[13px] text-mist-soft mt-2 leading-[1.55] max-w-[30ch]">
+        <p
+          className={cn(
+            'text-[13px] text-mist-soft mt-2 leading-[1.55] max-w-[30ch]',
+            {
+              blur: isLockerMythic,
+            },
+          )}
+        >
           {badge.description}
         </p>
-        <div className="flex items-center gap-2.5 mt-4 font-mono text-[10px] text-mist-soft">
+        <div className="flex items-center gap-2.5 font-mono text-[10px] text-mist-soft mt-auto pt-4">
           <span className="tier tracking-[.30em] uppercase font-medium">
             {badge.tier}
           </span>

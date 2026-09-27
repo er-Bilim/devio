@@ -62,6 +62,8 @@
   --color-amber: var(--amber);
   --color-alarm: var(--alarm);
   --color-azure: var(--azure);
+  --color-myth: var(--myth);
+  --color-myth-void: var(--myth-void);
 
   --animate-drift: drift var(--dur, 9s) ease-in-out var(--delay, 0s) infinite
     alternate;
@@ -101,6 +103,8 @@
   --amber: #f5a623;
   --alarm: #f06a6a;
   --azure: #6ab4ff;
+  --myth: #ff5c8a;
+  --myth-void: #1a0714;
   /*CUSTOM*/
 
   --background: oklch(1 0 0);
@@ -194,8 +198,12 @@
   }
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 .wrap {
-  max-width: 1140px;
+  max-width: 1100px;
   margin: 0 auto;
   padding-left: 1.5rem;
   padding-right: 1.5rem;
