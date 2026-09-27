@@ -1,4 +1,4 @@
-import { RoundedBadge } from '@/entities/badges/ui/RoundedBadgeMedal';
+import { RoundedBadge } from '@/entities/badges';
 import type { UserProfile } from '@/entities/user';
 import { Award04Icon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';

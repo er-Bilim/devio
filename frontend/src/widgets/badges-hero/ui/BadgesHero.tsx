@@ -1,24 +1,44 @@
-import type { Badge, UserBadgesCompleted } from '@/entities/badges/';
+import type { BadgeWithEarned } from '@/entities/badges/';
+import { tierClasses } from '@/entities/badges/model/tier';
+import type { TierFilter } from '@/entities/badges/model/types';
 import { cn } from '@/shared/lib/utils';
-import { Apple01Icon } from '@hugeicons/core-free-icons';
+import { DotIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
 
 interface BadgesHeroProps {
-  badges: Badge[];
-  completedBadges: UserBadgesCompleted[] | null;
+  badges: BadgeWithEarned[];
 }
 
-export function BadgesHero({ badges, completedBadges }: BadgesHeroProps) {
-  const earned = completedBadges ? completedBadges.length : 0;
+export function BadgesHero({ badges }: BadgesHeroProps) {
+  const earned = badges.filter((badge) => badge.earned).length;
   const total = badges.length;
   const radius = 50;
   const circumference = 2 * Math.PI * radius;
   const progress = earned / total;
   const offset = circumference * (1 - progress);
 
-  const tiers: { tier: string }[] = [
-    ...new Map(badges.map((badge) => [badge.tier, badge])).values(),
-  ];
+  const getBadgesCountByTier = (tier: TierFilter) => {
+    const earnedBadges = badges.filter(
+      (badge) => badge.earned && badge.tier === tier,
+    );
+
+    const tierBadges = badges.filter((badge) => badge.tier === tier);
+    return {
+      earnedCount: earnedBadges.length,
+      tierCount: tierBadges.length,
+    };
+  };
+
+  const tiers = badges.map((badge) => {
+    return {
+      tier: badge.tier,
+      earnedCount: getBadgesCountByTier(badge.tier).earnedCount,
+      tierCount: getBadgesCountByTier(badge.tier).tierCount,
+    };
+  });
+  const uniqTiers = Array.from(
+    new Map(tiers.map((badge) => [badge.tier, badge])).values(),
+  );
 
   return (
     <>
@@ -59,7 +79,7 @@ export function BadgesHero({ badges, completedBadges }: BadgesHeroProps) {
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-0.75">
               <div className="text-mist-soft font-display leading-1 flex flex-row items-baseline gap-1">
                 <span className="font-semibold text-[26px] tracking-[-0.5px] text-mist">
-                  {completedBadges?.length ?? 0}
+                  {earned}
                 </span>
                 <span>/</span>
                 <span>{badges.length}</span>
@@ -70,25 +90,41 @@ export function BadgesHero({ badges, completedBadges }: BadgesHeroProps) {
             </div>
           </div>
           <div className="flex gap-3.5 flex-wrap">
-            {tiers.map((tier) => (
-              <div
-                key={tier.tier}
-                className={cn(
-                  'flex flex-col gap-2.25 py-3.5 px-4.5 rounded-[14px] min-w-29.5 border border-line bg-panel-2',
-                )}
-              >
-                <div className="flex flex-row gap-2 items-center">
-                  <HugeiconsIcon
-                    icon={Apple01Icon}
-                    strokeWidth={2}
-                    className="size-3.5 text-mist-soft"
-                  />
-                  <span className="font-mono text-[10px] tracking-widest uppercase text-mist-soft">
-                    {tier.tier}
-                  </span>
+            {uniqTiers.map((badge) => {
+              const isFull = badge.tierCount === badge.earnedCount;
+              return (
+                <div
+                  key={badge.tier}
+                  className={cn(
+                    'card flex flex-col gap-2.25 py-2 px-4.5 rounded-[14px] min-w-29.5 border border-line bg-panel-2',
+                    tierClasses[badge.tier],
+                    {
+                      'border-mint bg-mint/10': isFull,
+                    },
+                  )}
+                >
+                  <div className="flex items-baseline gap-0.5 font-display text-mist-soft">
+                    <span className="font-semibold text-[19px] text-mist">
+                      {badge.earnedCount}
+                    </span>
+                    <span className="mx-1">/</span>
+                    <span className="font-mono text-[12px] font-normal">
+                      {badge.tierCount}
+                    </span>
+                  </div>
+                  <div className="flex flex-row gap-2 items-center pb-2 tier">
+                    <HugeiconsIcon
+                      icon={DotIcon}
+                      strokeWidth={10}
+                      className="size-3.5"
+                    />
+                    <span className="font-mono text-[10px] tracking-[0.2em] uppercase font-medium">
+                      {badge.tier}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

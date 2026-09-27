@@ -1,6 +1,6 @@
 import { getBadges, getCompletedBadges } from '@/entities/badges/api/server';
 import { BadgesHero } from '@/widgets/badges-hero';
-import { BadgesSection } from '@/widgets/badges-section/ui/BadgesSection';
+import { BadgesSection } from '@/widgets/badges-section/';
 
 export default async function BadgesPage() {
   const catalog = await getBadges();
@@ -13,6 +13,7 @@ export default async function BadgesPage() {
     ...b,
     earned: earnedCodes.has(b.code),
   }));
+  
   const sortedBadges = allBadges.toSorted(
     (a, b) => Number(b.earned) - Number(a.earned),
   );
@@ -20,7 +21,7 @@ export default async function BadgesPage() {
   return (
     <div className="wrap">
       <div className="aura-v2" />
-      <BadgesHero badges={catalog} completedBadges={completedBadges} />
+      <BadgesHero badges={sortedBadges}/>
       <BadgesSection badges={sortedBadges} />
     </div>
   );
