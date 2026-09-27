@@ -332,7 +332,7 @@ export interface components {
          * BadgeTier
          * @enum {string}
          */
-        BadgeTier: "common" | "rare" | "epic" | "legend";
+        BadgeTier: "common" | "rare" | "epic" | "legend" | "mythic";
         /** DirectionStat */
         DirectionStat: {
             /** Slug */
