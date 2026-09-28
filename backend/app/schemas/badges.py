@@ -9,6 +9,7 @@ class BadgeOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     code: str
     title: str
+    description: str
     tier: BadgeTier
     icon: str
 
@@ -17,3 +18,9 @@ class UserBadgeOut(BaseModel):
     model_config = ConfigDict(from_attributes=True)
     earned_at: datetime
     badge: BadgeOut
+
+
+class UserBadgesCompleted(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+    code: str
+    earned_at: datetime

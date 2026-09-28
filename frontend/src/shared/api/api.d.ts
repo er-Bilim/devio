@@ -106,6 +106,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/users/me/badges": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** User Badges */
+        get: operations["user_badges_users_me_badges_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/users/me/progress": {
         parameters: {
             query?: never;
@@ -261,6 +278,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/badges/": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Badges */
+        get: operations["list_badges_badges__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/health": {
         parameters: {
             query?: never;
@@ -288,6 +322,8 @@ export interface components {
             code: string;
             /** Title */
             title: string;
+            /** Description */
+            description: string;
             tier: components["schemas"]["BadgeTier"];
             /** Icon */
             icon: string;
@@ -296,7 +332,7 @@ export interface components {
          * BadgeTier
          * @enum {string}
          */
-        BadgeTier: "common" | "rare" | "epic" | "legend";
+        BadgeTier: "common" | "rare" | "epic" | "legend" | "mythic";
         /** DirectionStat */
         DirectionStat: {
             /** Slug */
@@ -397,6 +433,16 @@ export interface components {
             earned_at: string;
             badge: components["schemas"]["BadgeOut"];
         };
+        /** UserBadgesCompleted */
+        UserBadgesCompleted: {
+            /** Code */
+            code: string;
+            /**
+             * Earned At
+             * Format: date-time
+             */
+            earned_at: string;
+        };
         /** UserLogin */
         UserLogin: {
             /**
@@ -442,23 +488,6 @@ export interface components {
             created_at: string;
             /** Badges */
             badges: components["schemas"]["UserBadgeOut"][];
-        };
-        /** UserPublic */
-        UserPublic: {
-            /**
-             * Id
-             * Format: uuid
-             */
-            id: string;
-            /** Username */
-            username: string;
-            /** Display Name */
-            display_name: string;
-            /**
-             * Created At
-             * Format: date-time
-             */
-            created_at: string;
         };
         /** UserRegister */
         UserRegister: {
@@ -515,7 +544,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserPublic"];
+                    "application/json": components["schemas"]["UserPrivate"];
                 };
             };
             /** @description Validation Error */
@@ -548,7 +577,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserPublic"];
+                    "application/json": components["schemas"]["UserPrivate"];
                 };
             };
             /** @description Validation Error */
@@ -608,7 +637,7 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "application/json": components["schemas"]["UserPublic"];
+                    "application/json": components["schemas"]["UserPrivate"];
                 };
             };
             /** @description Validation Error */
@@ -684,15 +713,45 @@ export interface operations {
             };
         };
     };
-    my_progress_users_me_progress_get: {
+    user_badges_users_me_badges_get: {
         parameters: {
-            query?: {
-                user?: unknown;
-                db?: unknown;
-            };
+            query?: never;
             header?: never;
             path?: never;
-            cookie?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["UserBadgesCompleted"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    my_progress_users_me_progress_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: {
+                access_token?: string | null;
+            };
         };
         requestBody?: never;
         responses: {
@@ -1001,6 +1060,26 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_badges_badges__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BadgeOut"][];
                 };
             };
         };

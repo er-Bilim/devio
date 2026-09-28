@@ -3,4 +3,5 @@ export const tierClasses = {
   rare: 't-rare',
   epic: 't-epic',
   legend: 't-legend',
+  mythic: 't-myth',
 };

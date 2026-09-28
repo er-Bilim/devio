@@ -1,4 +1,4 @@
-import type { components } from '@/shared/types/api';
+import type { components } from '@/shared/api/api';
 
 export type Roadmap = components['schemas']['RoadmapOut'];
 export type Stage = components['schemas']['StageOut'];

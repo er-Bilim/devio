@@ -1,5 +1,5 @@
 import { BadgeMedal } from '@/entities/badges';
-import type { UserProfile } from '@/entities/user/model/types';
+import type { UserProfile } from '@/entities/user';
 import { formatDate } from '@/shared/lib/format';
 import {
   Calendar02Icon,

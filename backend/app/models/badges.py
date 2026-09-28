@@ -12,6 +12,7 @@ class BadgeTier(str, enum.Enum):
     rare = "rare"
     epic = "epic"
     legend = "legend"
+    mythic = "mythic"
 
 
 class Badge(Base):

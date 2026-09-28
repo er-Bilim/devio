@@ -7,4 +7,5 @@ export const NAV_ITEMS: Link[] = [
   { label: 'Направления', href: '/roadmaps' },
   { label: 'Как это работает', href: '/how' },
   { label: 'Статистика', href: '/stats' },
+  { label: 'Жетоны', href: '/badges' },
 ] as const;

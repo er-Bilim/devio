@@ -23,9 +23,8 @@ export function NavLinks() {
               <Link href={link.href} className="relative w-full">
                 <p>{link.label}</p>
                 {isActive && (
-                  <div className="flex flex-row items-center mt-1">
-                    <div className="h-0.5 w-full bg-[linear-gradient(90deg,var(--mint)_0%,transparent_50%,var(--mint)_100%)]" />
-                    <div className="w-3 h-3 bg-night border-2 border-mint rounded-full absolute left-1/2 -translate-x-1/2" />
+                  <div className="w-full absolute flex flex-row items-center mt-1 top-9.5 h-0.5 bg-mint ">
+                    <div className="w-3 h-3 bg-night border-2 border-mint rounded-full absolute left-1/2 -translate-x-1/2 shadow-[0_0_10px_2px_var(--mint)]" />
                   </div>
                 )}
               </Link>
