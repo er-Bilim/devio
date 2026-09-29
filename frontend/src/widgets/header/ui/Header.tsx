@@ -8,8 +8,17 @@ import { MobileNav } from './MobileNav';
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-[rgba(11,16,32,0.82)] backdrop-blur-[10px] border-b border-line">
-      <div className="flex items-center justify-between h-16 mx-auto px-6 gap-10">
+    <header className="py-4.5 px-0">
+      <div className="wrap">
+        <div className="flex items-center justify-between gap-6 py-2 pr-2.5 pl-5.5 rounded-full bg-[rgba(32,24,25,.72)] ring-1 ring-inset ring-line backdrop-blur-[14px]">
+          <Link href="/">
+            <Logo size={28} />
+          </Link>
+          <NavLinks />
+          <UserMenu />
+        </div>
+      </div>
+      {/*<div className="flex items-center justify-between h-16 mx-auto px-6 gap-10">
         <div className="flex items-center gap-10">
           <Link href="/" className="flex items-start gap-4 flex-row">
             <Logo />
@@ -27,12 +36,12 @@ export function Header() {
           </div>
         </div>
         <div className="hidden md:flex md:justify-start md:items-start">
-          <UserMenu />
+
         </div>
         <div className="flex md:hidden">
           <MobileNav />
         </div>
-      </div>
+      </div>*/}
     </header>
   );
 }

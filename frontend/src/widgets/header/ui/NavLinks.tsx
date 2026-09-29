@@ -9,25 +9,20 @@ export function NavLinks() {
 
   return (
     <nav>
-      <ul className="hidden md:flex gap-7 text-[14.5px] font-medium">
+      <ul className="flex gap-1.5">
         {NAV_ITEMS.map((link) => {
           const isActive = pathname.startsWith(link.href);
           return (
             <li
               key={link.href}
               className={cn(
-                'text-mist-soft hover:text-mist',
-                isActive && 'text-mint',
+                'text-muted py-2 px-4 bg-transparent rounded-full text-[13px] hover:bg-[rgba(255,236,230,.05)] hover:text-text cursor-pointer duration-150',
+                {
+                  'text-text bg-[rgba(224,138,126,.12)]': isActive,
+                },
               )}
             >
-              <Link href={link.href} className="relative w-full">
-                <p>{link.label}</p>
-                {isActive && (
-                  <div className="w-full absolute flex flex-row items-center mt-1 top-9.5 h-0.5 bg-mint ">
-                    <div className="w-3 h-3 bg-night border-2 border-mint rounded-full absolute left-1/2 -translate-x-1/2 shadow-[0_0_10px_2px_var(--mint)]" />
-                  </div>
-                )}
-              </Link>
+              <Link href={link.href}>{link.label}</Link>
             </li>
           );
         })}

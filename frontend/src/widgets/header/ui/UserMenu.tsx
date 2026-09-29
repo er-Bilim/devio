@@ -31,12 +31,14 @@ export function UserMenu() {
 
   if (!user)
     return (
-      <Link
-        href="/auth"
-        className="inline-flex items-center gap-2.25 py-2.75 px-6 font-bold text-[15px] font-body border border-line text-mist rounded-xl duration-150 hover:border-signal hover:text-signal"
-      >
-        Войти
-      </Link>
+      <div className="flex flex-row gap-2">
+        <Link href="/auth" className="btn btn-soft btn-sm">
+          Войти
+        </Link>
+        <Link className="btn btn-primary btn-sm" href="/roadmaps">
+          Начать бесплатно
+        </Link>
+      </div>
     );
 
   const menuItems: MenuItem[] = [
@@ -71,7 +73,10 @@ export function UserMenu() {
             <HugeiconsIcon
               icon={ArrowDown01Icon}
               strokeWidth={1.5}
-              className={cn("size-3.5 text-mint duration-200", isOpen && 'rotate-180')}
+              className={cn(
+                'size-3.5 text-mint duration-200',
+                isOpen && 'rotate-180',
+              )}
             />
           </Button>
         </DropdownMenuTrigger>
