@@ -1,3 +1,4 @@
-import type HugeiconsIcon from '@hugeicons/core-free-icons/HugeiconsIcon';
+import type { HugeiconsIcon } from '@hugeicons/react';
+import type { ComponentProps } from 'react';
 
-export type HugeIcon = React.ComponentProps<typeof HugeiconsIcon>['icon'];
+export type IconType = ComponentProps<typeof HugeiconsIcon>['icon'];
