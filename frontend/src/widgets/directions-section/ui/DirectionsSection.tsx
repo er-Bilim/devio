@@ -9,8 +9,24 @@ export async function DirectionsSection() {
   }
 
   return (
-    <section className="py-20">
+    <section>
       <div className="wrap">
+        <div className="head">
+          <span className="kicker">Направления</span>
+          <h2>Выбери, куда ехать</h2>
+          <p>
+            Порядок станций уже выверен: что учить, зачем и что после чего.
+            Начни с любой ветки – переключиться можно в любой момент.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-2 gap-5">
+          {roadmaps.map((roadmap) => (
+            <RoadmapCard key={roadmap.id} roadmap={roadmap} />
+          ))}
+        </div>
+      </div>
+      {/*<div className="wrap">
         <div className="mb-11 max-w-[60ch]">
           <p className="font-mono text-[12px] tracking-[.14em] uppercase text-signal mb-3">
             Направления
@@ -29,7 +45,7 @@ export async function DirectionsSection() {
             <RoadmapCard key={roadmap.id} roadmap={roadmap} />
           ))}
         </div>
-      </div>
+      </div>*/}
     </section>
   );
 }

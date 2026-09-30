@@ -1,0 +1,18 @@
+.route {
+  list-style: none;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--n), 1fr);
+  margin-top: 28px;
+}
+
+.route::before {
+  content: '';
+  position: absolute;
+  top: 5px;
+  height: 4px;
+  border-radius: 4px;
+  left: calc(50% / var(--n));
+  right: calc(50% / var(--n));
+  background: color-mix(in srgb, var(--rose-soft) 30%, transparent);
+}
