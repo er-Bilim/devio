@@ -4,8 +4,9 @@ const AVATAR_KEYS: string[] = [
   'bear',
   'owl',
   'frog',
-  'panada',
+  'panda',
   'penguin',
+  'rabbit',
 ];
 
 const hash = (s: string) => {
