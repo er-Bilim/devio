@@ -26,7 +26,7 @@ export function HomeHero() {
   ];
 
   return (
-    <section className="relative pt-16 pb-10">
+    <section className="relative">
       <div
         className="glow"
         style={{

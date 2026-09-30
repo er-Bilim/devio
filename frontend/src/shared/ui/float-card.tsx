@@ -48,13 +48,15 @@ export function FloatCard({ className, settings }: FloatCardProps) {
       >
         {isDefault && (
           <HugeiconsIcon
-            icon={settings.icon}
+            icon={settings.icon as IconType}
             strokeWidth={2}
             className={`ic`}
           />
         )}
         {isCustom && (
-          <div className="flex items-center gap-2">{settings.icon}</div>
+          <div className="w-full flex flex-row rounded-[11px] shadow-[0_0_0_2px_#282021] -ml-2.25 mr-1">
+            {settings.icon as ReactNode}
+          </div>
         )}
       </div>
 

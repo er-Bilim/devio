@@ -15,7 +15,7 @@ export function HeroScene() {
     type: 'custom',
     title: 'попутчики',
     description: 'Присоединяйтесь',
-    icon: <AvatarStack usernames={['notsoat', 'aigerim', 'timur', 'dana']} />,
+    icon: <AvatarStack usernames={['1', '2', '4', '5', '6']} size={32} />,
   };
 
   return (
