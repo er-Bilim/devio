@@ -24,6 +24,7 @@ class Roadmap(BaseModel):
     slug: str
     title: str
     description: str
+    icon: str
 
 
 class RoadmapOut(BaseModel):
@@ -33,6 +34,7 @@ class RoadmapOut(BaseModel):
     slug: str
     title: str
     description: str | None
+    icon: str
     stages: list[StageOut] = []
     status: StatusEnum
 
@@ -46,6 +48,7 @@ class RoadmapCreate(BaseModel):
     slug: str
     title: str
     description: str | None = None
+    icon: str
 
 
 class RoadmapUpdate(BaseModel):

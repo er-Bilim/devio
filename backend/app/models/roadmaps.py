@@ -11,6 +11,7 @@ class Roadmap(Base):
     __tablename__ = "roadmaps"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    icon: Mapped[str]
     slug: Mapped[str] = mapped_column(unique=True, index=True)
     title: Mapped[str]
     description: Mapped[str | None]

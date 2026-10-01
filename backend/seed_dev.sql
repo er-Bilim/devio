@@ -15,11 +15,11 @@ INSERT INTO users (id, username, display_name, email, password_hash, role) VALUE
 );
 
 -- Дорожные карты
-INSERT INTO roadmaps (id, slug, title, description, status) VALUES
-  (1, 'frontend', 'Frontend', 'От HTML до продакшен-React: вёрстка, JavaScript, TypeScript, фреймворки и первый деплой.', 'active'),
-  (2, 'backend',  'Backend',  'Python, FastAPI, базы данных и API: от первого эндпоинта до сервера с реальными пользователями.', 'active'),
-  (3, 'devops',   'DevOps',   'Инфраструктура, CI/CD, контейнеризация и оркестрация приложений.', 'draft'),
-  (4, 'mobile',   'Mobile',   'Кроссплатформенная и нативная разработка мобильных приложений.', 'draft');
+INSERT INTO roadmaps (id, slug, title, description, status, icon) VALUES
+  (1, 'frontend', 'Frontend', 'От HTML до продакшен-React: вёрстка, JavaScript, TypeScript, фреймворки и первый деплой.', 'active', 'layout'),
+  (2, 'backend',  'Backend',  'Python, FastAPI, базы данных и API: от первого эндпоинта до сервера с реальными пользователями.', 'active', 'server'),
+  (3, 'devops',   'DevOps',   'Инфраструктура, CI/CD, контейнеризация и оркестрация приложений.', 'draft', 'infinity'),
+  (4, 'mobile',   'Mobile',   'Кроссплатформенная и нативная разработка мобильных приложений.', 'draft', 'smartphone');
 
 -- Этапы
 INSERT INTO stages (id, roadmap_id, title, description, topics, duration_weeks, position) VALUES
