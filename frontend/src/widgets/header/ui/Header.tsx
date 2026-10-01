@@ -1,10 +1,7 @@
 import { Logo } from '@/shared/ui/logo';
 import { NavLinks } from './NavLinks';
 import Link from 'next/link';
-import { HugeiconsIcon } from '@hugeicons/react';
-import { DotIcon } from '@hugeicons/core-free-icons';
 import { UserMenu } from './UserMenu';
-import { MobileNav } from './MobileNav';
 
 export function Header() {
   return (
