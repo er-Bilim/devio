@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from app.models import Badge, User, UserBadge
+from app.models import User, UserBadge
 
 
 async def get_by_email(db: AsyncSession, email: str) -> User | None:
