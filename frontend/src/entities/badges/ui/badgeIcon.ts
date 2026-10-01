@@ -1,5 +1,4 @@
 import {
-  type Award04Icon,
   Award03Icon,
   ServerStack03Icon,
   ReactIcon,
@@ -17,8 +16,9 @@ import {
   FireIcon,
   SparklesIcon
 } from '@hugeicons/core-free-icons';
+import type { IconType } from '@/shared/types/icon';
 
-export const BADGE_ICONS: Record<string, typeof Award04Icon> = {
+export const BADGE_ICONS: Record<string, IconType> = {
   trophy: Award03Icon,
   server: ServerStack03Icon,
   layout: ReactIcon,

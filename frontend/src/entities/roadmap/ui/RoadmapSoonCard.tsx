@@ -1,17 +1,19 @@
 import { HugeiconsIcon } from '@hugeicons/react';
 import type { Roadmap } from '../model/types';
-import { PackageIcon } from '@hugeicons/core-free-icons';
+import { DEFAULT_ICON, ROADMAP_CONFIG } from '../config/appearance';
 
 interface RoadmapSoonCardProps {
   roadmap: Roadmap;
 }
 
 export function RoadmapSoonCard({ roadmap }: RoadmapSoonCardProps) {
+  const Icon = ROADMAP_CONFIG[roadmap.icon] ?? DEFAULT_ICON;
+
   return (
     <div className="flex items-center gap-4.5 py-5.5 px-6.5 rounded-(--r-md) bg-transparent inset-ring inset-ring-line text-muted">
       <div className="w-10.5 h-10.5 rounded-[14px] bg-text/5 flex items-center justify-center">
         <HugeiconsIcon
-          icon={PackageIcon}
+          icon={Icon}
           strokeWidth={1.8}
           className="size-4 ic text-faint"
         />

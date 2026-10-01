@@ -10,3 +10,4 @@ export { RoadmapHubCard } from './ui/RoadmapHubCard';
 export { RoadmapCard } from './ui/RoadmapCard';
 export { StationChip } from './ui/StationChip';
 export { StationCard } from './ui/StationCard';
+export { ROADMAP_CONFIG, DEFAULT_ICON } from './config/appearance'

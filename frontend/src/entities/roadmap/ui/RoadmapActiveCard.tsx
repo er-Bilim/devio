@@ -1,19 +1,18 @@
 import Link from 'next/link';
 import { type Roadmap } from '../model/types';
 import { HugeiconsIcon } from '@hugeicons/react';
-import {
-  ArrowUpRight03Icon,
-  ServerStack03Icon,
-  UserMultiple02Icon,
-} from '@hugeicons/core-free-icons';
+import { ArrowUpRight03Icon, UserGroupIcon } from '@hugeicons/core-free-icons';
 import { RouteLine } from './RouteLine';
 import { pluralize } from '@/shared/lib/format';
+import { DEFAULT_ICON, ROADMAP_CONFIG } from '../config/appearance';
 
 interface RoadmapActiveCardProps {
   roadmap: Roadmap;
 }
 
 export function RoadmapActiveCard({ roadmap }: RoadmapActiveCardProps) {
+  const Icon = ROADMAP_CONFIG[roadmap.icon] ?? DEFAULT_ICON;
+
   return (
     <Link
       href={`/roadmaps/${roadmap.slug}`}
@@ -23,14 +22,14 @@ export function RoadmapActiveCard({ roadmap }: RoadmapActiveCardProps) {
       <div className="flex items-center justify-between gap-3">
         <div className="grid place-items-center w-12 h-12 rounded-[16px] bg-rose/14">
           <HugeiconsIcon
-            icon={ServerStack03Icon}
+            icon={Icon}
             strokeWidth={1.8}
             className="size-4 ic text-rose"
           />
         </div>
         <div className="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-full text-[13px] text-muted bg-text/5">
           <HugeiconsIcon
-            icon={UserMultiple02Icon}
+            icon={UserGroupIcon}
             strokeWidth={1.8}
             className="size-4 text-muted"
           />

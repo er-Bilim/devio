@@ -365,6 +365,8 @@ export interface components {
             title: string;
             /** Description */
             description?: string | null;
+            /** Icon */
+            icon: string;
         };
         /** RoadmapOut */
         RoadmapOut: {
@@ -376,6 +378,8 @@ export interface components {
             title: string;
             /** Description */
             description: string | null;
+            /** Icon */
+            icon: string;
             /**
              * Stages
              * @default []
