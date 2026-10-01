@@ -17,7 +17,7 @@ const hash = (s: string) => {
   return hashed;
 };
 
-export const getAvatarKey = (username: string): string => {
+export const getAvatarKey = (username: string): string | undefined => {
   const normalized = username.trim().toLowerCase() || 'devio';
   return AVATAR_KEYS[hash(normalized) % AVATAR_KEYS.length];
 };
