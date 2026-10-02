@@ -1,3 +1,4 @@
+import { Footer } from '@/widgets/footer';
 import { Header } from '@/widgets/header';
 
 export default function RootLayout({
@@ -9,6 +10,7 @@ export default function RootLayout({
     <>
       <Header />
       <main>{children}</main>
+      <Footer />
     </>
   );
 }
