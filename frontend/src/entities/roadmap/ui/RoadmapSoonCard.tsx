@@ -1,17 +1,18 @@
 import { HugeiconsIcon } from '@hugeicons/react';
 import type { Roadmap } from '../model/types';
-import { DEFAULT_ICON, ROADMAP_CONFIG } from '../config/appearance';
+import { DEFAULT_ROADMAP_ICON, ROADMAP_CONFIG } from '../config/appearance';
 
 interface RoadmapSoonCardProps {
   roadmap: Roadmap;
 }
 
 export function RoadmapSoonCard({ roadmap }: RoadmapSoonCardProps) {
-  const Icon = ROADMAP_CONFIG[roadmap.icon] ?? DEFAULT_ICON;
+  const config = ROADMAP_CONFIG[roadmap.slug];
+  const Icon = config?.icon ?? DEFAULT_ROADMAP_ICON;
 
   return (
     <div className="flex items-center gap-4.5 py-5.5 px-6.5 rounded-(--r-md) bg-transparent inset-ring inset-ring-line text-muted">
-      <div className="w-10.5 h-10.5 rounded-[14px] bg-text/5 flex items-center justify-center">
+      <div className="min-w-10.5 h-10.5 rounded-[14px] bg-text/5 flex items-center justify-center">
         <HugeiconsIcon
           icon={Icon}
           strokeWidth={1.8}
@@ -21,7 +22,7 @@ export function RoadmapSoonCard({ roadmap }: RoadmapSoonCardProps) {
 
       <span>
         <b className="block text-text font-semibold">{roadmap.title}</b>
-        <small className="text-[13.5px]">Docker, CI/CD, мониторинг</small>
+        <small className="text-[13.5px]">{roadmap.description}</small>
       </span>
       <span className="ml-auto text-[12.5px] py-1.25 px-2.75 rounded-full bg-text/5">
         строится

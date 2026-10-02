@@ -40,6 +40,10 @@ export const formatDate = (
   };
 };
 
+export const weeksToMonths = (weeks: number) => {
+  return Math.ceil(weeks / 4);
+};
+
 export const getWeekDayNames = (
   locale = 'ru',
   format: 'short' | 'long' | 'narrow' = 'short',

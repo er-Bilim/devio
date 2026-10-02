@@ -14,5 +14,5 @@
   border-radius: 4px;
   left: calc(50% / var(--n));
   right: calc(50% / var(--n));
-  background: color-mix(in srgb, var(--rose-soft) 30%, transparent);
+  background: color-mix(in srgb, var(--rose) 30%, transparent);
 }
