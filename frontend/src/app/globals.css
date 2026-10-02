@@ -441,7 +441,39 @@ h2 {
   left: -40px;
 }
 
-.thread-base {
+@keyframes flow {
+  to {
+    stroke-dashoffset: -88;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--line);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 5px;
+  border: 2px solid var(--line);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--mist-soft);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--rose-soft) var(--line);
+}
+
+/* Всё, что здесь закомментировано - не удалять */
+
+/*.thread-base {
   fill: none;
   stroke: var(--line);
   stroke-width: 2;
@@ -457,38 +489,9 @@ h2 {
 .flow {
   stroke-dasharray: 7 15;
   animation: flow 2.8s linear infinite;
-}
-@keyframes flow {
-  to {
-    stroke-dashoffset: -88;
-  }
-}
+}*/
 
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--night);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--line);
-  border-radius: 5px;
-  border: 2px solid var(--night);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--mist-soft);
-}
-
-* {
-  scrollbar-width: thin;
-  scrollbar-color: var(--mint) var(--night);
-}
-
-[data-active] .stop {
+/*[data-active] .stop {
   border-color: var(--accent);
   color: var(--mist);
   box-shadow: 0 12px 30px -14px var(--accent);
@@ -594,4 +597,4 @@ h2 {
 .sec-sub {
   font-size: 13.5px;
   color: var(--mist-soft);
-}
+}*/
