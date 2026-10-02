@@ -55,3 +55,4 @@ class RoadmapUpdate(BaseModel):
     slug: str | None = None
     title: str | None = None
     description: str | None = None
+    icon: str | None = None
