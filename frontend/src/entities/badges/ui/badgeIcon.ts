@@ -37,4 +37,4 @@ export const BADGE_ICONS: Record<string, IconType> = {
   fire: FireIcon,
 };
 
-export const DEFAULT_ICON = Award03Icon;
+export const DEFAULT_BADGE_ICON = Award03Icon;

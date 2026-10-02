@@ -2,7 +2,7 @@ import { HugeiconsIcon } from '@hugeicons/react';
 import type { Badge } from '../model/types';
 import { tierClasses } from '../model/tier';
 import './badge-medal.css';
-import { BADGE_ICONS, DEFAULT_ICON } from './badgeIcon';
+import { BADGE_ICONS, DEFAULT_BADGE_ICON } from './badgeIcon';
 
 interface BadgeMedalProps {
   medal: Badge;
@@ -31,7 +31,7 @@ export function BadgeMedal({ medal, size = 'md' }: BadgeMedalProps) {
     },
   };
 
-  const Icon = BADGE_ICONS[medal.icon] ?? DEFAULT_ICON;
+  const Icon = BADGE_ICONS[medal.icon] ?? DEFAULT_BADGE_ICON;
 
   return (
     <>
