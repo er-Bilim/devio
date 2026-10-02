@@ -7,7 +7,6 @@ export default function Home() {
     <>
       <div className="aura" />
       <HomeHero />
-      {/*<StripSection />*/}
       <DirectionsSection />
       <HowSection />
     </>
