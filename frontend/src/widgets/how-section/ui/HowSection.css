@@ -1,0 +1,10 @@
+.how::before {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 27px;
+  height: 4px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--sage), var(--rose) 50%, var(--sand));
+}
