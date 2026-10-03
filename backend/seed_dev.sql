@@ -14,6 +14,27 @@ INSERT INTO users (id, username, display_name, email, password_hash, role) VALUE
   'admin'
 );
 
+-- Тестовые юзеры. Пароль у всех тот же, что у devio (хеш одинаковый).
+-- created_at разнесён, чтобы регистрации не были в один день.
+INSERT INTO users (id, username, display_name, email, password_hash, role, created_at)
+SELECT u.id::uuid, u.username, u.display_name, u.username || '@example.com',
+       '$argon2id$v=19$m=65536,t=3,p=4$qpL0m6uFyh4kVMmRFQ5mig$cjBbZwSKp+sJ9OL+050+C31K8AShCdQKaWO6twoqqYA',
+       'user', now() - make_interval(days => u.registered_days_ago)
+FROM (VALUES
+  ('a1b2c3d4-0000-4000-8000-000000000002', 'aibek',     'Айбек',     30),
+  ('a1b2c3d4-0000-4000-8000-000000000003', 'aigerim',   'Айгерим',   12),
+  ('a1b2c3d4-0000-4000-8000-000000000004', 'nursultan', 'Нурсултан', 25),
+  ('a1b2c3d4-0000-4000-8000-000000000005', 'dana',      'Дана',      40),
+  ('a1b2c3d4-0000-4000-8000-000000000006', 'timur',     'Тимур',     18),
+  ('a1b2c3d4-0000-4000-8000-000000000007', 'madina',    'Мадина',    21),
+  ('a1b2c3d4-0000-4000-8000-000000000008', 'erlan',     'Эрлан',      5),
+  ('a1b2c3d4-0000-4000-8000-000000000009', 'asel',      'Асель',      9),
+  ('a1b2c3d4-0000-4000-8000-000000000010', 'bektur',    'Бектур',    45),
+  ('a1b2c3d4-0000-4000-8000-000000000011', 'saltanat',  'Салтанат',   2),
+  ('a1b2c3d4-0000-4000-8000-000000000012', 'azamat',    'Азамат',     3),
+  ('a1b2c3d4-0000-4000-8000-000000000013', 'kamila',    'Камила',    35)
+) AS u(id, username, display_name, registered_days_ago);
+
 -- Дорожные карты
 INSERT INTO roadmaps (id, slug, title, description, status, icon) VALUES
   (1, 'frontend', 'Frontend', 'От HTML до продакшен-React: вёрстка, JavaScript, TypeScript, фреймворки и первый деплой.', 'active', 'layout'),
@@ -69,6 +90,44 @@ INSERT INTO stages (id, roadmap_id, title, description, topics, duration_weeks, 
    'Вывод приложения в продакшен: настройка Nginx/Caddy, CI/CD пайплайны, системные службы и мониторинг.',
    '["Аренда VPS и первоначальная настройка", "Reverse Proxy (Nginx / Caddy) + SSL", "Systemd и фоновые процессы", "Базовый CI/CD (GitHub Actions)"]'::jsonb, 2, 8);
 
+-- id у roadmaps/stages вставлены руками, поэтому счётчики остались на 1.
+-- Без этого первый INSERT через API упадёт с duplicate key.
+SELECT setval(pg_get_serial_sequence('roadmaps', 'id'), (SELECT max(id) FROM roadmaps));
+SELECT setval(pg_get_serial_sequence('stages', 'id'),   (SELECT max(id) FROM stages));
+
+-- Прогресс по этапам.
+-- Одна строка плана = «юзер прошёл первые done этапов роадмапа».
+--   last_days_ago — сколько дней назад пройден последний из них (0 = сегодня)
+--   step_days     — пауза между этапами в днях (1 = каждый день, т.е. стрик)
+-- Этап на позиции p пройден: now() - (last_days_ago + (done - p) * step_days) дней.
+INSERT INTO stage_progress (user_id, stage_id, completed_at)
+SELECT u.id, s.id,
+       now() - make_interval(days => p.last_days_ago + (p.done - s.position) * p.step_days)
+FROM (VALUES
+  -- username,   roadmap,    done, last_days_ago, step_days
+  ('devio',     'frontend',  6,    6,             1),
+  ('devio',     'backend',   8,    4,             1),
+  ('aibek',     'frontend',  6,    0,             1),  -- стрик 6, роадмап закрыт
+  ('aibek',     'backend',   3,   10,             2),
+  ('aigerim',   'frontend',  4,    0,             1),  -- стрик 4
+  ('nursultan', 'backend',   8,    1,             1),  -- стрик 8 (последний день — вчера)
+  ('dana',      'frontend',  2,   20,             3),  -- забросила
+  ('timur',     'backend',   5,    0,             1),  -- стрик 5
+  ('timur',     'frontend',  3,    6,             1),
+  ('madina',    'frontend',  5,    2,             2),  -- через день, стрика нет
+  ('erlan',     'backend',   2,    0,             1),  -- стрик 2
+  ('asel',      'frontend',  3,    1,             1),
+  ('asel',      'backend',   1,    0,             1),  -- стрик 4 через два роадмапа
+  ('bektur',    'backend',   6,    5,             4),
+  ('saltanat',  'frontend',  1,    0,             1),  -- только начала
+  ('kamila',    'frontend',  6,   14,             2),  -- роадмап закрыт
+  ('kamila',    'backend',   4,    3,             3)
+  -- azamat: зарегистрирован, прогресса нет — проверка нулей
+) AS p(username, roadmap_slug, done, last_days_ago, step_days)
+JOIN users    u ON u.username = p.username
+JOIN roadmaps r ON r.slug = p.roadmap_slug
+JOIN stages   s ON s.roadmap_id = r.id AND s.position <= p.done;
+
 -- Достижения (Badges)
 INSERT INTO badges (id, code, title, description, condition, tier, icon, sort_order, is_active) VALUES
   -- COMMON (Обычные)
@@ -98,10 +157,32 @@ INSERT INTO badges (id, code, title, description, condition, tier, icon, sort_or
 
 -- Привязка к пользователю devio
 INSERT INTO user_badges (id, user_id, badge_id, earned_at) VALUES
-  ('c1000000-0000-4000-8000-000000000001', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000001', now() - interval '8 days'),
+  ('c1000000-0000-4000-8000-000000000001', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000001', now() - interval '11 days'),
   ('c1000000-0000-4000-8000-000000000002', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000005', now() - interval '6 days'),
   ('c1000000-0000-4000-8000-000000000003', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000007', now() - interval '4 days'),
   ('c1000000-0000-4000-8000-000000000004', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000010', now() - interval '2 days'),
   ('c1000000-0000-4000-8000-000000000005', 'a1b2c3d4-0000-4000-8000-000000000001', 'b1000000-0000-4000-8000-000000000013', now());
+
+-- Бейджи остальным — считаются из stage_progress, а не вписаны руками.
+-- ON CONFLICT: у devio эти бейджи уже есть, дубли молча пропускаются.
+
+-- «Первый шаг»: всем, у кого есть хоть один этап; дата = первый пройденный этап
+INSERT INTO user_badges (user_id, badge_id, earned_at)
+SELECT sp.user_id, b.id, min(sp.completed_at)
+FROM stage_progress sp
+JOIN badges b ON b.code = 'first_step'
+GROUP BY sp.user_id, b.id
+ON CONFLICT ON CONSTRAINT uq_user_badge DO NOTHING;
+
+-- «Фронтендер» / «Бэкендер»: пройдено столько этапов, сколько их в роадмапе
+INSERT INTO user_badges (user_id, badge_id, earned_at)
+SELECT sp.user_id, b.id, max(sp.completed_at)
+FROM stage_progress sp
+JOIN stages s   ON s.id = sp.stage_id
+JOIN roadmaps r ON r.id = s.roadmap_id
+JOIN badges b   ON b.code = r.slug || '_master'
+GROUP BY sp.user_id, b.id, r.id
+HAVING count(*) = (SELECT count(*) FROM stages WHERE roadmap_id = r.id)
+ON CONFLICT ON CONSTRAINT uq_user_badge DO NOTHING;
 
 COMMIT;
