@@ -25,7 +25,7 @@ export function RoadmapActiveCard({ roadmap }: RoadmapActiveCardProps) {
       />
       <div className="flex items-center justify-between gap-3">
         <div
-          className={`grid place-items-center w-12 h-12 rounded-[16px] ${config?.color?.bg}/15`}
+          className={`grid place-items-center w-12 h-12 rounded-[16px] ${config?.color?.bg}`}
         >
           <HugeiconsIcon
             icon={Icon}
@@ -56,14 +56,12 @@ export function RoadmapActiveCard({ roadmap }: RoadmapActiveCardProps) {
             {pluralize(roadmap.stages.length, 'станция', 'станции', 'станций')}
           </span>
           <span>
-            <b className="text-text font-semibold mr-1">
-              ~{month}
-            </b>
+            <b className="text-text font-semibold mr-1">~{month}</b>
             {pluralize(month, 'месяц', 'месяца', 'месяцев')}
           </span>
         </div>
         <div
-          className={`grid place-items-center w-11.5 h-11.5 rounded-full bg-surface-3 group-hover:${config?.color?.bg}`}
+          className={`grid place-items-center w-11.5 h-11.5 rounded-full bg-surface-3 ${config?.color?.bgHover}`}
         >
           <HugeiconsIcon
             icon={ArrowUpRight03Icon}

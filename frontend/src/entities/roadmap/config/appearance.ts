@@ -14,6 +14,7 @@ interface RoadmapConfig {
       tint: string;
       text: string;
       bg: string;
+      bgHover: string;
       border: string;
     };
   };
@@ -25,7 +26,8 @@ export const ROADMAP_CONFIG: RoadmapConfig = {
     color: {
       tint: 'bg-[radial-gradient(420px_220px_at_100%_0%,rgba(224,138,126,.16),transparent_70%)]',
       text: 'text-rose',
-      bg: 'bg-rose',
+      bg: 'bg-rose/15',
+      bgHover: 'group-hover:bg-rose',
       border: 'border-rose',
     },
   },
@@ -34,7 +36,8 @@ export const ROADMAP_CONFIG: RoadmapConfig = {
     color: {
       tint: 'bg-[radial-gradient(420px_220px_at_100%_0%,rgba(152,167,198,.16),transparent_70%)]',
       text: 'text-dusk',
-      bg: 'bg-dusk',
+      bg: 'bg-dusk/15 ',
+      bgHover: 'group-hover:bg-dusk',
       border: 'border-dusk',
     },
   },
