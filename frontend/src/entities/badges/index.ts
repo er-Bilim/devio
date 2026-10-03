@@ -7,7 +7,7 @@ export type {
   UserBadgesCompleted,
   BadgeWithEarned,
 } from './model/types';
-export { BADGE_ICONS, DEFAULT_ICON } from './ui/badgeIcon';
+export { BADGE_ICONS, DEFAULT_BADGE_ICON } from './ui/badgeIcon';
 export {
   TIERS,
   STATUSES,
