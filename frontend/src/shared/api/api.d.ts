@@ -341,6 +341,7 @@ export interface components {
             title: string;
             /** Learners */
             learners: number;
+            status: components["schemas"]["StatusEnum"];
         };
         /** HTTPValidationError */
         HTTPValidationError: {
@@ -397,6 +398,8 @@ export interface components {
             title?: string | null;
             /** Description */
             description?: string | null;
+            /** Icon */
+            icon?: string | null;
         };
         /** StageOut */
         StageOut: {
