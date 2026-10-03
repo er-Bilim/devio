@@ -1,6 +1,7 @@
 import { DirectionsSection } from '@/src/widgets/directions-section';
 import { HowSection } from '@/src/widgets/how-section';
 import { HomeHero } from '@/widgets/home-hero';
+import { StatsSection } from '@/widgets/stats-section';
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <HomeHero />
       <DirectionsSection />
       <HowSection />
+      <StatsSection />
     </>
   );
 }

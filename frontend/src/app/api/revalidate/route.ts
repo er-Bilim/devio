@@ -10,5 +10,7 @@ export const POST = (request: Request) => {
   revalidateTag('roadmaps', 'max');
   revalidateTag('profile', 'max');
   revalidateTag('badges', 'max');
+  revalidateTag('directions', 'max');
+
   return NextResponse.json({ ok: true });
 };
