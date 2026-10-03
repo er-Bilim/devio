@@ -7,7 +7,7 @@ interface UserAvatarProps {
 }
 
 export function UserAvatar({ username, size = 40 }: UserAvatarProps) {
-  const key: string | undefined = getAvatarKey(username);
+  const key: string = getAvatarKey(username);
 
   return (
     <Image
