@@ -9,7 +9,7 @@ from app.models import Roadmap, Stage, StageProgress
 async def directions_popularity(db: AsyncSession):
     learners = func.count(func.distinct(StageProgress.user_id)).label("learners")
     stmt = (
-        select(Roadmap.slug, Roadmap.title, learners)
+        select(Roadmap.slug, Roadmap.title, Roadmap.status, learners)
         .join(Stage, Stage.roadmap_id == Roadmap.id, isouter=True)
         .join(StageProgress, StageProgress.stage_id == Stage.id, isouter=True)
         .group_by(Roadmap.id, Roadmap.slug, Roadmap.title)

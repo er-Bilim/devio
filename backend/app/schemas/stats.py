@@ -2,6 +2,8 @@ from datetime import datetime
 
 from pydantic import BaseModel, ConfigDict
 
+from app.enums import StatusEnum
+
 
 class StreakOut(BaseModel):
     current: int
@@ -22,3 +24,4 @@ class DirectionStat(BaseModel):
     slug: str
     title: str
     learners: int
+    status: StatusEnum
