@@ -13,9 +13,9 @@ current_dir = Path(__file__).resolve().parent
 
 
 @app.command()
-def seed(force: bool = False):
+def seed(force: bool = False, minimal: bool = False):
     """Seed the database with initial data."""
-    seed_sql = current_dir / 'seed_dev.sql'
+    seed_sql = current_dir / ("seed_dev_two.sql" if minimal else "seed_dev.sql")
     if force:
         console.print("Seeding...")
         with open(seed_sql) as f:
