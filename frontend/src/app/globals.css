@@ -81,6 +81,7 @@
   --color-sand: var(--sand);
   --color-sage: var(--sage);
   --color-dusk: var(--dusk);
+  --color-espresso: var(--espresso);
   --rounded-lg: var(--r-lg);
   --rounded-md: var(--r-md);
   --rounded-sm: var(--r-sm);
@@ -148,6 +149,7 @@
   --azure: #6ab4ff;
   --myth: #ff5c8a;
   --myth-void: #1a0714;
+  --espresso: #2a1d1f;
 
   --bg: #141011;
   --bg-2: #191314;

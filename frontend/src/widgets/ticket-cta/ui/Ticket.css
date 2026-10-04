@@ -1,0 +1,16 @@
+.t-main::before,
+.t-main::after {
+  content: '';
+  position: absolute;
+  right: -11px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #2b191c;
+}
+.t-main::before {
+  top: -10px;
+}
+.t-main::after {
+  bottom: -10px;
+}
