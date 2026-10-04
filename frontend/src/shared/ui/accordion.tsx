@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { ChevronDownIcon } from 'lucide-react';
+import { ChevronDownIcon, PlusIcon } from 'lucide-react';
 import { Accordion as AccordionPrimitive } from 'radix-ui';
 
 import { cn } from '@/shared/lib/utils';
@@ -35,13 +35,15 @@ function AccordionTrigger({
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          'flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180',
+          'group flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50',
           className,
         )}
         {...props}
       >
         {children}
-        <ChevronDownIcon className="pointer-events-none size-4 shrink-0 translate-y-0.5 text-muted-foreground transition-transform duration-200" />
+        <span className="grid size-8 shrink-0 place-items-center rounded-full bg-[rgba(255,236,230,.05)] transition duration-200 group-data-[state=open]:rotate-45 group-data-[state=open]:bg-[rgba(224,138,126,.16)] group-data-[state=open]:text-[#E08A7E]">
+          <PlusIcon className="size-4.5" />
+        </span>
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   );

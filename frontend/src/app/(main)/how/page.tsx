@@ -3,7 +3,6 @@ import { HowHeader } from '@/widgets/how-header';
 import { HowPeek } from '@/widgets/how-peek';
 import { HowSteps } from '@/widgets/how-steps';
 import { HowDuo } from '@/widgets/how-duo';
-import { HowFaq } from '@/widgets/how-faq';
 import { HowFoot } from '@/widgets/how-foot';
 
 export default async function HowPage() {
@@ -17,7 +16,6 @@ export default async function HowPage() {
       <HowSteps />
       {firstRoadmap && <HowPeek roadmap={firstRoadmap} />}
       <HowDuo />
-      <HowFaq />
       <HowFoot />
     </div>
   );
