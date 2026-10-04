@@ -1,11 +1,5 @@
 import type { Direction } from '../model/types';
 
-export interface DirectionConfig {
-  color: {
-    bg: string;
-  };
-}
-
 export const toShares = (directions: Direction[]) => {
   const config = {
     frontend: {
@@ -22,17 +16,15 @@ export const toShares = (directions: Direction[]) => {
 
   type configKey = keyof typeof config;
 
-  const active_directions = directions.filter(
-    (direction) => direction.status === 'active',
-  );
-  const learnersCount = active_directions.reduce(
+  const learnersCount = directions.reduce(
     (acc, direction) => (acc += direction.learners),
     0,
   );
 
-  return active_directions.map((direction) => ({
+  if (learnersCount === 0) return [];
+  return directions.map((direction) => ({
     ...direction,
-    share: Math.ceil((direction.learners / learnersCount) * 100),
+    share: Math.round((direction.learners / learnersCount) * 100),
     config: config[direction.slug as configKey],
   }));
 };

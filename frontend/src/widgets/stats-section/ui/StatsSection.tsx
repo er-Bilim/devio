@@ -1,13 +1,14 @@
 import { PopularityCard, HighlightsCard } from '@/entities/stats';
 import { getDirectionStats } from '@/entities/stats/api/server';
-import { toShares } from '@/entities/stats/lib/toShares';
 
 export async function StatsSection() {
   const directions = await getDirectionStats();
 
   if (!directions) return null;
-  const active_directions = toShares(directions);
-  
+  const active_directions = directions.filter(
+    (direction) => direction.status === 'active',
+  );
+
   return (
     <section>
       <div className="wrap">
@@ -18,7 +19,7 @@ export async function StatsSection() {
         </div>
 
         <div className="grid grid-cols-[1.2fr_0.8fr] gap-5">
-          <PopularityCard active_directions={active_directions}/>
+          <PopularityCard popular_directions={active_directions} />
           <HighlightsCard />
         </div>
       </div>

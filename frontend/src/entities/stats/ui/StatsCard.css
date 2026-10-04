@@ -12,3 +12,11 @@
   font-weight: 600;
   font-size: 14px;
 }
+
+.card .foot {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 13.5px;
+  color: var(--faint);
+}
