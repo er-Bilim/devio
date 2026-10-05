@@ -5,3 +5,5 @@ export type {
   UserPrivate,
   UserProfile,
 } from './model/types';
+export { UserAvatar } from './ui/UserAvatar';
+export { AvatarStack } from './ui/AvatarStack';

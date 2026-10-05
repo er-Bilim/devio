@@ -1,7 +1,7 @@
 import { FloatCard, type FloatCardSettings } from '@/shared/ui/float-card';
 import { HeroMap } from './HeroMap';
 import { ProgrammingFlagIcon } from '@hugeicons/core-free-icons';
-import { AvatarStack } from '@/entities/user/ui/AvatarStack';
+import { AvatarStack } from '@/entities/user';
 
 export function HeroScene() {
   const floatSettingsFirstStation: FloatCardSettings = {
