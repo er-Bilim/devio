@@ -3,6 +3,7 @@ import { HowSection } from '@/src/widgets/how-section';
 import { HomeFaq } from '@/widgets/home-faq';
 import { HomeHero } from '@/widgets/home-hero';
 import { StatsSection } from '@/widgets/stats-section';
+import { TicketCta } from '@/widgets/ticket-cta';
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <HowSection />
       <StatsSection />
       <HomeFaq />
+      <TicketCta />
     </>
   );
 }

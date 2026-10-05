@@ -149,7 +149,7 @@
   --azure: #6ab4ff;
   --myth: #ff5c8a;
   --myth-void: #1a0714;
-  --espresso: #2a1d1f;
+  --espresso: #f2e6df;
 
   --bg: #141011;
   --bg-2: #191314;
@@ -177,6 +177,7 @@
   --font-display: 'Unbounded', sans-serif;
   --font-body: 'Onest', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-soft: 'Nunito', sans-serif;
   /*CUSTOM*/
 
   --background: oklch(1 0 0);
@@ -269,8 +270,8 @@
 }
 
 html {
-  scrollbar-gutter: stable;
   scroll-behavior: smooth;
+  
 }
 
 body {

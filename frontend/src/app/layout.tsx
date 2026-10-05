@@ -1,6 +1,6 @@
 import './globals.css';
 
-import { Unbounded, Onest, JetBrains_Mono } from 'next/font/google';
+import { Unbounded, Onest, JetBrains_Mono, Nunito } from 'next/font/google';
 import { Providers } from './providers';
 import type { Metadata } from 'next';
 import { cn } from '@/shared/lib/utils';
@@ -20,6 +20,11 @@ const jbMono = JetBrains_Mono({
   subsets: ['cyrillic', 'latin'],
   weight: ['400', '500'],
   variable: '--font-mono',
+});
+
+const nunito = Nunito({
+  subsets: ['cyrillic', 'latin'],
+  variable: '--font-soft',
 });
 
 export const metadata: Metadata = {
@@ -44,12 +49,11 @@ export default function RootLayout({
         `${unbounded.variable}`,
         `${onest.variable}`,
         `${jbMono.variable}`,
+        `${nunito.variable}`,
       )}
     >
       <body className="min-h-full flex flex-col bg-night font-body text-[15px]">
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
