@@ -37,7 +37,7 @@ export function FaqList({
           <AccordionItem
             key={question.value}
             value={question.value}
-            className={cn("rounded-(--r-md) bg-surface border border-rose/15", isActive && "bg-surface-2")}
+            className={cn("rounded-(--r-md) bg-surface border border-line-2", isActive && "bg-surface-2")}
           >
             <AccordionTrigger className="flex items-center justify-between gap-5 py-5.5 px-6.5 hover:no-underline">
               {question.title}
