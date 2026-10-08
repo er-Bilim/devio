@@ -53,6 +53,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col bg-night font-body text-[15px]">
+        <div className="glow size-130 bg-wine/30 -top-40 -left-50" />
         <Providers>{children}</Providers>
       </body>
     </html>

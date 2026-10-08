@@ -27,8 +27,6 @@ export function HomeHero() {
 
   return (
     <section className="relative">
-      <div className="glow size-130 bg-wine/30 -top-40 -left-50" />
-
       <div className="wrap grid grid-cols-[1.05fr_0.95fr] gap-14 items-center">
         <div>
           <span className="eyebrow">
