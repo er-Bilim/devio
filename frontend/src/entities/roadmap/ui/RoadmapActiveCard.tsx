@@ -5,15 +5,18 @@ import { ArrowUpRight03Icon, UserGroupIcon } from '@hugeicons/core-free-icons';
 import { RouteLine } from './RouteLine';
 import { pluralize, weeksToMonths } from '@/shared/lib/format';
 import { DEFAULT_ROADMAP_ICON, ROADMAP_CONFIG } from '../config/appearance';
+import type { DirectionPopularity } from '@/entities/stats';
 
 interface RoadmapActiveCardProps {
   roadmap: Roadmap;
+  stats?: DirectionPopularity[] | undefined;
 }
 
-export function RoadmapActiveCard({ roadmap }: RoadmapActiveCardProps) {
+export function RoadmapActiveCard({ roadmap, stats }: RoadmapActiveCardProps) {
   const config = ROADMAP_CONFIG[roadmap.slug];
   const Icon = config?.icon ?? DEFAULT_ROADMAP_ICON;
   const month = weeksToMonths(roadmap.duration_weeks_total);
+  const roadmapStat =stats?.find((stat) => roadmap.slug === stat.slug)
 
   return (
     <Link
@@ -39,7 +42,9 @@ export function RoadmapActiveCard({ roadmap }: RoadmapActiveCardProps) {
             strokeWidth={1.8}
             className="size-4 text-muted"
           />
-          <span>64% выбирают</span>
+          <span>
+            {roadmapStat ? `${roadmapStat.share}% выбирают` : 'Недостаточно данных'}
+          </span>
         </div>
       </div>
       <h3 className="font-display font-medium text-[26px] tracking-[-.6px] mt-4.5">

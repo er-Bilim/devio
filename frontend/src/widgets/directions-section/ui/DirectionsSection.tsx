@@ -1,12 +1,17 @@
 import { RoadmapCard } from '@/entities/roadmap/';
 import { getRoadmaps } from '@/entities/roadmap/api/server';
+import { getDirectionStats } from '@/entities/stats/api/server';
+import { toShares } from '@/entities/stats/lib/toShares';
 
 export async function DirectionsSection() {
   const roadmaps = await getRoadmaps();
+  const directions = await getDirectionStats();
 
-  if (!roadmaps) {
+  if (!roadmaps || !directions) {
     return null;
   }
+
+  const roadmapStats = toShares(directions);
 
   return (
     <section>
@@ -22,7 +27,7 @@ export async function DirectionsSection() {
 
         <div className="grid grid-cols-2 gap-5">
           {roadmaps.map((roadmap) => (
-            <RoadmapCard key={roadmap.id} roadmap={roadmap} />
+            <RoadmapCard key={roadmap.id} roadmap={roadmap} stats={roadmapStats}/>
           ))}
         </div>
       </div>

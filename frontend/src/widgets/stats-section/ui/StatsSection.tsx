@@ -5,6 +5,7 @@ export async function StatsSection() {
   const directions = await getDirectionStats();
 
   if (!directions) return null;
+  
   const active_directions = directions.filter(
     (direction) => direction.status === 'active',
   );
