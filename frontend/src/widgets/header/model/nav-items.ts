@@ -1,8 +1,8 @@
 import {
-  ArrowRight02Icon,
   Route02Icon,
   Settings01Icon,
   StarAward01Icon,
+  User02Icon,
 } from '@hugeicons/core-free-icons';
 
 type Link = {
@@ -20,7 +20,7 @@ export const NAV_ITEMS: Link[] = [
 export const getMenuItems = (username: string) => {
   const menuItems = [
     {
-      icon: ArrowRight02Icon,
+      icon: User02Icon,
       title: 'Профиль',
       href: `/profile/${username}`,
     },

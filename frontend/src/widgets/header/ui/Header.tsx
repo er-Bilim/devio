@@ -15,30 +15,6 @@ export function Header() {
           <UserMenu />
         </div>
       </div>
-      {/*<div className="flex items-center justify-between h-16 mx-auto px-6 gap-10">
-        <div className="flex items-center gap-10">
-          <Link href="/" className="flex items-start gap-4 flex-row">
-            <Logo />
-            <p className="font-display font-bold text-[20px] text-mist inline-flex items-end gap-1">
-              devio
-              <HugeiconsIcon
-                icon={DotIcon}
-                strokeWidth={7}
-                className="size-4 text-signal"
-              />
-            </p>
-          </Link>
-          <div className="hidden md:flex">
-            <NavLinks />
-          </div>
-        </div>
-        <div className="hidden md:flex md:justify-start md:items-start">
-
-        </div>
-        <div className="flex md:hidden">
-          <MobileNav />
-        </div>
-      </div>*/}
     </header>
   );
 }

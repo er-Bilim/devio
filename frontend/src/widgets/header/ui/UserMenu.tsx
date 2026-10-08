@@ -70,7 +70,7 @@ export function UserMenu() {
           align="end"
           sideOffset={20}
           collisionPadding={16}
-          className="menu w-85 p-2 rounded-[24px] bg-surface/90 backdrop-blur-[18px] border border-line"
+          className="menu w-[min(400px,calc(100vw-32px))] p-2 rounded-[24px] bg-surface/90 backdrop-blur-[18px] border border-rose/50"
           role="menu"
         >
           <div className="relative flex items-center gap-3.5 p-3.5 rounded-[18px] bg-[linear-gradient(160deg,rgba(224,138,126,.10),transparent_80%)]">
