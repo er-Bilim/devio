@@ -18,6 +18,6 @@ const hash = (s: string) => {
 };
 
 export const getAvatarKey = (username: string): string => {
-  const normalized = username.trim().toLowerCase();
+  const normalized = username ? username.trim().toLowerCase() : 'devio';
   return AVATAR_KEYS[hash(normalized) % AVATAR_KEYS.length] ?? 'cat';
 };
