@@ -1,46 +1,51 @@
 'use client';
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useState, type ComponentProps } from 'react';
 import { Input } from '@/src/shared/ui/input';
 import { Button } from './button';
 import { HugeiconsIcon } from '@hugeicons/react';
-import {
-  SquareLockPasswordIcon,
-  LookBottomIcon,
-  LookRightIcon,
-} from '@hugeicons/core-free-icons';
+import { LookBottomIcon, LookRightIcon } from '@hugeicons/core-free-icons';
 
-export const PasswordInput = forwardRef<
-  HTMLInputElement,
-  React.ComponentProps<typeof Input>
->(function PasswordInput(props, ref) {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+interface PasswordInputProps extends ComponentProps<'input'> {
+  className?: string;
+  passwordType?: 'password' | 'confirmPassword';
+}
 
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
+export const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
+  function PasswordInput(
+    { className, passwordType = 'password', ...props },
+    ref,
+  ) {
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
-  return (
-    <div className="relative flex items-center">
-      <HugeiconsIcon
-        icon={SquareLockPasswordIcon}
-        strokeWidth={1.8}
-        className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-mist-soft z-10 pointer-events-none"
-      />
-      <Input ref={ref} type={showPassword ? 'text' : 'password'} {...props} />
-      <Button
-        className="absolute bg-transparent border-transparent text-mist-soft right-2 p-1.5 hover:text-mist hover:bg-transparent"
-        type="button"
-        aria-label={showPassword ? 'Hide password' : 'Show password'}
-        aria-pressed={showPassword}
-        onClick={handleShowPassword}
-      >
-        <HugeiconsIcon
-          icon={showPassword ? LookBottomIcon : LookRightIcon}
-          strokeWidth={1.8}
-          className="size-4"
-          aria-hidden="true"
+    const handleShowPassword = () => {
+      setShowPassword(!showPassword);
+    };
+
+    return (
+      <>
+        <Input
+          ref={ref}
+          type={showPassword ? 'text' : 'password'}
+          className={className}
+          {...props}
         />
-      </Button>
-    </div>
-  );
-});
+        {passwordType === 'password' && (
+          <Button
+            className="group absolute right-2 grid place-items-center w-9 h-9  rounded-[12px] text-faint cursor-pointer bg-transparent hover:bg-text/5 duration-200"
+            type="button"
+            aria-label={showPassword ? 'Показать пароль' : 'Спрятать пароль'}
+            aria-pressed={showPassword}
+            onClick={handleShowPassword}
+          >
+            <HugeiconsIcon
+              icon={showPassword ? LookBottomIcon : LookRightIcon}
+              strokeWidth={1.8}
+              className="size-4 group-hover:text-text"
+              aria-hidden="true"
+            />
+          </Button>
+        )}
+      </>
+    );
+  },
+);

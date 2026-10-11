@@ -145,7 +145,6 @@
   --signal-deep: #2e7fe0;
   --mint: #3ecf8e;
   --amber: #f5a623;
-  --alarm: #f06a6a;
   --azure: #6ab4ff;
   --myth: #ff5c8a;
   --myth-void: #1a0714;
@@ -167,6 +166,7 @@
   --sand: #e2b886;
   --sage: #9dbba3;
   --dusk: #98a7c6;
+  --alarm: #e88a80;
 
   --r-lg: 28px;
   --r-md: 20px;
@@ -271,7 +271,6 @@
 
 html {
   scroll-behavior: smooth;
-  
 }
 
 body {

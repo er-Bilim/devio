@@ -1,21 +1,17 @@
+import { authContent } from '../model/content';
+import type { AuthMode } from '../model/types';
+
 interface AuthFormTitleProps {
-  variant: 'signin' | 'signup';
+  mode: AuthMode;
 }
 
-export function AuthFormTitle({ variant }: AuthFormTitleProps) {
-  const isLogin = variant === 'signin';
-  const isRegister = variant === 'signup';
-
+export function AuthFormTitle({ mode }: AuthFormTitleProps) {
   return (
-    <div className="mb-6.5">
-      <h2 className="font-display font-semibold text-[24px] tracking-wide text-mist">
-        {isLogin && 'С возвращением'}
-        {isRegister && 'Начни свой путь'}
-      </h2>
-      <p className="text-mist-soft text-[14px] mt-1.5">
-        {isLogin && 'Войди, чтобы продолжить с текущей станции'}
-        {isRegister && 'Одна минута – и первая станция твоя'}
-      </p>
-    </div>
+    <>
+      <h1 className="font-display font-medium text-[28px] tracking-[-.6px] leading-[1.15]">
+        {authContent[mode].formTitle}
+      </h1>
+      <p className='text-muted text-[15px] mt-2'>{authContent[mode].formDescription}</p>
+    </>
   );
 }

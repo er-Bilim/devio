@@ -28,7 +28,7 @@ export function UserMenu() {
   if (!user)
     return (
       <div className="flex flex-row gap-2">
-        <Link href="/auth" className="btn btn-soft btn-sm">
+        <Link href="/auth?mode=signin" className="btn btn-soft btn-sm">
           Войти
         </Link>
         <Link className="btn btn-primary btn-sm" href="/roadmaps">
