@@ -4,9 +4,7 @@ export {
   type Station,
   RoadmapStatus,
 } from './model/types';
-export { RoadmapLine } from './ui/RoadmapLine';
 export { RoadmapMiniLine } from './ui/RoadmapMinLine';
 export { RoadmapCard } from './ui/RoadmapCard';
-export { StationChip } from './ui/StationChip';
 export { StationCard } from './ui/StationCard';
 export { ROADMAP_CONFIG, DEFAULT_ROADMAP_ICON } from './config/appearance';
