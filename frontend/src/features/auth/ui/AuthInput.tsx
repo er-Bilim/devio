@@ -48,7 +48,9 @@ export function AuthInput({
           <>
             <PasswordInput
               {...props}
-              className={inputStyle}
+              className={cn(inputStyle, {
+                'opacity-40 cursor-not-allowed': props.disabled,
+              })}
               passwordType={passwordType}
             />
           </>
@@ -57,6 +59,7 @@ export function AuthInput({
             <Input
               className={cn(inputStyle, {
                 'border-2 border-alarm': errorMessage,
+                'opacity-40 cursor-not-allowed': props.disabled,
               })}
               {...props}
             />

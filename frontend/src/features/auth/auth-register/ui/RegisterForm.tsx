@@ -19,9 +19,9 @@ import { useRouter } from 'next/navigation';
 import { UserAvatar } from '@/src/entities/user';
 import { getAvatarKey } from '@/entities/user/lib/getAvatarKey';
 import { AuthInput } from '../../ui/AuthInput';
-import Link from 'next/link';
 import { getPasswordStrength } from '../lib/getPasswordStrength';
 import { StrengthMeter } from '@/shared/ui/strength-meter';
+import { Spinner } from '@/shared/ui/spinner';
 
 export function RegisterForm() {
   const registerUser = useAuth((state) => state.register);
@@ -142,31 +142,31 @@ export function RegisterForm() {
           autoComplete="password"
           {...register('confirm')}
           passwordType="confirmPassword"
+          disabled={isSubmitting}
         />
 
         <Button
-          className="flex items-center justify-center gap-2.5 h-13.5 mt-1.5 rounded-[16px] cursor-pointer bg-rose text-bg font-semibold text-[15px] hover:bg-rose-soft duration-300"
+          className="flex items-center justify-center gap-2.5 h-13.5 mt-1.5 rounded-[16px] cursor-pointer bg-rose text-bg font-semibold text-[15px] hover:bg-rose-soft duration-300 disabled:bg-rose/50 disabled:cursor-not-allowed"
           type="submit"
+          disabled={isSubmitting}
         >
-          Создать аккаунт
-          <HugeiconsIcon
-            icon={ArrowRight02Icon}
-            strokeWidth={1.8}
-            className="size-4"
-            aria-hidden="true"
-          />
+          {isSubmitting ? (
+            <Spinner />
+          ) : (
+            <>
+              Создать аккаунт
+              <HugeiconsIcon
+                icon={ArrowRight02Icon}
+                strokeWidth={1.8}
+                className="size-4"
+                aria-hidden="true"
+              />
+            </>
+          )}
         </Button>
       </div>
 
       <div className="flex items-center justify-center flex-col">
-        <p className="flex text-[14px] text-faint mt-4.5 gap-1">
-          Уже есть аккаунт?
-          <Link href={'/'}>
-            <span className="text-rose-soft font-medium cursor-pointer">
-              Войти
-            </span>
-          </Link>
-        </p>
         <p className="text-[12px] text-faint mt-2 flex items-center gap-2">
           Пароль хранится только в виде хеша
           <HugeiconsIcon
