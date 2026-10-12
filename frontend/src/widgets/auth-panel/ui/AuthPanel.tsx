@@ -1,18 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import Link from 'next/link';
 import { Logo } from '@/shared/ui/logo';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { ArrowLeft02Icon } from '@hugeicons/core-free-icons';
-import type { AuthMode } from '../model/types';
 import { AuthCard } from './AuthCard';
-import { useAuthMode } from '../lib/useAuthMode';
+import { AuthScene } from './AuthScene';
 
 export function AuthPanel() {
-  const { authMode } = useAuthMode();
-  const [mode] = useState<AuthMode>(authMode);
-
   return (
     <>
       <div className="relative z-10 w-[min(1140px,100%-64px)] mx-auto min-h-screen flex flex-col pt-5.5 pb-8">
@@ -34,7 +29,8 @@ export function AuthPanel() {
         </div>
 
         <div className="flex-1 grid grid-cols-[460px_1fr] gap-7 items-center py-9">
-          <AuthCard mode={mode} />
+          <AuthCard />
+          <AuthScene />
         </div>
       </div>
     </>
